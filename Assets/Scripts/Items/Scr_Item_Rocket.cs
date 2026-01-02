@@ -23,7 +23,29 @@ public class Scr_Item_Rocket : MonoBehaviour
     // destruction particle effect prefab
     [SerializeField] private GameObject explosionRocketEffectPrefab;
 
-    
+    [SerializeField] private float speed = 30f;
+
+    [SerializeField] private float hoverHeight = 1.5f;
+    [SerializeField] private float heightAdjustSpeed = 10f;
+
+    [SerializeField] private float downhillPullSpeed = 12f;
+    [SerializeField] private float maxFallSpeed = 20f;
+
+    [SerializeField] private float forwardRayDistance = 2.5f;
+    [SerializeField] private float anticipationStrength = 1.5f;
+    [SerializeField] private float normalBlend = 0.6f;
+
+
+    [SerializeField] private float groundCheckDistance = 5f;
+    [SerializeField] private LayerMask groundLayer;
+
+    [SerializeField] private float rotationSpeed = 8f;
+
+
+    private Vector3 lastGroundNormal = Vector3.up;
+    private float lastGroundHeight;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,6 +61,7 @@ public class Scr_Item_Rocket : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         // check the rocket's current speed and apply acceleration if below max speed
         if (rb.linearVelocity.magnitude < maxSpeed)
         {
@@ -56,6 +79,14 @@ public class Scr_Item_Rocket : MonoBehaviour
         {
             RocketExplosionEffect();
         }
+        */
+
+        
+        HandleMovement();
+        HandleTerrainHugging();
+        HandleLifetime();
+        
+
     }
 
     // return the damage amount the rocket does on impact
@@ -95,5 +126,108 @@ public class Scr_Item_Rocket : MonoBehaviour
         initialSpeed = speed;
     }
 
+    // movement handle function
+    void HandleMovement()
+    {
+        speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
+        transform.position += transform.forward * speed * Time.deltaTime;
+    }
+
+
+    // make sure we hug the ground
+    void HandleTerrainHugging()
+    {
+        RaycastHit downHit;
+        RaycastHit forwardHit;
+
+        Vector3 pos = transform.position;
+
+        bool hasDownHit = Physics.Raycast(
+            pos,
+            Vector3.down,
+            out downHit,
+            groundCheckDistance,
+            groundLayer
+        );
+
+        bool hasForwardHit = Physics.Raycast(
+            pos + transform.forward * forwardRayDistance,
+            Vector3.down,
+            out forwardHit,
+            groundCheckDistance,
+            groundLayer
+        );
+
+        // Store last known ground info
+        if (hasDownHit)
+        {
+            lastGroundNormal = downHit.normal;
+            lastGroundHeight = downHit.point.y;
+        }
+        else if (hasForwardHit)
+        {
+            lastGroundNormal = forwardHit.normal;
+            lastGroundHeight = forwardHit.point.y;
+        }
+
+        // ---------- HEIGHT CONTROL ----------
+
+        float desiredHeight = hoverHeight;
+
+        // Anticipate upcoming terrain
+        if (hasForwardHit)
+        {
+            float delta = forwardHit.point.y - lastGroundHeight;
+            desiredHeight += delta * anticipationStrength;
+        }
+
+        float targetY = lastGroundHeight + desiredHeight;
+
+        // Pull downward faster when descending
+        float lerpSpeed = heightAdjustSpeed;
+        if (!hasDownHit && pos.y > targetY)
+            lerpSpeed = downhillPullSpeed;
+
+        float newY = Mathf.MoveTowards(
+            pos.y,
+            targetY,
+            lerpSpeed * Time.deltaTime
+        );
+
+        transform.position = new Vector3(pos.x, newY, pos.z);
+
+        // ---------- ROTATION CONTROL ----------
+
+        Vector3 baseNormal = lastGroundNormal;
+
+        if (hasDownHit && hasForwardHit)
+        {
+            baseNormal = Vector3.Slerp(
+                downHit.normal,
+                forwardHit.normal,
+                normalBlend
+            );
+        }
+
+        Vector3 projectedForward = Vector3.ProjectOnPlane(transform.forward, baseNormal).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(projectedForward, baseNormal);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+    }
+
+
+    // handle lifetime, delete rocket when timer hits zero
+    void HandleLifetime()
+    {
+        destructionTimer -= Time.fixedDeltaTime;
+        if (destructionTimer <= 0f)
+        {
+            RocketExplosionEffect();
+        }
+    }
 
 }
