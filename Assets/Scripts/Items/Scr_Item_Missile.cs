@@ -23,12 +23,10 @@ public class Scr_Item_Missile : MonoBehaviour
     // destruction particle effect prefab
     [SerializeField] private GameObject explosionRocketEffectPrefab;
 
+    // homing target information helpers
+
     // homing target
     private Transform homingTarget;
-
-    // get race manager script from race manager game object
-    // race track object
-    private GameObject RaceTrackObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,10 +36,6 @@ public class Scr_Item_Missile : MonoBehaviour
 
         // set initial forward velocity
         rb.linearVelocity = transform.forward * initialSpeed;
-
-        // find the race track object in the scene
-        // this will have the racers placement data that we need to home in on the correct target
-        RaceTrackObject = GameObject.FindWithTag("Race");
 
     }
 
@@ -71,7 +65,7 @@ public class Scr_Item_Missile : MonoBehaviour
     }
 
     // return the damage amount the rocket does on impact
-    public int GetRocketDamageAmount()
+    public int GetMissileDamageAmount()
     {
         return damageAmount;
     }
@@ -108,15 +102,9 @@ public class Scr_Item_Missile : MonoBehaviour
     }
 
     // get target to home in on
-    private Transform GetHomingTarget()
+    public Transform SetHomingTarget(Transform targetTransform)
     {
-        // get our racer position (out of 24), get the racer ahead of us, and set their transform as our homing target
-        // if we are first place, set homing target to the racer in last place
-
-
-
-
-        // return homing target
+        homingTarget = targetTransform;
         return homingTarget;
     }
 }

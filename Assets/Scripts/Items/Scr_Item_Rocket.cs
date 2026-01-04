@@ -29,7 +29,6 @@ public class Scr_Item_Rocket : MonoBehaviour
     [SerializeField] private float heightAdjustSpeed = 10f;
 
     [SerializeField] private float downhillPullSpeed = 12f;
-    [SerializeField] private float maxFallSpeed = 20f;
 
     [SerializeField] private float forwardRayDistance = 2.5f;
     [SerializeField] private float anticipationStrength = 1.5f;

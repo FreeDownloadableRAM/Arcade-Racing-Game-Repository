@@ -68,7 +68,7 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
         if (scr_RaceCheckpoints.Racers.Count > 0) {
 
             // get reference object 
-            position = scr_RaceCheckpoints.GetRacerPosition(Racer);
+            position = scr_RaceCheckpoints.GetRacerPosition(Racer) + 1;
 
             // record speed
             speed = Vector3.Magnitude(Racer.GetComponent<Rigidbody>().linearVelocity);

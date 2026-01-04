@@ -198,6 +198,12 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             }
         }
 
+        // just for debugging, use missile the moment we get it
+        if (itemHeld == "Missile")
+        {
+            scr_ItemHandler.UseItemMissile();
+        }
+
     }
 
 

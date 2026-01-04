@@ -39,6 +39,9 @@ public class Scr_Car_Health : MonoBehaviour
     // get rocket script component
     private Scr_Item_Rocket scr_ItemRocket;
 
+    // get missile script component
+    private Scr_Item_Missile scr_ItemMissile;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -158,13 +161,45 @@ public class Scr_Car_Health : MonoBehaviour
             if (collision.gameObject.TryGetComponent<Scr_Item_Rocket>(out scr_ItemRocket))
             {
                 // debug log rocket hit
-                Debug.Log("Rocket hit detected on " + gameObject.name);
+                // Debug.Log("Rocket hit detected on " + gameObject.name);
 
                 // get damage amount from rocket script
                 int rocketDamage = scr_ItemRocket.GetRocketDamageAmount();
 
                 // subtract rocket damage from car health
                 internalCarHealth -= Mathf.RoundToInt(rocketDamage);
+
+                calculateCollisionDamage = false;
+
+                // if health is below 1, play car destruction particles
+                if (internalCarHealth < 1)
+                {
+                    Scr_ParticleHandler.PlayCarDestructionParticles();
+                }
+
+            }
+            else
+            {
+                // if we cannot get rocket script, return
+                return;
+            }
+
+        }
+
+        // check if we collided with a missile
+        if (collision.gameObject.CompareTag("Missile"))
+        {
+            // get rocket script component from missile object if it exists
+            if (collision.gameObject.TryGetComponent<Scr_Item_Missile>(out scr_ItemMissile))
+            {
+                // debug log rocket hit
+                // Debug.Log("Missile hit detected on " + gameObject.name);
+
+                // get damage amount from missile script
+                int missileDamage = scr_ItemMissile.GetMissileDamageAmount();
+
+                // subtract rocket damage from car health
+                internalCarHealth -= Mathf.RoundToInt(missileDamage);
 
                 calculateCollisionDamage = false;
 

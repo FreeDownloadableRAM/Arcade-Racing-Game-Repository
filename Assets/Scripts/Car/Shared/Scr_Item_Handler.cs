@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Scr_Item_Handler : MonoBehaviour
 {
@@ -44,14 +46,34 @@ public class Scr_Item_Handler : MonoBehaviour
     // rocket item object reference
     [SerializeField] private GameObject rocketItemPrefab;
 
+    // missile object reference
+    [SerializeField] private GameObject missileItemPrefab;
+
     // get car ai simple script
     private CarAISimple scr_CarAISimple;
+
+    // for position based items -----------------------------
+    // track Racer position
+    private int position;
+
+    // get race manager script from race manager game object
+    // race track object
+    private GameObject RaceTrackObject;
+
+    // race manager script reference
+    private scr_RaceCheckpoints scr_raceCheckpointsScript;
+
+    // object racer to keep track of
+    private GameObject Racer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // On start, set item held to none
-        itemHeld = "None"; // "None"
+        // itemHeld = "None"; // "None"
+
+        // debug
+        itemHeld = "Missile"; // "Missile"
 
         // get rigidbody component
         carRigidbody = GetComponent<Rigidbody>();
@@ -73,7 +95,15 @@ public class Scr_Item_Handler : MonoBehaviour
 
         scr_CarAISimple = GetComponent<CarAISimple>();
 
-        
+        // find the race track object in the scene
+        // this will have the racers placement data that we need to home in on the correct target
+        RaceTrackObject = GameObject.FindWithTag("Race");
+
+        // get the race checkpoints script from the race track object
+        scr_raceCheckpointsScript = RaceTrackObject.GetComponent<scr_RaceCheckpoints>();
+
+        // set racer to this game object
+        Racer = gameObject;
     }
 
     // fixed update
@@ -116,7 +146,13 @@ public class Scr_Item_Handler : MonoBehaviour
             }
         }
 
-        // check if we have health pack item
+        // update racer position data
+        // if we are at item 0 in the racer list, we are in first place, but this will return 1.
+        // So if we want to get the position ahead of us, from us, we subtract 2 from our position.
+        // thats the value of the racer that the homing target should be heading towards.
+        position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
+
+
     }
 
 
@@ -146,10 +182,16 @@ public class Scr_Item_Handler : MonoBehaviour
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.50f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
+
+                    }
+                    else if (randomItem < 0.75f)
+                    {
+                        // give item to player
+                        itemHeld = "Missile"; // Missile
 
                     }
                     else
@@ -288,6 +330,55 @@ public class Scr_Item_Handler : MonoBehaviour
         float carSpeed = carRigidbody.linearVelocity.magnitude;
 
         rocketProjectile.GetComponentInChildren<Scr_Item_Rocket>().SetInitialRocketSpeed(1.1f * carSpeed); // set initial rocket speed to 110 + car speed
+
+        // clear item held
+        clearItemHeld();
+    }
+
+    // Rocket use function
+    public void UseItemMissile()
+    {
+        // Create Missile projectile and launch it forward from the car
+        // get car position
+        Vector3 carPosition = transform.position;
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+     
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        // set the homing target
+        int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
+
+        // make sure target position index is within bounds
+        if (targetPositionIndex < 0)
+        {
+            // set target position index to last racer if out of range
+            targetPositionIndex = scr_raceCheckpointsScript.Racers.Count() - 1;
+
+        }
+
+        // this gets the actual racer game object that we need to home in on based on their position
+        GameObject homingTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
+
+        // create the missile projectile from prefab and set its initial rocket speed 
+        GameObject missileProjectile = Instantiate(missileItemPrefab, spawnPosition, spawnRotation);
+
+        // get our own car's linear velocity to set the initial rocket speed accordingly
+        float carSpeed = carRigidbody.linearVelocity.magnitude;
+
+        missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetInitialRocketSpeed(1.1f * carSpeed); // set initial rocket speed to 110% of current car speed
+
+        // set homing target for missile
+        missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetHomingTarget(homingTarget.transform);
 
         // clear item held
         clearItemHeld();

@@ -150,12 +150,31 @@ public class scr_RaceCheckpoints : MonoBehaviour
 
     public int GetRacerPosition(GameObject racer)
     {
-        return Racers.IndexOf(racer) + 1; // returns 1 - based position
+        return Racers.IndexOf(racer); // returns 1 position
     }
 
     public int GetRacerCompletionPosition(GameObject racer)
     {
-        return RacerCompletionOrder.IndexOf(racer) + 1; // returns 1 - based position
+        return RacerCompletionOrder.IndexOf(racer); // returns position
     }
 
+    // return gameboject of a racer given their position
+    public GameObject GetRacerByPosition(int position)
+    {
+        if ((position <= Racers.Count))
+        {
+            if (position >= 0)
+            {
+                return Racers[position]; // returns position of the racer, 0 = 0 in the list. so with 12 racers, racer position 12 = index 11 in the list
+            }
+            else 
+            {
+                return Racers[Racers.Count() - 1]; // invalid position, just set value to the last racer in the list
+            }
+        }
+        else
+        {
+            return Racers[Racers.Count() - 1]; // invalid position, just set value to the last racer in the list
+        }
+    }
 }
