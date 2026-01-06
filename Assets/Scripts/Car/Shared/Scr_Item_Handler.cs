@@ -70,10 +70,10 @@ public class Scr_Item_Handler : MonoBehaviour
     void Start()
     {
         // On start, set item held to none
-        // itemHeld = "None"; // "None"
+        itemHeld = "None"; // "None"
 
         // debug
-        itemHeld = "Missile"; // "Missile"
+        // itemHeld = "Missile"; // "Missile"
 
         // get rigidbody component
         carRigidbody = GetComponent<Rigidbody>();
