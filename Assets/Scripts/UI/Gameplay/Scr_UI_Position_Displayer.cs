@@ -109,7 +109,7 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
                 // race has been complete
 
                 // get reference object - use the racer completion list
-                position = scr_RaceCheckpoints.GetRacerCompletionPosition(Racer);
+                position = scr_RaceCheckpoints.GetRacerCompletionPosition(Racer) + 1;
 
                 // update text to read the position / list length
                 racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString();
@@ -118,7 +118,7 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
             {
                 
                 // get reference object - use the racers list
-                position = scr_RaceCheckpoints.GetRacerPosition(Racer);
+                position = scr_RaceCheckpoints.GetRacerPosition(Racer) + 1;
 
                 // update text to read the position / list length
                 racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString();

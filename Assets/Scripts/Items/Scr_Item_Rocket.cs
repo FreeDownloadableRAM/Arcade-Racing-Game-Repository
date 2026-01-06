@@ -126,7 +126,7 @@ public class Scr_Item_Rocket : MonoBehaviour
     }
 
     // movement handle function
-    void HandleMovement()
+    private void HandleMovement()
     {
         speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
         transform.position += transform.forward * speed * Time.deltaTime;
@@ -134,7 +134,7 @@ public class Scr_Item_Rocket : MonoBehaviour
 
 
     // make sure we hug the ground
-    void HandleTerrainHugging()
+    private void HandleTerrainHugging()
     {
         RaycastHit downHit;
         RaycastHit forwardHit;
@@ -220,7 +220,7 @@ public class Scr_Item_Rocket : MonoBehaviour
 
 
     // handle lifetime, delete rocket when timer hits zero
-    void HandleLifetime()
+    private void HandleLifetime()
     {
         destructionTimer -= Time.fixedDeltaTime;
         if (destructionTimer <= 0f)

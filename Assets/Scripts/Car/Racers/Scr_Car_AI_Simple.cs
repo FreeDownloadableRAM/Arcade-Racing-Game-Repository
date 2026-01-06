@@ -741,4 +741,11 @@ public class CarAISimple : MonoBehaviour
         return carOrigin;
     }
 
+    // return car height off ground offset
+    public Vector3 getCarHeightOffGroundRaycastOffset() 
+    {
+
+        return raycastOffsetFromGround;
+    }
+
 }

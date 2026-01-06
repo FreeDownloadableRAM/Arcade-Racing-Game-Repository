@@ -148,10 +148,10 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                 // if we hit a cop, dont use item
                 if (hitInfo.collider.CompareTag("Cop"))
                 {
-                    Debug.DrawRay(origin, direction * castRange, Color.red);
+                    // Debug.DrawRay(origin, direction * castRange, Color.red);
 
                     // draw box cast for debugging
-                    DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
                 }
                 // check if we hit a car
                 else if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
@@ -191,7 +191,17 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                     Debug.DrawRay(origin, direction * castRange, Color.yellow);
 
                     // draw box cast for debugging
-                    DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.orange);
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.orange);
+
+                    // random Rocket fire chance
+                    // so we use the item randomly based on our race progress
+                    // try this function only 1 time every 10 seconds
+                    if (Time.frameCount % 600 == 0)
+                    {
+                        // this is based on race progress.
+                        // the closer we are to finishing, the more likely we are to fire the Rocket when theres nothing nearby
+                        fireRocketRandomChance();
+                    }
                 }
 
                 
@@ -201,7 +211,77 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // just for debugging, use missile the moment we get it
         if (itemHeld == "Missile")
         {
-            scr_ItemHandler.UseItemMissile();
+            RaycastHit hitInfo;
+            float castRange = 200f;   // distance forward
+            Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 15f); // adjust box size as needed
+
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            // Forward direction
+            Vector3 direction = transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange);
+
+            if (hit)
+            {
+
+                // if we hit a cop, dont use item
+                if (hitInfo.collider.CompareTag("Cop"))
+                {
+                    // Debug.DrawRay(origin, direction * castRange, Color.red);
+
+                    // draw box cast for debugging
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
+                }
+                // check if we hit a car
+                else if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                {
+                    // first get the distance, if we are closer than a certain threshold, only fire missile when angle is small enough
+                    if (hitInfo.distance < 5f) // adjust close range threshold as needed
+                    {
+                        // get direction vector to the target inside our box collider
+                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position).normalized;
+
+                        fireMissileInRange(directionToTarget, 45f, hitInfo, boxHalfExtents, origin, direction, castRange);
+
+                    }
+                    else
+                    {
+                        // get direction vector to the target inside our box collider
+                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position).normalized;
+
+                        // they're inside the detection box, just fire missile
+                        fireMissileInRange(directionToTarget, 75f, hitInfo, boxHalfExtents, origin, direction, castRange);
+
+                    }
+
+                }
+                else
+                {
+                    Debug.DrawRay(origin, direction * castRange, Color.yellow);
+
+                    // draw box cast for debugging
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.orange);
+
+                    // random missile fire chance
+                    // so we use the item randomly based on our race progress
+                    // try this function only 1 time every 5 seconds
+                    if (Time.frameCount % 300 == 0) 
+                    {
+                        // this is based on race progress.
+                        // the closer we are to finishing, the more likely we are to fire the missile when theres nothing nearby
+                        fireMissileRandomChance(); 
+                    }
+
+                }
+
+
+            }
+
+            
         }
 
     }
@@ -227,6 +307,8 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             isInNitroTriggerZone = false;
         }
     }
+
+    // start of rocket firing functions -------------------------------
 
     public static void DrawBoxCast(Vector3 origin, Vector3 halfExtents, Quaternion orientation, Vector3 direction, float distance, Color color)
     {
@@ -415,19 +497,19 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                 // use rocket
                 scr_ItemHandler.UseItemRocket();
 
-                Debug.Log("Rocket used by " + gameObject.name + " on target " + hitInfo.collider.name + " at close range.");
+                // Debug.Log("Rocket used by " + gameObject.name + " on target " + hitInfo.collider.name + " at close range.");
 
-                Debug.DrawRay(origin, direction * castRange, Color.green);
+                // Debug.DrawRay(origin, direction * castRange, Color.green);
 
                 // draw box cast for debugging
-                DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
 
             }
             else 
             {
-                Debug.DrawRay(origin, directionToTarget * castRange, Color.cyan);
+                // Debug.DrawRay(origin, directionToTarget * castRange, Color.cyan);
 
-                DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.cyan);
+                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.cyan);
 
             }
 
@@ -436,10 +518,10 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         else
         {
             // angle too large, dont fire
-            Debug.DrawRay(origin, direction * castRange, Color.magenta);
+            // Debug.DrawRay(origin, direction * castRange, Color.magenta);
 
             // draw box cast for debugging
-            DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.magenta);
+            // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.magenta);
 
 
         }
@@ -534,4 +616,86 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         }
     }
 
+    // random Rocket fire chance function
+    private void fireRocketRandomChance()
+    {
+        // get total number of checkpoints
+        // get our current checkpoint index
+        // generate a random number between 0 and total checkpoints
+        // if the random number equals to our current checkpoint index or is lower, fire Rocket
+        int totalCheckpoints = scr_MyRaceProgress.RaceCheckpointTransforms.Count;
+        int currentCheckpointIndex = scr_MyRaceProgress.nextCheckpointIndex;
+        int randomValue = Random.Range(0, totalCheckpoints);
+        if (randomValue <= currentCheckpointIndex)
+        {
+            // use Rocket
+            scr_ItemHandler.UseItemRocket();
+            // Debug.Log("Rocket used by " + gameObject.name + " at random chance at checkpoint " + currentCheckpointIndex + ".");
+
+        }
+    }
+
+    // end of rocket firing functions ------------------------------
+
+    // start of missile firing functions -------------------------------
+    // fire missile at close range only when angle to target is small enough
+    private void fireMissileInRange(Vector3 directionToTarget, float angleThreshold, RaycastHit hitInfo, Vector3 boxHalfExtents,
+            Vector3 origin, Vector3 direction, float castRange)
+    {
+        // get the angle between the cars forward vector and the vector towards our target
+        float angleToTarget = Vector3.SignedAngle(transform.forward, directionToTarget, Vector3.up);
+
+        // do a physics ray cast from the cars forward vector
+        Ray rayToTarget = new Ray(origin, directionToTarget);
+
+        // layer mask to ignore terrain and obstacles
+        LayerMask layerMask = LayerMask.GetMask("PlayerCars", "Cars");
+
+        if (Physics.Raycast(rayToTarget, out RaycastHit forwardHitInfo, castRange, layerMask))
+        {
+            if (Mathf.Abs(angleToTarget) < (angleThreshold)) // adjust angle threshold as needed
+            {
+                // angle is small enough to fire missile
+                // use missile
+                scr_ItemHandler.UseItemMissile();
+                // Debug.Log("Missile used by " + gameObject.name + " on target " + hitInfo.collider.name + " at close range.");
+
+                // Debug.DrawRay(origin, direction * castRange, Color.green);
+
+                // draw box cast for debugging
+                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+            }
+            else
+            {
+                // angle too large, dont fire
+                // Debug.DrawRay(origin, directionToTarget * castRange, Color.cyan);
+                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.cyan);
+            }
+        }
+        else
+        {
+            // Raycast didnt hit, dont fire
+            // Debug.DrawRay(origin, direction * castRange, Color.magenta);
+            // draw box cast for debugging
+            // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.magenta);
+        }
+    }
+
+    // random missile fire chance function
+    private void fireMissileRandomChance() 
+    {
+        // get total number of checkpoints
+        // get our current checkpoint index
+        // generate a random number between 0 and total checkpoints
+        // if the random number equals to our current checkpoint index or is lower, fire missile
+        int totalCheckpoints = scr_MyRaceProgress.RaceCheckpointTransforms.Count;
+        int currentCheckpointIndex = scr_MyRaceProgress.nextCheckpointIndex;
+        int randomValue = Random.Range(0, totalCheckpoints);
+        if (randomValue <= currentCheckpointIndex)
+        {
+            // use missile
+            scr_ItemHandler.UseItemMissile();
+            // Debug.Log("Missile used by " + gameObject.name + " at random chance at checkpoint " + currentCheckpointIndex + ".");
+        }
+    }
 }

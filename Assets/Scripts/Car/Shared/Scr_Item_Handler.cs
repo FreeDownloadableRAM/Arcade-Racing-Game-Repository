@@ -176,19 +176,19 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.25f)
+                    if (randomItem < 0.05f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.50f)
+                    else if (randomItem < 0.10f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.95f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
@@ -369,16 +369,23 @@ public class Scr_Item_Handler : MonoBehaviour
         // this gets the actual racer game object that we need to home in on based on their position
         GameObject homingTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
 
+        // get the car height off ground ray cast offset from the target car to aim for
+        // so that we aim at the center of the car rather than the ground
+        Vector3 targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+
         // create the missile projectile from prefab and set its initial rocket speed 
         GameObject missileProjectile = Instantiate(missileItemPrefab, spawnPosition, spawnRotation);
 
         // get our own car's linear velocity to set the initial rocket speed accordingly
         float carSpeed = carRigidbody.linearVelocity.magnitude;
 
-        missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetInitialRocketSpeed(1.1f * carSpeed); // set initial rocket speed to 110% of current car speed
+        missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetInitialMissileSpeed(1.2f * carSpeed); // set initial rocket speed to 110% of current car speed
 
         // set homing target for missile
         missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetHomingTarget(homingTarget.transform);
+
+        // set target height offset to target center of target
+        missileProjectile.GetComponentInChildren<Scr_Item_Missile>().SetHomingTargetHeightOffset(targetCarHeightOffset);
 
         // clear item held
         clearItemHeld();
