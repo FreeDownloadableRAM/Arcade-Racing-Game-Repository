@@ -329,7 +329,7 @@ public class Scr_Item_Handler : MonoBehaviour
         // get our own car's linear velocity to set the initial rocket speed accordingly
         float carSpeed = carRigidbody.linearVelocity.magnitude;
 
-        rocketProjectile.GetComponentInChildren<Scr_Item_Rocket>().SetInitialRocketSpeed(1.1f * carSpeed); // set initial rocket speed to 110 + car speed
+        rocketProjectile.GetComponentInChildren<Scr_Item_Rocket>().SetInitialRocketSpeed(1.1f * carSpeed); // set initial rocket speed to 110% of car speed
 
         // clear item held
         clearItemHeld();

@@ -54,7 +54,7 @@ public class Scr_Item_Rocket : MonoBehaviour
         // set initial forward velocity
         rb.linearVelocity = transform.forward * initialSpeed;
 
-        
+        speed = initialSpeed;
     }
 
     // Update is called once per frame
@@ -120,9 +120,10 @@ public class Scr_Item_Rocket : MonoBehaviour
 
 
     // set initial rocket speed
-    public void SetInitialRocketSpeed(float speed)
+    public float SetInitialRocketSpeed(float iniSpeed)
     {
-        initialSpeed = speed;
+        initialSpeed = iniSpeed;
+        return initialSpeed;
     }
 
     // movement handle function

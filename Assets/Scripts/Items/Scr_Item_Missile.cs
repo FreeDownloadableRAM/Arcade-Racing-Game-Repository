@@ -204,7 +204,22 @@ public class Scr_Item_Missile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        RocketExplosionEffect();
+        // check if we collided with a car first
+        if ((collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Cop")))
+        {
+            RocketExplosionEffect();
+        }
+        // if we didnt, that means we collided with terrain
+        else 
+        {
+            // do not explode within a moment of object creation, so when we get spawned it, and hit the ground instantly, it wont cause an explosion, and delete this object
+            if (destructionTimer < (destructionStartValue - 0.25f))
+            {
+                RocketExplosionEffect();
+            }
+            
+        }
+        
     }
 
     private void RocketExplosionEffect()
