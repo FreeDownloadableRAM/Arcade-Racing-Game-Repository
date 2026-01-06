@@ -176,19 +176,19 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.05f)
+                    if (randomItem < 0.25f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.10f)
+                    else if (randomItem < 0.50f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.95f)
+                    else if (randomItem < 0.75f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
