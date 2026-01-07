@@ -135,26 +135,20 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             // Origin of cast
             Vector3 origin = scr_CarAISimple.getCarOrigin();
 
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
             // Forward direction
             Vector3 direction = transform.forward;
 
             // Perform BoxCast 
             // orientation of the box aligns with the car's rotation 
-            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange);
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
             
             if (hit)
             {
                 
-                // if we hit a cop, dont use item
-                if (hitInfo.collider.CompareTag("Cop"))
-                {
-                    // Debug.DrawRay(origin, direction * castRange, Color.red);
-
-                    // draw box cast for debugging
-                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
-                }
-                // check if we hit a car
-                else if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                
+                if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
                 {
                     // set rocket initial speed based on our linear velocity
                     initialRocketSpeed = GetComponent<Rigidbody>().linearVelocity.magnitude * 1.1f; // add some extra speed
@@ -218,26 +212,19 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             // Origin of cast
             Vector3 origin = scr_CarAISimple.getCarOrigin();
 
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
             // Forward direction
             Vector3 direction = transform.forward;
 
             // Perform BoxCast 
             // orientation of the box aligns with the car's rotation 
-            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange);
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
 
             if (hit)
             {
 
-                // if we hit a cop, dont use item
-                if (hitInfo.collider.CompareTag("Cop"))
-                {
-                    // Debug.DrawRay(origin, direction * castRange, Color.red);
-
-                    // draw box cast for debugging
-                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
-                }
-                // check if we hit a car
-                else if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
                 {
                     // first get the distance, if we are closer than a certain threshold, only fire missile when angle is small enough
                     if (hitInfo.distance < 5f) // adjust close range threshold as needed
