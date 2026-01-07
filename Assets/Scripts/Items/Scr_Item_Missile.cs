@@ -204,8 +204,26 @@ public class Scr_Item_Missile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        RocketExplosionEffect();
-        
+        // for the first few moments of object creation, ignore collision with terrain
+        if (destructionTimer > (destructionStartValue - 0.5f))
+        {
+            if (!collision.gameObject.CompareTag("AI") || !collision.gameObject.CompareTag("Player"))
+            {
+                // do not destroy
+
+            }
+            else 
+            {
+                // we collided with a player or car
+                RocketExplosionEffect();
+            }
+
+        }
+        else 
+        {
+            RocketExplosionEffect();
+
+        }
     }
 
     private void RocketExplosionEffect()
