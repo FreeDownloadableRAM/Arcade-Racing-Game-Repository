@@ -129,8 +129,8 @@ public class Scr_Item_Rocket : MonoBehaviour
     // movement handle function
     private void HandleMovement()
     {
-        speed = Mathf.Min(speed + acceleration * Time.deltaTime, maxSpeed);
-        transform.position += transform.forward * speed * Time.deltaTime;
+        speed = Mathf.Min(speed + acceleration * Time.fixedDeltaTime, maxSpeed);
+        transform.position += transform.forward * speed * Time.fixedDeltaTime;
     }
 
 
