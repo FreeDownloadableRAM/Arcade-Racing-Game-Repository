@@ -78,6 +78,9 @@ public class scr_Car_Target_Handler : MonoBehaviour
 
     [SerializeField] private string AIState = "Race";
 
+    // get car ai simple script
+    private CarAISimple scr_CarAISimple;
+
     [Header("Item Box Settings")]
     public float itemDetectRange = 75f;           // How far ahead to look for item boxes
     public LayerMask itemBoxLayer;                // Layer for item boxes
@@ -122,6 +125,10 @@ public class scr_Car_Target_Handler : MonoBehaviour
 
         }
 
+        // get car ai simple component
+        // this is for our box cast on items
+        scr_CarAISimple = GetComponent<CarAISimple>();
+
     }
 
     // AI State Machine 
@@ -160,14 +167,12 @@ public class scr_Car_Target_Handler : MonoBehaviour
                 // ex. item set 1 can only be targeted by ai racers who are going towards checkpoint 1
                 if (MyRaceProgress.nextCheckpointIndex == boxScript.GetAIItemBoxTargetCheckpointRequirment())
                 {
-
                     AIState = "Get Item";
 
                 }
                 else 
                 {
                     AIState = "Race";
-
 
                 }
 
@@ -186,37 +191,78 @@ public class scr_Car_Target_Handler : MonoBehaviour
             return;
         }
 
-        // if there is, set target to it
-        AIMovementTarget = nearestItemBox;
+        RaycastHit hitInfo;
+        float castRange = 75f;   // distance forward
 
-        // Exit conditions
+        LayerMask ItemLayerMask = LayerMask.GetMask("ItemBoxes"); // Layer mask to filter for only Items
 
-        // Check box availability
-        // if there is no item available, go back to racing
-        Scr_Item_Box boxScript = nearestItemBox.GetComponent<Scr_Item_Box>();
-        if (boxScript == null || !boxScript.IsItemAvailable())
+        // Origin of cast
+        Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+        // cast a box collider, if there is any item box DIRECTLY IN FRONT OF US
+        Vector3 boxHalfExtentsItem = new Vector3(15f, 4f, 5f); // adjust box size as needed
+
+        // Forward direction
+        Vector3 direction = transform.forward;
+
+        // Perform BoxCast 
+        // orientation of the box aligns with the car's rotation 
+        bool hit = Physics.BoxCast(origin, boxHalfExtentsItem, direction, out hitInfo, transform.rotation, castRange, ItemLayerMask);
+        if (hit)
         {
-            nearestItemBox = null;
+            // check if we collided with game object tagged as item
+            if (hitInfo.collider.CompareTag("ItemBox"))
+            {
+                Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.green);
+
+                // if there is, set target to it
+                AIMovementTarget = nearestItemBox;
+
+                // Exit conditions
+
+                // Check box availability
+                // if there is no item available, go back to racing
+                Scr_Item_Box boxScript = nearestItemBox.GetComponent<Scr_Item_Box>();
+                if (boxScript == null || !boxScript.IsItemAvailable())
+                {
+                    nearestItemBox = null;
+                    AIState = "Race";
+                    return;
+                }
+
+                if (!nearestItemBox.gameObject.activeInHierarchy)
+                {
+                    nearestItemBox = null;
+                    AIState = "Race";
+                    return;
+                }
+
+                // if we reached item box, go back to racing
+                float dist = Vector3.Distance(transform.position, nearestItemBox.position);
+                if (dist < itemReachedDistance)
+                {
+                    nearestItemBox = null;
+                    AIState = "Race";
+                }
+
+            }
+            else 
+            {
+                Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.orange);
+                AIState = "Race";
+                return;
+
+            }
+
+        }
+        else 
+        {
+            Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.red);
             AIState = "Race";
             return;
+
         }
 
-        if (!nearestItemBox.gameObject.activeInHierarchy)
-        {
-            nearestItemBox = null;
-            AIState = "Race";
-            return;
-        }
-
-        // if we reached item box, go back to racing
-        float dist = Vector3.Distance(transform.position, nearestItemBox.position);
-        if (dist < itemReachedDistance)
-        {
-            nearestItemBox = null;
-            AIState = "Race";
-        }
-
-        
     }
 
     // Find the best item box between the car and the checkpoint
@@ -252,9 +298,6 @@ public class scr_Car_Target_Handler : MonoBehaviour
             if (alignment < alignmentThreshold)
                 continue;
 
-            float angle = Vector3.Angle(flatForward, flatToItem);
-            if (angle > 60f) // degrees
-                continue;
 
             float proj = Vector3.Dot(toItem.normalized, toCheckpoint.normalized);
             if (proj < 0.5f)
@@ -270,6 +313,8 @@ public class scr_Car_Target_Handler : MonoBehaviour
                 bestItem = c.transform;
             }
         }
+
+        
 
         return bestItem;
     }
