@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef1a572f36c5041abffbe49591297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 134
-  brakeAcceleration: 88
+  maxAcceleration: 130
+  brakeAcceleration: 90
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -442,7 +442,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   alignmentThreshold: 0.8
-  itemReachedDistance: 1.5
+  itemReachedDistance: 1.25
 --- !u!114 &3098459136225109209
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -225,7 +225,8 @@ public class Scr_Car_Health : MonoBehaviour
         // check if we collided with an obstacle
         if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Props")
                 || collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player")
-                    || collision.gameObject.CompareTag("Cop") || collision.gameObject.CompareTag("Rocket"))
+                    || collision.gameObject.CompareTag("Cop") || collision.gameObject.CompareTag("Rocket")
+                        || collision.gameObject.CompareTag("Missile"))
         {
             calculateCollisionDamage = true;
 

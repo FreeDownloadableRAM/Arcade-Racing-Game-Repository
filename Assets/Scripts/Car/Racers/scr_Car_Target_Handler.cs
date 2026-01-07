@@ -158,10 +158,16 @@ public class scr_Car_Target_Handler : MonoBehaviour
                 // check if item box is permitted to be targeted
                 // only chase after box if you are in a certain checkpoint progress.
                 // ex. item set 1 can only be targeted by ai racers who are going towards checkpoint 1
-                if (MyRaceProgress.nextCheckpointIndex == boxScript.GetAIItemBoxTargetCheckpointRequirment()) 
+                if (MyRaceProgress.nextCheckpointIndex == boxScript.GetAIItemBoxTargetCheckpointRequirment())
                 {
 
                     AIState = "Get Item";
+
+                }
+                else 
+                {
+                    AIState = "Race";
+
 
                 }
 
