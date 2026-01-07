@@ -118,11 +118,13 @@ public class Scr_Car_Health : MonoBehaviour
     // check if we collided with other object
     private void OnCollisionEnter(Collision collision)
     {
+        
         // if we are not calculating collision damage, return
         if (!calculateCollisionDamage)
         {
             return;
         }
+        
 
         // check if we collided with an obstacle
         if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Props")
@@ -152,6 +154,11 @@ public class Scr_Car_Health : MonoBehaviour
                 Scr_ParticleHandler.PlayCarDestructionParticles();
             }
 
+            // debug
+            // what did we collide with and how much damage did it do?
+            // Debug.Log("Detected collision with: " + collision.gameObject.name + " on object: " + gameObject.name + " dealing " + healthLoss + " worth of damage.");
+
+
         }
 
         // check if we collided with a rocket
@@ -176,6 +183,10 @@ public class Scr_Car_Health : MonoBehaviour
                 {
                     Scr_ParticleHandler.PlayCarDestructionParticles();
                 }
+
+                // debug
+                // what did we collide with and how much damage did it do?
+                // Debug.Log("Detected collision with: " + collision.gameObject.name + " on object: " + gameObject.name + " dealing " + rocketDamage + " worth of damage.");
 
             }
             else
@@ -209,6 +220,10 @@ public class Scr_Car_Health : MonoBehaviour
                     Scr_ParticleHandler.PlayCarDestructionParticles();
                 }
 
+                // debug
+                // what did we collide with and how much damage did it do?
+                // Debug.Log("Detected collision with: " + collision.gameObject.name + " on object: " + gameObject.name + " dealing " + missileDamage + " worth of damage.");
+
             }
             else
             {
@@ -217,11 +232,16 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
         }
+
+
+
+        
     }
 
     // when we exit collision, re-enable collision damage calculation
     private void OnCollisionExit(Collision collision)
     {
+        /*
         // check if we collided with an obstacle
         if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Props")
                 || collision.gameObject.CompareTag("AI") || collision.gameObject.CompareTag("Player")
@@ -232,8 +252,10 @@ public class Scr_Car_Health : MonoBehaviour
 
 
         }
+        */
 
-        
+        calculateCollisionDamage = true;
+
     }
 
     private void ResetToLastCheckpoint()

@@ -239,8 +239,21 @@ public class scr_Car_Target_Handler : MonoBehaviour
             Vector3 toItem = c.transform.position - carPos;
             Vector3 toCheckpoint = checkpointPos - carPos;
 
-            float alignment = Vector3.Dot(toItem.normalized, transform.forward);
+            // Flatten vectors to ignore vertical differences (recommended for racers)
+            Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 flatToItem = Vector3.ProjectOnPlane(toItem, Vector3.up);
+
+            // HARD reject: item is behind the car
+            if (Vector3.Dot(flatForward, flatToItem.normalized) <= 0f)
+                continue;
+
+            // Soft alignment check (cone in front of the car)
+            float alignment = Vector3.Dot(flatForward, flatToItem.normalized);
             if (alignment < alignmentThreshold)
+                continue;
+
+            float angle = Vector3.Angle(flatForward, flatToItem);
+            if (angle > 60f) // degrees
                 continue;
 
             float proj = Vector3.Dot(toItem.normalized, toCheckpoint.normalized);

@@ -141,7 +141,7 @@ public class Scr_Item_Handler : MonoBehaviour
                 nitroActive = false;
 
                 // debug, log nitro end
-                Debug.Log("Nitro ended for " + gameObject.name);
+                // Debug.Log("Nitro ended for " + gameObject.name);
 
             }
         }

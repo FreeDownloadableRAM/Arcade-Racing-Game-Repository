@@ -59,7 +59,7 @@ public class Scr_Car_Pathfinder : MonoBehaviour
         {
             SetTarget();
 
-            pathFindRecalculateTimer = 6f;
+            pathFindRecalculateTimer = 5f;
         }
 
             
