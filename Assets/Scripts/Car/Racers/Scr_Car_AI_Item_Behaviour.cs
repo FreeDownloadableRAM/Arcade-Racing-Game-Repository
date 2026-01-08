@@ -48,6 +48,20 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
     private List<Vector3> debugRocketPath = new List<Vector3>();
     private bool debugHasSolution = false;
 
+    // for position based item behaviour -----------------------------
+    // track Racer position
+    private int position;
+
+    // get race manager script from race manager game object
+    // race track object
+    private GameObject RaceTrackObject;
+
+    // race manager script reference
+    private scr_RaceCheckpoints scr_raceCheckpointsScript;
+
+    // object racer to keep track of
+    private GameObject Racer;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,6 +84,16 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
         // get car ai simple component
         scr_CarAISimple = GetComponent<CarAISimple>();
+
+        // find the race track object in the scene
+        // this will have the racers placement data that we need for position based item usage
+        RaceTrackObject = GameObject.FindWithTag("Race");
+
+        // get the race checkpoints script from the race track object
+        scr_raceCheckpointsScript = RaceTrackObject.GetComponent<scr_RaceCheckpoints>();
+
+        // set racer to this game object
+        Racer = gameObject;
     }
 
     // Update is called once per frame
@@ -291,6 +315,10 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
             
         }
+
+        // update racer position data
+        position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
+
 
     }
 
@@ -737,15 +765,20 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             // do not use item when above hp heal threshold
             return;
         }
-        else 
+        // if we are in last, dont hold onto heal item, it does nothing for us to catch up to racers
+        else if ((position + 1) == scr_raceCheckpointsScript.Racers.Count) 
+        {
+            // use health pack
+            scr_ItemHandler.UseItemHealthPack();
+        }
+        else
         {
             // If there isnt anyone behind us, roll random heal chance
-
-            int randomHealRoll = Random.Range(0,scr_CarHealth.GetMaxHealth());
+            int randomHealRoll = Random.Range(0, scr_CarHealth.GetMaxHealth());
 
             // if the randomly generated number is higher than our current health, heal
             // the odds to heal are higher the lower our current health
-            if (randomHealRoll >= scr_CarHealth.GetCurrentHealth()) 
+            if (randomHealRoll >= scr_CarHealth.GetCurrentHealth())
             {
                 // use health pack
                 scr_ItemHandler.UseItemHealthPack();
