@@ -182,7 +182,7 @@ public class Scr_Item_Handler : MonoBehaviour
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.50f)
+                    else if (randomItem < 0.5f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket

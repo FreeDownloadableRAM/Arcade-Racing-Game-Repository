@@ -570,9 +570,9 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         Vector3 targetPos, Vector3 targetVel, Vector3 targetAcc,
             float v0, float accel, float vmax)
     {
-        const int steps = 250;     // search resolution
-        const float dt = 0.25f;    // search step
-        const float lateralTolerance = 2f; // how close target must be to forward line
+        const int steps = 45;     // search resolution
+        const float dt = 0.05f;    // search step
+        const float lateralTolerance = 1f; // how close target must be to forward line
 
         for (int i = 1; i < steps; i++)
         {

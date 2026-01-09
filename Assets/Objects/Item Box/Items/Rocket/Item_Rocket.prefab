@@ -9886,17 +9886,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee6db6dde4b7074f8c9fc2bfc7fc883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Rocket
-  initialSpeed: 100
-  maxSpeed: 375
-  acceleration: 175
+  initialSpeed: 50
+  maxSpeed: 175
+  acceleration: 100
   damageAmount: 200
   destructionTimer: 10
   explosionRocketEffectPrefab: {fileID: 490183181699742295, guid: 8f59f6fe22c894349b95ef24f5a35b30, type: 3}
   speed: 30
-  hoverHeight: 1.15
+  hoverHeight: 1
   heightAdjustSpeed: 120
   downhillPullSpeed: 4
-  forwardRayDistance: 10
+  forwardRayDistance: 12
   anticipationStrength: 1.5
   normalBlend: 0.6
   groundCheckDistance: 5
