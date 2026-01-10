@@ -25768,6 +25768,7 @@ MonoBehaviour:
   itemHeld: 
   rocketSpawnOffset: 5
   rocketSpawnHeightOffset: 0.75
+  laserItemPrefab: {fileID: 238546991540539590, guid: 923e231d5cd2c4643bc13012678faa4c, type: 3}
   rocketItemPrefab: {fileID: 6007389463334106660, guid: 6cee495441d5ab9458bfe54e5ab7f2f4, type: 3}
   missileItemPrefab: {fileID: 5632438409398279603, guid: a2bbede836595ae4c84808555af05a4f, type: 3}
 --- !u!114 &3066513607023501812
