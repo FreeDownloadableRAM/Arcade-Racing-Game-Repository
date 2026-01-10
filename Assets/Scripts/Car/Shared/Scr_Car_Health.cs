@@ -42,6 +42,9 @@ public class Scr_Car_Health : MonoBehaviour
     // get missile script component
     private Scr_Item_Missile scr_ItemMissile;
 
+    // get laser script component
+    private Scr_Item_Pierce_Laser scr_PierceLaser;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -146,7 +149,7 @@ public class Scr_Car_Health : MonoBehaviour
             // clamp health to minimum of 0
             // internalCarHealth = Mathf.Max(internalCarHealth, 0);
 
-            calculateCollisionDamage = false;
+            // calculateCollisionDamage = false;
 
             // if health is below 1, play car destruction particles
             if (internalCarHealth < 1)
@@ -176,7 +179,7 @@ public class Scr_Car_Health : MonoBehaviour
                 // subtract rocket damage from car health
                 internalCarHealth -= Mathf.RoundToInt(rocketDamage);
 
-                calculateCollisionDamage = false;
+                // calculateCollisionDamage = false;
 
                 // if health is below 1, play car destruction particles
                 if (internalCarHealth < 1)
@@ -212,7 +215,7 @@ public class Scr_Car_Health : MonoBehaviour
                 // subtract rocket damage from car health
                 internalCarHealth -= Mathf.RoundToInt(missileDamage);
 
-                calculateCollisionDamage = false;
+                // calculateCollisionDamage = false;
 
                 // if health is below 1, play car destruction particles
                 if (internalCarHealth < 1)
@@ -233,9 +236,44 @@ public class Scr_Car_Health : MonoBehaviour
 
         }
 
+        // check if we collided with a laser
+        if (collision.gameObject.CompareTag("Laser"))
+        {
+            // get rocket script component from missile object if it exists
+            if (collision.gameObject.TryGetComponent<Scr_Item_Pierce_Laser>(out scr_PierceLaser))
+            {
+                // debug log laser hit
+                // Debug.Log("Laser hit detected on " + gameObject.name);
+
+                // get damage amount from laser script
+                int laserDamage = scr_PierceLaser.GetLaserDamageAmount();
+
+                // subtract rocket damage from car health
+                internalCarHealth -= Mathf.RoundToInt(laserDamage);
+
+                // calculateCollisionDamage = false;
+
+                // if health is below 1, play car destruction particles
+                if (internalCarHealth < 1)
+                {
+                    Scr_ParticleHandler.PlayCarDestructionParticles();
+                }
+
+                // debug
+                // what did we collide with and how much damage did it do?
+                // Debug.Log("Detected collision with: " + collision.gameObject.name + " on object: " + gameObject.name + " dealing " + laserDamage + " worth of damage.");
+
+            }
+            else
+            {
+                // if we cannot get rocket script, return
+                return;
+            }
+
+        }
 
 
-        
+
     }
 
     // when we exit collision, re-enable collision damage calculation
@@ -254,7 +292,7 @@ public class Scr_Car_Health : MonoBehaviour
         }
         */
 
-        calculateCollisionDamage = true;
+        // calculateCollisionDamage = true;
 
     }
 

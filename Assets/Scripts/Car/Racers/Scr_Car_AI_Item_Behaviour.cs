@@ -52,6 +52,9 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
     // track Racer position
     private int position;
 
+    // laser fire toggle
+    private bool fireLaserBurst = false;
+
     // get race manager script from race manager game object
     // race track object
     private GameObject RaceTrackObject;
@@ -247,7 +250,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             }
         }
 
-        // just for debugging, use missile the moment we get it
+        // Missile Use Case
         if (itemHeld == "Missile")
         {
             RaycastHit hitInfo;
@@ -316,6 +319,58 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             
         }
 
+        // Laser Use Case
+        if (itemHeld == "Laser") 
+        {
+            // if this is true, fire laser, skip rest of the if statement
+            if (fireLaserBurst == true) 
+            {
+                scr_ItemHandler.UseItemLaser();
+                return;
+            
+            }
+
+            RaycastHit hitInfo;
+            float castRange = 150f;   // distance forward
+            Vector3 boxHalfExtents = new Vector3(1.25f, 1.5f, 15f); // adjust box size as needed
+
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+            // Forward direction
+            Vector3 direction = transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+            if (hit)
+            {
+                // toggle bool for laser fire, as its a 3 round burst
+                fireLaserBurst = true;
+            }
+            else 
+            {
+                // random Laser fire chance
+                Debug.DrawRay(origin, direction * castRange, Color.yellow);
+
+                // draw box cast for debugging
+                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.orange);
+
+                // random missile fire chance
+                // so we use the item randomly based on our race progress
+                // try this function only 1 time every 3 seconds
+                if (Time.frameCount % 180 == 0)
+                {
+                    // this is based on race progress.
+                    // the closer we are to finishing, the more likely we are to fire the missile when theres nothing nearby
+                    fireLaserRandomChance();
+                }
+
+            }
+        }
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
 
@@ -736,6 +791,59 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
     }
 
     // end of missile firing function -------------------------------
+
+    // laser fire random chance function
+    private void fireLaserRandomChance()
+    {
+        // if there is a car behind us (close enough that you would see it from the camera view)
+        // do not use health pack prematurely, save it on the chance the person behind may have an offensive item
+
+        RaycastHit hitInfo;
+        float castRange = 10f;   // distance backward
+        Vector3 boxHalfExtents = new Vector3(10f, 2.5f, 1f); // adjust box size as needed
+
+        // Origin of cast
+        Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+        LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+        // backward direction
+        Vector3 direction = -transform.forward;
+
+        // Perform BoxCast 
+        // orientation of the box aligns with the car's rotation 
+        bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+        if (hit)
+        {
+            // There is a car close behind us
+            // do not use item when above hp heal threshold
+            return;
+        }
+        else
+        {
+            // If there isnt anyone behind us, roll random laser fire chance
+            int randomLaserRoll = Random.Range(0, scr_raceCheckpointsScript.Racers.Count);
+
+            // if the randomly generated number is higher than our current racer position, fire laser when no one is nearby
+            // the odds to use laser are are higher the further back we are in the race
+            if (randomLaserRoll <= position + 1)
+            {
+                // use laser burst
+                fireLaserBurst = true;
+
+            }
+
+        }
+    }
+
+    // switch laser fire back to false
+    // accessed in the item handler script
+    public bool setFireLaserBurstToggle(bool laserFireToggle) 
+    {
+        fireLaserBurst = laserFireToggle;
+        return fireLaserBurst;
+    }
 
     // health use case when above heal threshold
     private void healSelfChance() 

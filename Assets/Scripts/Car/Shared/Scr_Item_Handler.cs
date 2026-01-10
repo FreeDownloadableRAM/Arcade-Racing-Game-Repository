@@ -43,6 +43,10 @@ public class Scr_Item_Handler : MonoBehaviour
     // rocket spawn offset
     [SerializeField] private float rocketSpawnOffset = 3.75f;
     [SerializeField] private float rocketSpawnHeightOffset = 1.25f;
+
+    // laser item object reference
+    [SerializeField] private GameObject laserItemPrefab;
+
     // rocket item object reference
     [SerializeField] private GameObject rocketItemPrefab;
 
@@ -66,6 +70,14 @@ public class Scr_Item_Handler : MonoBehaviour
     // object racer to keep track of
     private GameObject Racer;
 
+    // for firing multiple lasers
+    // create a short 3 round burst of lasers
+    float timeBetweenShots = 0.0f; // time between each shot in seconds
+    int numberOfShots = 3; // number of shots in the burst
+
+    // car item usage behaviour script
+    private Scr_Car_AI_Item_Behaviour scr_CarAIItemBehaviour;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -73,7 +85,7 @@ public class Scr_Item_Handler : MonoBehaviour
         itemHeld = "None"; // "None"
 
         // debug
-        // itemHeld = "Missile"; // "Missile"
+        // itemHeld = "Laser"; // "Laser"
 
         // get rigidbody component
         carRigidbody = GetComponent<Rigidbody>();
@@ -94,6 +106,9 @@ public class Scr_Item_Handler : MonoBehaviour
         scr_CarHealth = GetComponent<Scr_Car_Health>();
 
         scr_CarAISimple = GetComponent<CarAISimple>();
+
+        // so the item behaviour and item handler can communicate
+        scr_CarAIItemBehaviour = GetComponent<Scr_Car_AI_Item_Behaviour>();
 
         // find the race track object in the scene
         // this will have the racers placement data that we need to home in on the correct target
@@ -176,22 +191,28 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.25f)
+                    if (randomItem < 0.2f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.5f)
+                    else if (randomItem < 0.4f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.6f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
+
+                    }
+                    else if (randomItem < 0.8f)
+                    {
+                        // give item to player
+                        itemHeld = "Laser"; // Laser
 
                     }
                     else
@@ -301,6 +322,71 @@ public class Scr_Item_Handler : MonoBehaviour
         clearItemHeld();
 
     }
+
+    // Laser Use function
+    public void UseItemLaser()
+    {
+        // Create laser projectile and launch it forward from the car
+        // get car position
+        Vector3 carPosition = transform.position;
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+        //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
+
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        if (timeBetweenShots > 0)
+        {
+            timeBetweenShots -= Time.fixedDeltaTime;
+
+        }
+        else 
+        {
+            // check if we have shots left to fire
+            if (numberOfShots > 0)
+            {
+                // timer reached zero, fire laser
+                // fire one laser slightly to the left and one slightly to the right of center
+                Vector3 leftOffset = transform.right * -0.5f; // adjust offset as needed
+                Vector3 rightOffset = transform.right * 0.5f; // adjust offset as needed
+
+                GameObject laserProjectileLeft = Instantiate(laserItemPrefab, spawnPosition + leftOffset, spawnRotation);
+                GameObject laserProjectileRight = Instantiate(laserItemPrefab, spawnPosition + rightOffset, spawnRotation);
+
+                // count down number of shots left
+                numberOfShots -= 1;
+
+                // reset timer
+                timeBetweenShots = 0.25f;
+            }
+            else 
+            {
+                scr_CarAIItemBehaviour.setFireLaserBurstToggle(false);
+
+                // clear item held
+                clearItemHeld();
+
+                // reset number of shots for next time
+                numberOfShots = 3;
+                timeBetweenShots = 0.0f;
+
+            }
+
+        }
+
+
+        
+    }
+
 
     // Rocket use function
     public void UseItemRocket()

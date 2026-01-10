@@ -21,6 +21,7 @@ TagManager:
   - NitroZone
   - Rocket
   - Missile
+  - Laser
   layers:
   - Default
   - TransparentFX
