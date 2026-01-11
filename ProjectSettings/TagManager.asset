@@ -22,6 +22,7 @@ TagManager:
   - Rocket
   - Missile
   - Laser
+  - Flamethrower
   layers:
   - Default
   - TransparentFX
