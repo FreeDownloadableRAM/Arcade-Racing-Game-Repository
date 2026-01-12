@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -254,7 +255,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         if (itemHeld == "Missile")
         {
             RaycastHit hitInfo;
-            float castRange = 200f;   // distance forward
+            float castRange = 225f;   // distance forward
             Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 15f); // adjust box size as needed
 
             // Origin of cast
@@ -275,21 +276,22 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                 if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
                 {
                     // first get the distance, if we are closer than a certain threshold, only fire missile when angle is small enough
-                    if (hitInfo.distance < 5f) // adjust close range threshold as needed
+                    if (hitInfo.distance < 10f) // adjust close range threshold as needed
                     {
+                        
                         // get direction vector to the target inside our box collider
-                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position).normalized;
+                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position);
 
-                        fireMissileInRange(directionToTarget, 45f, hitInfo, boxHalfExtents, origin, direction, castRange);
+                        fireMissileInRange(directionToTarget, 10f, hitInfo, boxHalfExtents, origin, direction, castRange);
 
                     }
                     else
                     {
                         // get direction vector to the target inside our box collider
-                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position).normalized;
+                        Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position);
 
                         // they're inside the detection box, just fire missile
-                        fireMissileInRange(directionToTarget, 75f, hitInfo, boxHalfExtents, origin, direction, castRange);
+                        fireMissileInRange(directionToTarget, 30f, hitInfo, boxHalfExtents, origin, direction, castRange);
 
                     }
 
@@ -774,43 +776,91 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
     private void fireMissileInRange(Vector3 directionToTarget, float angleThreshold, RaycastHit hitInfo, Vector3 boxHalfExtents,
             Vector3 origin, Vector3 direction, float castRange)
     {
-        // get the angle between the cars forward vector and the vector towards our target
-        float angleToTarget = Vector3.SignedAngle(transform.forward, directionToTarget, Vector3.up);
+        // check clearance
+        // if the ray hits terrain or obstacles, do not fire missile
+        LayerMask clearanceLayerMask = LayerMask.GetMask("Terrain", "Obstacles");
 
-        // do a physics ray cast from the cars forward vector
-        Ray rayToTarget = new Ray(origin, directionToTarget);
+        // range and origin 
+        Ray rayClearance = new Ray(origin, transform.forward);
 
-        // layer mask to ignore terrain and obstacles
-        LayerMask layerMask = LayerMask.GetMask("PlayerCars", "Cars");
+        // clearance check range
+        float clearanceCheckRange = 7f; // amount of units ahead
 
-        if (Physics.Raycast(rayToTarget, out RaycastHit forwardHitInfo, castRange, layerMask))
+        // if ray hits something in the clearance layer mask
+        // exit function
+        RaycastHit clearanceHit;
+
+        if (Physics.Raycast(rayClearance, out clearanceHit, clearanceCheckRange, clearanceLayerMask))
         {
-            if (Mathf.Abs(angleToTarget) < (angleThreshold)) // adjust angle threshold as needed
+            // there is an obstacle in the way, do not fire missile
+            return;
+        }
+
+
+        // get the angle between the cars forward vector and the vector towards our target
+        float angleToTarget = Vector3.SignedAngle(transform.forward.normalized, directionToTarget.normalized, Vector3.up);
+
+        // make angle positive
+        float absAngleToTarget = Mathf.Abs(angleToTarget);
+
+        if (absAngleToTarget < (angleThreshold)) // adjust angle threshold as needed
+        {
+            // angle is small enough to fire missile
+
+            // set the homing target
+            int desiredTargetPositionIndex = position - 1;
+
+            // if our desired target position index is less than 0, set it to the last place racer
+            if (desiredTargetPositionIndex < 0) 
             {
-                // angle is small enough to fire missile
+                desiredTargetPositionIndex = scr_raceCheckpointsScript.Racers.Count() - 1;
+            }
+
+            GameObject desiredTargetRacer = scr_raceCheckpointsScript.GetRacerByPosition(desiredTargetPositionIndex);
+
+            int positionOneSpotAhead = position - 1;
+
+            // if the value is negative, set it to last place racer
+            if (positionOneSpotAhead < 0) 
+            {
+                positionOneSpotAhead = scr_raceCheckpointsScript.Racers.Count() - 1;
+
+            }
+
+            if (positionOneSpotAhead == desiredTargetPositionIndex)
+            {
                 // use missile
                 scr_ItemHandler.UseItemMissile();
                 // Debug.Log("Missile used by " + gameObject.name + " on target " + hitInfo.collider.name + " at close range.");
 
-                // Debug.DrawRay(origin, direction * castRange, Color.green);
+                // Debug.DrawRay(origin, directionToTarget, Color.green);
 
                 // draw box cast for debugging
                 // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+
+                // debug line, what is the position of the target racer
+                // Debug.Log("Desired Targeted Racer: " + desiredTargetRacer.name + " Position: " + (desiredTargetPositionIndex + 1).ToString() + ", The position a spot ahead of us: " + (positionOneSpotAhead).ToString());
             }
-            else
+            else 
             {
-                // angle too large, dont fire
-                // Debug.DrawRay(origin, directionToTarget * castRange, Color.cyan);
-                // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.cyan);
+                // draw ray for debugging
+                //Debug.DrawRay(origin, directionToTarget, Color.orange);
+
+                // Debug.Log("Desired Targeted Racer: " + desiredTargetRacer.name + " Position: " + (desiredTargetPositionIndex + 1).ToString() + ", The position a spot ahead of us: " + (positionOneSpotAhead).ToString());
+
             }
+
         }
         else
         {
-            // Raycast didnt hit, dont fire
-            // Debug.DrawRay(origin, direction * castRange, Color.magenta);
-            // draw box cast for debugging
-            // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.magenta);
+            // angle too large, dont fire
+            // Debug.DrawRay(origin, directionToTarget * castRange, Color.cyan);
+            // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.cyan);
+            // Debug.DrawRay(origin, directionToTarget, Color.red);
         }
+        
+        // draw the ray from the front of the car
+        // Debug.DrawRay(origin, transform.forward * 12, Color.white);
     }
 
     // random missile fire chance function

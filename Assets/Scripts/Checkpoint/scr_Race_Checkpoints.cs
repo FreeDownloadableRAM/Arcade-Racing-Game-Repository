@@ -150,7 +150,7 @@ public class scr_RaceCheckpoints : MonoBehaviour
 
     public int GetRacerPosition(GameObject racer)
     {
-        return Racers.IndexOf(racer); // returns 1 position
+        return Racers.IndexOf(racer); // returns position
     }
 
     public int GetRacerCompletionPosition(GameObject racer)

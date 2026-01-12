@@ -213,7 +213,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
             // check if we collided with game object tagged as item
             if (hitInfo.collider.CompareTag("ItemBox"))
             {
-                Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.green);
+                // Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.green);
 
                 // if there is, set target to it
                 AIMovementTarget = nearestItemBox;
@@ -248,7 +248,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
             }
             else 
             {
-                Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.orange);
+                // Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.orange);
                 AIState = "Race";
                 return;
 
@@ -257,7 +257,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
         }
         else 
         {
-            Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.red);
+            // Scr_Car_AI_Item_Behaviour.DrawBoxCast(origin, boxHalfExtentsItem, transform.rotation, transform.forward, castRange, Color.red);
             AIState = "Race";
             return;
 
