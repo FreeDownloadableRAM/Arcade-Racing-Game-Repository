@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8398491666047492277}
-  m_Layer: 0
-  m_Name: Flamethrower item
+  m_Layer: 17
+  m_Name: Item_FlameThrower
   m_TagString: Flamethrower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8867121295645066058}
   - component: {fileID: 4532595253697851015}
-  m_Layer: 0
+  - component: {fileID: 8174086266692664144}
+  m_Layer: 17
   m_Name: Flamethrower Hitbox
   m_TagString: Flamethrower
   m_Icon: {fileID: 0}
@@ -59,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 5466618291388785897}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 22}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -80,12 +81,27 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 15, y: 15, z: 40}
+  m_Size: {x: 25, y: 25, z: 45}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8174086266692664144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5466618291388785897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c7cafe795eec044aef773fb5d6e9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Flamethrower
+  damageAmountPerSecond: 95
+  destructionTimer: 7
+  particleSpawnDuration: 5
 --- !u!1 &6841376161071876184
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +114,7 @@ GameObject:
   - component: {fileID: 5398707120893648776}
   - component: {fileID: 1491653573426833948}
   - component: {fileID: 3906536496966637550}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Flame Thrower Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,14 +152,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6841376161071876184}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -2066,9 +2082,9 @@ ParticleSystem:
         m_RotationOrder: 4
     radial:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 12
-      minScalar: 0
+      minMaxState: 3
+      scalar: 16
+      minScalar: 6
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2721,7 +2737,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    separateAxis: 0
+    separateAxis: 1
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1

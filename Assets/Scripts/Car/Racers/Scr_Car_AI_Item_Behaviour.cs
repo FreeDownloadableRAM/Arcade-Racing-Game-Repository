@@ -371,6 +371,47 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
             }
         }
+
+        // for now, just use flamethrower as soon as we have it
+        if (itemHeld == "Flamethrower") 
+        {
+            // target zone in front of us
+            // if targets are inside this zone, use flamethrower
+            RaycastHit hitInfo;
+            float castRange = 25f;   // distance forward
+            Vector3 boxHalfExtents = new Vector3(6f, 4f, 2f); // adjust box size as needed
+
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+            // Forward direction
+            Vector3 direction = transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+            if (hit)
+            {
+                if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                {
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+                    // use flamethrower
+                    scr_ItemHandler.UseItemFlamethrower();
+
+                }
+                else
+                {
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.yellow);
+                }
+
+            }
+            
+
+        }
+
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
 

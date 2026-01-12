@@ -45,6 +45,12 @@ public class Scr_Car_Health : MonoBehaviour
     // get laser script component
     private Scr_Item_Pierce_Laser scr_PierceLaser;
 
+    // get flamethrower script component
+    [SerializeField] private Scr_Item_Flamethrower scr_Flamethrower;
+
+    // flame damage trigger flag
+    private bool inFlameArea = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -86,16 +92,54 @@ public class Scr_Car_Health : MonoBehaviour
         originalCarMass = carRigidbody.mass;
 
         
-
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // if health is 0, place car back to last checkpoint passed
         if (internalCarHealth <= 0)
         {
             
             ResetToLastCheckpoint();
+
+        }
+
+        // if flame toggle is true, apply damage over time
+        if (inFlameArea)
+        {
+            // check if flamethrower script is assigned
+            if (scr_Flamethrower == null)
+            {
+                return;
+            }
+
+            // first check if particles are still being spawned
+            if (scr_Flamethrower.GetParticleSpawnDurationValue() <= 0)
+            {
+                // exit if particles are not being spawned anymore
+                return;
+
+            }
+
+            // debug log flamethrower hit
+            // Debug.Log("Laser hit detected on " + gameObject.name);
+
+            // get damage amount from flamethrower script
+            int flamethrowerDamage = scr_Flamethrower.GetFlamethrowerDamagePerSecondAmount();
+
+            // calculate damage per fixed update frame
+            flamethrowerDamage = Mathf.RoundToInt(flamethrowerDamage * Time.fixedDeltaTime);
+
+            // subtract rocket damage from car health
+            internalCarHealth -= Mathf.RoundToInt(flamethrowerDamage);
+
+            // calculateCollisionDamage = false;
+
+            // if health is below 1, play car destruction particles
+            if (internalCarHealth < 1)
+            {
+                Scr_ParticleHandler.PlayCarDestructionParticles();
+            }
 
         }
     }
@@ -203,10 +247,10 @@ public class Scr_Car_Health : MonoBehaviour
         // check if we collided with a missile
         if (collision.gameObject.CompareTag("Missile"))
         {
-            // get rocket script component from missile object if it exists
+            // get missile script component from missile object if it exists
             if (collision.gameObject.TryGetComponent<Scr_Item_Missile>(out scr_ItemMissile))
             {
-                // debug log rocket hit
+                // debug log missile hit
                 // Debug.Log("Missile hit detected on " + gameObject.name);
 
                 // get damage amount from missile script
@@ -239,7 +283,7 @@ public class Scr_Car_Health : MonoBehaviour
         // check if we collided with a laser
         if (collision.gameObject.CompareTag("Laser"))
         {
-            // get rocket script component from missile object if it exists
+            // get laser script component from missile object if it exists
             if (collision.gameObject.TryGetComponent<Scr_Item_Pierce_Laser>(out scr_PierceLaser))
             {
                 // debug log laser hit
@@ -272,8 +316,32 @@ public class Scr_Car_Health : MonoBehaviour
 
         }
 
+    }
 
+    // this if for trigger volumes
+    // ex. for damage for flamethrower
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Flamethrower"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_Item_Flamethrower>(out scr_Flamethrower))
+            {
+                // get componenet
+                scr_Flamethrower = collision.gameObject.GetComponent<Scr_Item_Flamethrower>();
 
+            }
+
+            // toggle flag that we are in flame area
+            inFlameArea = true;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        // toggle flag that we are in flame area
+        inFlameArea = false;
     }
 
     // when we exit collision, re-enable collision damage calculation

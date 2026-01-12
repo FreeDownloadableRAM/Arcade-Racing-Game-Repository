@@ -53,6 +53,9 @@ public class Scr_Item_Handler : MonoBehaviour
     // missile object reference
     [SerializeField] private GameObject missileItemPrefab;
 
+    // flamethrower object reference
+    [SerializeField] private GameObject flamethrowerItemPrefab;
+
     // get car ai simple script
     private CarAISimple scr_CarAISimple;
 
@@ -191,28 +194,34 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.2f)
+                    if (randomItem < 0.15f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.4f)
+                    else if (randomItem < 0.3f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.6f)
+                    else if (randomItem < 0.45f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.8f)
+                    else if (randomItem < 0.6f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
+
+                    }
+                    else if (randomItem < 0.75f)
+                    {
+                        // give item to player
+                        itemHeld = "Flamethrower"; // Flamethrower
 
                     }
                     else
@@ -387,6 +396,35 @@ public class Scr_Item_Handler : MonoBehaviour
         
     }
 
+    // Flamethrower  use function 
+    public void UseItemFlamethrower()
+    {
+        // Create flamethrower object in front of the car
+        // get car position
+        Vector3 carPosition = transform.position;
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+        //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
+
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        // we want to create this object as a child of the car so that it moves with the car
+        GameObject flamethrowerObject = Instantiate(flamethrowerItemPrefab, spawnPosition, spawnRotation, transform);
+        
+
+        // clear item held
+        clearItemHeld();
+    }
+    
 
     // Rocket use function
     public void UseItemRocket()
