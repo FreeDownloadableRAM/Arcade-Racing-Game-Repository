@@ -410,8 +410,18 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                 }
 
             }
-            
+            // run random flamethrower use chance
+            else
+            {
+                if (Time.frameCount % 150 == 0) // try this every 2.5 seconds
+                {
+                    // this is based on race progress.
+                    // the further back in the race we are, the more likely we are to fire the flamethrower when theres nothing nearby
+                    fireFlamethrowerRandomChance();
+                }
 
+            }
+            
         }
 
         // update racer position data
@@ -984,6 +994,45 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
             }
 
+        }
+
+    }
+
+    // random flamethrower fire chance function
+    private void fireFlamethrowerRandomChance()
+    {
+        // if there is someone behind us close by, do not use flamethrower prematurely
+        RaycastHit hitInfo;
+        float castRange = 20f;   // distance backwards
+        Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 5f); // adjust box size as needed
+
+        // Origin of cast
+        Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+        LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+        // backward direction
+        Vector3 direction = -transform.forward;
+
+        // Perform BoxCast 
+        // orientation of the box aligns with the car's rotation 
+        bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+        if (hit)
+        {
+            // There is a car close behind us
+            // do not use item when above hp heal threshold
+            return;
+        }
+
+        // roll random flamethrower fire chance
+        int randomFlamethrowerRoll = Random.Range(0, scr_raceCheckpointsScript.Racers.Count);
+
+        // the further back we are in the race, the more likely we are to use flamethrower at random
+        if (randomFlamethrowerRoll <= position + 1)
+        {
+            // use flamethrower
+            scr_ItemHandler.UseItemFlamethrower();
         }
 
     }
