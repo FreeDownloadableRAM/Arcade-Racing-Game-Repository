@@ -413,7 +413,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             // run random flamethrower use chance
             else
             {
-                if (Time.frameCount % 150 == 0) // try this every 2.5 seconds
+                if (Time.frameCount % 420 == 0) // try this every 7 seconds
                 {
                     // this is based on race progress.
                     // the further back in the race we are, the more likely we are to fire the flamethrower when theres nothing nearby

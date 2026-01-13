@@ -45571,8 +45571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef1a572f36c5041abffbe49591297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 140
-  brakeAcceleration: 96
+  maxAcceleration: 142
+  brakeAcceleration: 98
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -45589,7 +45589,7 @@ MonoBehaviour:
   - wheelModel: {fileID: 7705585632877732790}
     wheelCollider: {fileID: 3129143255064181832}
     axel: 1
-  maxSpeed: 93
+  maxSpeed: 94
   steeringWheelTurnSpeed: 1
   carLightsHandlerScript: {fileID: 0}
 --- !u!114 &4423578555108016624
@@ -45611,7 +45611,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
-  obstacleBaseVisionDistance: 1.25
+  obstacleBaseVisionDistance: 1.5
   obstacleMinVisionDistance: 4.75
   obstacleMaxVisionDistance: 9.25
   obstacleReverseVisionDistance: 0
