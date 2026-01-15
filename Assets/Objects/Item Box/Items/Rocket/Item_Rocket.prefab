@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4469146364997977593}
   - component: {fileID: 8325314064070791593}
   - component: {fileID: 4237902992337655295}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Rocket Flame Thrust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4858,7 +4858,7 @@ GameObject:
   - component: {fileID: 3333100710606354060}
   - component: {fileID: 6151961712459240588}
   - component: {fileID: 2046618622034556573}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Black Smoke Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9701,7 +9701,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4563599368586735495}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Item_Rocket
   m_TagString: Rocket
   m_Icon: {fileID: 0}
@@ -9733,7 +9733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2314381679233551389}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Car Exhaust Object Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9771,7 +9771,7 @@ GameObject:
   - component: {fileID: 3554822845985260975}
   - component: {fileID: 3158335159692802703}
   - component: {fileID: 69757947866640823}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Item_Rocket
   m_TagString: Rocket
   m_Icon: {fileID: 0}

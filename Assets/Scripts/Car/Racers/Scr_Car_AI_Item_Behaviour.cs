@@ -424,6 +424,52 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             
         }
 
+        // shield use case
+        // check if an offensive item is approaching us from behind within a certain range
+        if (itemHeld == "Shield")
+        {
+            if (scr_CarHealth.GetCurrentHealth() < aiHealThreshold * scr_CarHealth.GetMaxHealth())
+            {
+                // if there is an offensive item approaching us from behind, use shield
+                RaycastHit hitInfo;
+                float castRange = 25f;   // distance backwards
+                Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 5f); // adjust box size as needed
+
+                // Origin of cast
+                Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+                LayerMask ItemTargetForMask = LayerMask.GetMask("OffensiveItems", "Flamethrower"); // Layer mask to filter for only Items
+
+                // backward direction
+                Vector3 direction = -transform.forward;
+
+                // Perform BoxCast 
+                // orientation of the box aligns with the car's rotation 
+                bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+                if (hit)
+                {
+                    // There is an offensive item approaching us from behind, use shield
+                    scr_ItemHandler.UseItemShield();
+                    return;
+                }
+
+            }
+            // we have more health that we need
+            else
+            {
+                // use randomized health pack function
+                // so we use the item randomly based on our current health
+                // try this function only 1 time every 3 seconds
+                if (Time.frameCount % 180 == 0)
+                {
+                    shieldSelfChance();
+                }
+
+            }
+
+        }
+
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
 
@@ -1036,5 +1082,58 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         }
 
     }
+
+    // health use case when above heal threshold
+    private void shieldSelfChance()
+    {
+        // if there is a car behind us (close enough that you would see it from the camera view)
+        // do not use shield prematurely, save it on the chance the person behind may have an offensive item
+
+        RaycastHit hitInfo;
+        float castRange = 50f;   // distance backward
+        Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 5f); // adjust box size as needed
+
+        // Origin of cast
+        Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+        LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+        // backward direction
+        Vector3 direction = -transform.forward;
+
+        // Perform BoxCast 
+        // orientation of the box aligns with the car's rotation 
+        bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+        if (hit)
+        {
+            // There is a car close behind us
+            // do not use item when above hp heal threshold
+            return;
+        }
+        // if we are in last, dont hold onto heal item, it does nothing for us to catch up to racers
+        else if ((position + 1) == scr_raceCheckpointsScript.Racers.Count)
+        {
+            // use health pack
+            scr_ItemHandler.UseItemShield();
+        }
+        else
+        {
+            // If there isnt anyone behind us, roll random heal chance
+            int randomHealRoll = Random.Range(0, scr_CarHealth.GetMaxHealth());
+
+            // if the randomly generated number is higher than our current health, heal
+            // the odds to heal are higher the lower our current health
+            if (randomHealRoll >= scr_CarHealth.GetCurrentHealth())
+            {
+                // use health pack
+                scr_ItemHandler.UseItemShield();
+
+            }
+
+        }
+
+    }
+
 
 }

@@ -56,6 +56,14 @@ public class Scr_Item_Handler : MonoBehaviour
     // flamethrower object reference
     [SerializeField] private GameObject flamethrowerItemPrefab;
 
+    // shield object reference 
+    [SerializeField] private GameObject shieldItemPrefab;
+
+    // helpers
+    private bool isShieldActive = false;
+    private float shieldDuration = 5.0f;
+    private float shieldTimer = 0.0f;
+
     // get car ai simple script
     private CarAISimple scr_CarAISimple;
 
@@ -164,6 +172,22 @@ public class Scr_Item_Handler : MonoBehaviour
             }
         }
 
+        // count down shield timer if shield is active
+        if (isShieldActive)
+        {
+            // shield is active, count up timer
+            // once it equals or is higher than shield duration, deactivate shield
+            shieldTimer += Time.fixedDeltaTime;
+
+            if (shieldTimer >= shieldDuration)
+            {
+                // deactivate shield
+                isShieldActive = false;
+                shieldTimer = 0.0f; // reset timer
+            }
+
+        }
+
         // update racer position data
         // if we are at item 0 in the racer list, we are in first place, but this will return 1.
         // So if we want to get the position ahead of us, from us, we subtract 2 from our position.
@@ -194,34 +218,40 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.15f)
+                    if (randomItem < 0.01f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.3f)
+                    else if (randomItem < 0.03f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.45f)
+                    else if (randomItem < 0.5f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.6f)
+                    else if (randomItem < 0.06f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.09f)
                     {
                         // give item to player
                         itemHeld = "Flamethrower"; // Flamethrower
+
+                    }
+                    else if (randomItem < 0.95f)
+                    {
+                        // give item to player
+                        itemHeld = "Shield"; // Shield
 
                     }
                     else
@@ -419,12 +449,50 @@ public class Scr_Item_Handler : MonoBehaviour
 
         // we want to create this object as a child of the car so that it moves with the car
         GameObject flamethrowerObject = Instantiate(flamethrowerItemPrefab, spawnPosition, spawnRotation, transform);
-        
+       
+        // clear item held
+        clearItemHeld();
+    }
+
+    // Shield use function 
+    public void UseItemShield()
+    {
+        // Create Chield object in the CENTER of the car
+        // get car position
+        Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+        //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
+
+        Vector3 spawnPosition = carPosition;
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        // we want to create this object as a child of the car so that it moves with the car
+        GameObject ShieldObject = Instantiate(shieldItemPrefab, spawnPosition, spawnRotation, transform);
+
+        // set destruction timer for shield
+        ShieldObject.GetComponentInChildren<Scr_Item_Shield>().SetShieldDestructionTimer(shieldDuration); // shield lasts for 5 seconds
+
+        // set shield active to true
+        isShieldActive = true;
 
         // clear item held
         clearItemHeld();
     }
-    
+
+    // return if shield is active for car health script
+    public bool IsShieldActive()
+    {
+        return isShieldActive;
+    }
 
     // Rocket use function
     public void UseItemRocket()

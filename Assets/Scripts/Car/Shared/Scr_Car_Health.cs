@@ -48,6 +48,9 @@ public class Scr_Car_Health : MonoBehaviour
     // get flamethrower script component
     [SerializeField] private Scr_Item_Flamethrower scr_Flamethrower;
 
+    // get item handler script component
+    private Scr_Item_Handler scr_itemHandler;
+
     // flame damage trigger flag
     private bool inFlameArea = false;
 
@@ -67,6 +70,9 @@ public class Scr_Car_Health : MonoBehaviour
 
         // reference particle handler
         Scr_ParticleHandler = GetComponent<Scr_Particle_Handler>();
+
+        // reference item handler script
+        scr_itemHandler = GetComponent<Scr_Item_Handler>();
 
         // if this is an ai car, get its controller
         if (gameObject.CompareTag("AI"))
@@ -171,7 +177,17 @@ public class Scr_Car_Health : MonoBehaviour
         {
             return;
         }
-        
+
+        // check if shield is active on car
+        // reference it from item handler script
+        if (scr_itemHandler != null)
+        {
+            if (scr_itemHandler.IsShieldActive())
+            {
+                // if shield is active, do not apply collision damage
+                return;
+            }
+        }
 
         // check if we collided with an obstacle
         if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Props")

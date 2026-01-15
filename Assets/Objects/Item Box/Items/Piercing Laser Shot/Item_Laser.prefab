@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5088077065913924191}
   - component: {fileID: 7215810501586712875}
   - component: {fileID: 7852730986352637331}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Item_Laser
   m_TagString: Laser
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4998632624566680098}
   - component: {fileID: 6832737135102622351}
   - component: {fileID: 2713458824803557969}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Laser Projectile Effect Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -23,6 +23,7 @@ TagManager:
   - Missile
   - Laser
   - Flamethrower
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -42,8 +43,8 @@ TagManager:
   - ItemBoxes
   - Cops
   - Flamethrower
-  - 
-  - 
+  - OffensiveItems
+  - DefensiveItems
   - 
   - 
   - 
