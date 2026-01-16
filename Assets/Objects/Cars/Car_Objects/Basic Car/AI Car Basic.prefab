@@ -40359,6 +40359,7 @@ MonoBehaviour:
   missileItemPrefab: {fileID: 5632438409398279603, guid: a2bbede836595ae4c84808555af05a4f, type: 3}
   flamethrowerItemPrefab: {fileID: 5348663636716081703, guid: c54939a4b47b3c04aa1afe8fe78986ab, type: 3}
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
+  shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
 --- !u!114 &2151489223292832843
 MonoBehaviour:
   m_ObjectHideFlags: 0

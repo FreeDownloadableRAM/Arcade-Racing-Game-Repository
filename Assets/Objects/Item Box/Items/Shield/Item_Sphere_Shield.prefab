@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba92b45849ba6a64dae3a09f93494b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Shield
-  destructionTimer: 5
+  shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
 --- !u!1 &7434488441825796331
 GameObject:
   m_ObjectHideFlags: 0

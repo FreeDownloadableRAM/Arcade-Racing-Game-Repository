@@ -4,7 +4,7 @@ public class Scr_Item_Shield : MonoBehaviour
 {
     // self destruction timer
     private float destructionTimer; // in seconds
-    
+
     // Update 
     void FixedUpdate()
     {
@@ -21,6 +21,7 @@ public class Scr_Item_Shield : MonoBehaviour
     // flamethrower destruction effect function
     private void ShieldTurnOffEffect()
     {
+        
         // destroy our laser object
         Destroy(transform.parent.gameObject);
     }

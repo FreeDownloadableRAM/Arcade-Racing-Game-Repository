@@ -59,6 +59,9 @@ public class Scr_Item_Handler : MonoBehaviour
     // shield object reference 
     [SerializeField] private GameObject shieldItemPrefab;
 
+    // shield dispersion effect prefab
+    [SerializeField] private GameObject shieldDispersionEffectPrefab;
+
     // helpers
     private bool isShieldActive = false;
     private float shieldDuration = 5.0f;
@@ -181,9 +184,18 @@ public class Scr_Item_Handler : MonoBehaviour
 
             if (shieldTimer >= shieldDuration)
             {
+                // create shield dispersion effect
+                GameObject shieldDispersionObject = Instantiate(shieldDispersionEffectPrefab, transform.position, transform.rotation);
+
+                // get our car speed to give it to the shield dispersion effect
+                float carSpeed = carRigidbody.linearVelocity.magnitude;
+
+                shieldDispersionObject.GetComponentInChildren<Scr_Item_Shield_Dispersion>().SetInitialSpeed(carSpeed);
+
                 // deactivate shield
                 isShieldActive = false;
                 shieldTimer = 0.0f; // reset timer
+
             }
 
         }
@@ -349,6 +361,21 @@ public class Scr_Item_Handler : MonoBehaviour
         if (newHealth > scr_CarHealth.GetMaxHealth())
         {
             newHealth = scr_CarHealth.GetMaxHealth();
+        }
+
+        // if our current health is below zero, we cant heal
+        if (currentHealth <= 0)
+        {
+            // restore car health
+            scr_CarHealth.SetCurrentHealth(0);
+
+            // play heal particles
+            scr_ParticleHandler.PlayHealParticles();
+
+            // cant heal, car is destroyed
+            // clear item held
+            clearItemHeld();
+            return;
         }
 
         // restore car health
