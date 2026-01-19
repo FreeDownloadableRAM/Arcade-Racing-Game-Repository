@@ -5429,7 +5429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Handler
   itemHeld: 
-  rocketSpawnOffset: 4.5
+  rocketSpawnOffset: 5
   rocketSpawnHeightOffset: 1.5
   laserItemPrefab: {fileID: 238546991540539590, guid: 923e231d5cd2c4643bc13012678faa4c, type: 3}
   rocketItemPrefab: {fileID: 6007389463334106660, guid: 6cee495441d5ab9458bfe54e5ab7f2f4, type: 3}
