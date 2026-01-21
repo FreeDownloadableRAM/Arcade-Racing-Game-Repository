@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Scr_Ghost_Ball : MonoBehaviour
+public class Scr_Item_Ghost_Ball : MonoBehaviour
 {
     // missile properties
     [SerializeField] private float initialSpeed;
@@ -10,7 +10,7 @@ public class Scr_Ghost_Ball : MonoBehaviour
 
     [SerializeField] private float destructionTimer;
     [SerializeField] private float destructionStartValue;
-    [SerializeField] private GameObject explosionRocketEffectPrefab;
+    [SerializeField] private GameObject explosionGhostEffectPrefab;
 
     // lock on properties
     [Header("Homing")]
@@ -196,7 +196,7 @@ public class Scr_Ghost_Ball : MonoBehaviour
 
         if (destructionTimer <= 0f)
         {
-            RocketExplosionEffect();
+            GhostExplosionEffect();
         }
     }
 
@@ -204,43 +204,30 @@ public class Scr_Ghost_Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // for the first few moments of object creation, ignore collision with terrain
-        if (destructionTimer > (destructionStartValue - 0.35f))
+        // Ghosts do not collide with anything but players and AI cars
+        if (collision.gameObject.CompareTag("Cars") || collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("AI"))
         {
-            if (!collision.gameObject.CompareTag("AI") || !collision.gameObject.CompareTag("Player"))
-            {
-                // do not destroy
-
-            }
-            else 
-            {
-                // we collided with a player or car
-                RocketExplosionEffect();
-            }
-
+            // we collided with a player or car
+            GhostExplosionEffect();
         }
-        else 
-        {
-            RocketExplosionEffect();
-
-        }
+        
     }
 
-    private void RocketExplosionEffect()
+    private void GhostExplosionEffect()
     {
         Vector3 spawnPos = transform.position + transform.forward * 0.25f;
-        Instantiate(explosionRocketEffectPrefab, spawnPos, transform.rotation);
+        Instantiate(explosionGhostEffectPrefab, spawnPos, transform.rotation);
         Destroy(transform.root.gameObject);
     }
 
     // ------------------ PUBLIC API ------------------
 
-    public int GetMissileDamageAmount()
+    public int GetGhostDamageAmount()
     {
         return damageAmount;
     }
 
-    public float SetInitialMissileSpeed(float speed)
+    public float SetInitialGhostSpeed(float speed)
     {
         initialSpeed = speed;
         return initialSpeed;

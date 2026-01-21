@@ -470,6 +470,15 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
         }
 
+        // Ghost ball use case
+        if (itemHeld == "Ghosts") 
+        { 
+            // just use item
+            scr_ItemHandler.UseItemGhosts();
+
+
+        }
+
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
 

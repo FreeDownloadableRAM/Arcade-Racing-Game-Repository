@@ -45,6 +45,9 @@ public class Scr_Car_Health : MonoBehaviour
     // get laser script component
     private Scr_Item_Pierce_Laser scr_PierceLaser;
 
+    // get ghost ball script component
+    private Scr_Item_Ghost_Ball scr_ItemGhost;
+
     // get flamethrower script component
     [SerializeField] private Scr_Item_Flamethrower scr_Flamethrower;
 
@@ -332,6 +335,43 @@ public class Scr_Car_Health : MonoBehaviour
 
         }
 
+        // check if we collided with a rocket
+        if (collision.gameObject.CompareTag("Ghost Ball"))
+        {
+            // get rocket script component from rocket object if it exists
+            if (collision.gameObject.TryGetComponent<Scr_Item_Ghost_Ball>(out scr_ItemGhost))
+            {
+                // debug log rocket hit
+                // Debug.Log("Rocket hit detected on " + gameObject.name);
+
+                // get damage amount from rocket script
+                int ghostDamage = scr_ItemGhost.GetGhostDamageAmount();
+
+                // subtract rocket damage from car health
+                internalCarHealth -= Mathf.RoundToInt(ghostDamage);
+
+                // calculateCollisionDamage = false;
+
+                // if health is below 1, play car destruction particles
+                if (internalCarHealth < 1)
+                {
+                    Scr_ParticleHandler.PlayCarDestructionParticles();
+                }
+
+                // debug
+                // what did we collide with and how much damage did it do?
+                // Debug.Log("Detected collision with: " + collision.gameObject.name + " on object: " + gameObject.name + " dealing " + rocketDamage + " worth of damage.");
+
+            }
+            else
+            {
+                // if we cannot get rocket script, return
+                return;
+            }
+
+        }
+
+
     }
 
     // this if for trigger volumes
@@ -358,6 +398,22 @@ public class Scr_Car_Health : MonoBehaviour
     {
         // toggle flag that we are in flame area
         inFlameArea = false;
+    }
+
+    // while we are in trigger volume
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Flamethrower"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_Item_Flamethrower>(out scr_Flamethrower))
+            {
+                // get componenet
+                scr_Flamethrower = collision.gameObject.GetComponent<Scr_Item_Flamethrower>();
+            }
+            // toggle flag that we are in flame area
+            inFlameArea = true;
+        }
     }
 
     // when we exit collision, re-enable collision damage calculation

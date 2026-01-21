@@ -62,6 +62,9 @@ public class Scr_Item_Handler : MonoBehaviour
     // shield dispersion effect prefab
     [SerializeField] private GameObject shieldDispersionEffectPrefab;
 
+    // Ghost balls object reference
+    [SerializeField] private GameObject ghostItemPrefab;
+
     // helpers
     private bool isShieldActive = false;
     private float shieldDuration = 5.0f;
@@ -230,40 +233,46 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.15f)
+                    if (randomItem < 0.015f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.3f)
+                    else if (randomItem < 0.03f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.45f)
+                    else if (randomItem < 0.045f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.6f)
+                    else if (randomItem < 0.055f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.065f)
                     {
                         // give item to player
                         itemHeld = "Flamethrower"; // Flamethrower
 
                     }
-                    else if (randomItem < 0.9f)
+                    else if (randomItem < 0.08f)
                     {
                         // give item to player
                         itemHeld = "Shield"; // Shield
+
+                    }
+                    else if (randomItem < 0.9f)
+                    {
+                        // give item to player
+                        itemHeld = "Ghosts"; // Ghost Balls
 
                     }
                     else
@@ -609,6 +618,114 @@ public class Scr_Item_Handler : MonoBehaviour
         // clear item held
         clearItemHeld();
     }
+
+    // Rocket use function
+    public void UseItemGhosts()
+    {
+        // Create Ghost projectiles and launch it forward from the car
+        // get car position
+        Vector3 carPosition = transform.position;
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        // we will create 3 ghosts that home in on the next 3 racers ahead of us
+        // set the homing target
+        int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
+        int targetPositionIndexTwo = position - 2; // second target
+        int targetPositionIndexThree = position - 3; // third target
+
+        // make sure target position index is within bounds
+        if (targetPositionIndex < 0)
+        {
+            // set target position index to last racer if out of range
+            targetPositionIndex = scr_raceCheckpointsScript.Racers.Count() - 1;
+
+        }
+        if (targetPositionIndexTwo < 0)
+        {
+            // set target position index to last racer if out of range
+            targetPositionIndexTwo = scr_raceCheckpointsScript.Racers.Count() - 2;
+        }
+        if (targetPositionIndexThree < 0)
+        {
+            // set target position index to last racer if out of range
+            targetPositionIndexThree = scr_raceCheckpointsScript.Racers.Count() - 3;
+        }
+
+        // this gets the actual racer game object that we need to home in on based on their position
+        GameObject homingTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
+
+        // target two
+        GameObject homingTargetTwo = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndexTwo);
+
+        // target three
+        GameObject homingTargetThree = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndexThree);
+
+
+        // get the car height off ground ray cast offset from the target car to aim for
+        // so that we aim at the center of the car rather than the ground
+        Vector3 targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+
+        // target two
+        Vector3 targetCarHeightOffsetTwo = homingTargetTwo.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+
+        // target three
+        Vector3 targetCarHeightOffsetThree = homingTargetThree.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+
+        // Target one
+        // create the Ghost projectile from prefab and set its initial ghost speed 
+        GameObject GhostProjectile = Instantiate(ghostItemPrefab, spawnPosition, spawnRotation);
+
+        // get our own car's linear velocity to set the initial rocket speed accordingly
+        float carSpeed = carRigidbody.linearVelocity.magnitude;
+
+        GhostProjectile.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetInitialGhostSpeed(1.2f * carSpeed); // set initial rocket speed to 110% of current car speed
+
+        // set homing target for Ghost
+        GhostProjectile.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTarget(homingTarget.transform);
+
+        // set target height offset to target center of target
+        GhostProjectile.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTargetHeightOffset(targetCarHeightOffset);
+
+        // Target two
+        // create the Ghost projectile from prefab and set its initial ghost speed 
+        GameObject GhostProjectileTwo = Instantiate(ghostItemPrefab, spawnPosition, spawnRotation);
+
+        GhostProjectileTwo.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetInitialGhostSpeed(1.2f * carSpeed); // set initial rocket speed to 110% of current car speed
+
+        // set homing target for Ghost
+        GhostProjectileTwo.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTarget(homingTargetTwo.transform);
+
+        // set target height offset to target center of target
+        GhostProjectileTwo.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTargetHeightOffset(targetCarHeightOffsetTwo);
+
+        // Target three
+        // create the Ghost projectile from prefab and set its initial ghost speed 
+        GameObject GhostProjectileThree = Instantiate(ghostItemPrefab, spawnPosition, spawnRotation);
+
+        GhostProjectileThree.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetInitialGhostSpeed(1.2f * carSpeed); // set initial rocket speed to 110% of current car speed
+
+        // set homing target for Ghost
+        GhostProjectileThree.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTarget(homingTargetThree.transform);
+
+        // set target height offset to target center of target
+        GhostProjectileThree.GetComponentInChildren<Scr_Item_Ghost_Ball>().SetHomingTargetHeightOffset(targetCarHeightOffsetThree);
+
+
+        // clear item held
+        clearItemHeld();
+    }
+
 
     // get rocket spawn offset
     public float getRocketSpawnOffset()
