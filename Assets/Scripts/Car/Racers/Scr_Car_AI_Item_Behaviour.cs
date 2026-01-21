@@ -433,7 +433,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                 // if there is an offensive item approaching us from behind, use shield
                 RaycastHit hitInfo;
                 float castRange = 25f;   // distance backwards
-                Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 5f); // adjust box size as needed
+                Vector3 boxHalfExtents = new Vector3(15f, 5f, 7.5f); // adjust box size as needed
 
                 // Origin of cast
                 Vector3 origin = scr_CarAISimple.getCarOrigin();

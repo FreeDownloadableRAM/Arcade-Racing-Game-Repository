@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 433817463147475023}
   m_Layer: 8
   m_Name: Item_Ghost_Dispersion_Effect
-  m_TagString: Shield
+  m_TagString: Ghost Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
