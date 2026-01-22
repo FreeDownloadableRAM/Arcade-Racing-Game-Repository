@@ -25,6 +25,7 @@ TagManager:
   - Flamethrower
   - Shield
   - Ghost Ball
+  - Shock Beam
   layers:
   - Default
   - TransparentFX
