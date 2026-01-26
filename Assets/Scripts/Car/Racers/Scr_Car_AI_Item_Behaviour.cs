@@ -428,32 +428,28 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // check if an offensive item is approaching us from behind within a certain range
         if (itemHeld == "Shield")
         {
-            if (scr_CarHealth.GetCurrentHealth() < aiHealThreshold * scr_CarHealth.GetMaxHealth())
+            // if there is an offensive item approaching us from behind, use shield
+            RaycastHit hitInfo;
+            float castRange = 25f;   // distance backwards
+            Vector3 boxHalfExtents = new Vector3(15f, 5f, 7.5f); // adjust box size as needed
+
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            LayerMask ItemTargetForMask = LayerMask.GetMask("OffensiveItems", "Flamethrower"); // Layer mask to filter for only Items
+
+            // backward direction
+            Vector3 direction = -transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+            if (hit)
             {
-                // if there is an offensive item approaching us from behind, use shield
-                RaycastHit hitInfo;
-                float castRange = 25f;   // distance backwards
-                Vector3 boxHalfExtents = new Vector3(15f, 5f, 7.5f); // adjust box size as needed
-
-                // Origin of cast
-                Vector3 origin = scr_CarAISimple.getCarOrigin();
-
-                LayerMask ItemTargetForMask = LayerMask.GetMask("OffensiveItems", "Flamethrower"); // Layer mask to filter for only Items
-
-                // backward direction
-                Vector3 direction = -transform.forward;
-
-                // Perform BoxCast 
-                // orientation of the box aligns with the car's rotation 
-                bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
-
-                if (hit)
-                {
-                    // There is an offensive item approaching us from behind, use shield
-                    scr_ItemHandler.UseItemShield();
-                    return;
-                }
-
+                // There is an offensive item approaching us from behind, use shield
+                scr_ItemHandler.UseItemShield();
+                return;
             }
             // we have more health that we need
             else
@@ -472,10 +468,45 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
         // Ghost ball use case
         if (itemHeld == "Ghosts") 
-        { 
-            // just use item
-            scr_ItemHandler.UseItemGhosts();
+        {
 
+            // target zone in front of us
+            // if targets are inside this zone, use Ghosts
+            RaycastHit hitInfo;
+            float castRange = 75f;   // distance forward
+            Vector3 boxHalfExtents = new Vector3(12f, 4f, 15f); // adjust box size as needed
+
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+            // Forward direction
+            Vector3 direction = transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+            if (hit)
+            {
+                if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                {
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+                    // use Ghosts
+                    scr_ItemHandler.UseItemGhosts();
+
+                }
+                
+            }
+            else 
+            {
+                if (Time.frameCount % 120 == 0) 
+                {
+                    useGhostChance();
+                }
+                
+            }
 
         }
 
@@ -1129,11 +1160,11 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         else
         {
             // If there isnt anyone behind us, roll random heal chance
-            int randomHealRoll = Random.Range(0, scr_CarHealth.GetMaxHealth());
+            int randomShieldRoll = Random.Range(0, scr_raceCheckpointsScript.Racers.Count);
 
             // if the randomly generated number is higher than our current health, heal
             // the odds to heal are higher the lower our current health
-            if (randomHealRoll >= scr_CarHealth.GetCurrentHealth())
+            if (randomShieldRoll <= position)
             {
                 // use health pack
                 scr_ItemHandler.UseItemShield();
@@ -1144,5 +1175,32 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
     }
 
+    // Use ghost case
+    private void useGhostChance()
+    {
+        // increase odds of using ghost the further back we are
+        // if we are in last, dont hold onto heal item, it does nothing for us to catch up to racers
+        if ((position + 1) == scr_raceCheckpointsScript.Racers.Count)
+        {
+            // use health pack
+            scr_ItemHandler.UseItemShield();
+        }
+        else
+        {
+            // If there isnt anyone behind us, roll random heal chance
+            int randomGhostRoll = Random.Range(0, scr_raceCheckpointsScript.Racers.Count);
+
+            // if the randomly generated number is higher than our current health, heal
+            // the odds to heal are higher the lower our current health
+            if (randomGhostRoll <= position)
+            {
+                // use health pack
+                scr_ItemHandler.UseItemGhosts();
+
+            }
+
+        }
+
+    }
 
 }
