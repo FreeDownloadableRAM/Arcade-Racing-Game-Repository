@@ -65,6 +65,19 @@ public class Scr_Item_Handler : MonoBehaviour
     // Ghost balls object reference
     [SerializeField] private GameObject ghostItemPrefab;
 
+    // beam item prefabs
+    // charge
+    [SerializeField] private GameObject beamItemChargePrefab;
+    // charge duration
+    private float beamChargeTimer = 0f;
+    private float beamChargeDuration = 1f;
+
+    // fire
+    [SerializeField] private GameObject beamItemFirePrefab;
+    private float beamFireTimer = 0f;
+    private float beamFireDuration = 1f;
+
+
     // helpers
     private bool isShieldActive = false;
     private float shieldDuration = 5.0f;

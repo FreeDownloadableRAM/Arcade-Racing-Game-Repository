@@ -4885,6 +4885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7212245882553796306}
+  - component: {fileID: 3338330111454918795}
   m_Layer: 18
   m_Name: Item_Shock_Beam_Charge
   m_TagString: Shock Beam
@@ -4910,6 +4911,18 @@ Transform:
   - {fileID: 7913339143463931168}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3338330111454918795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5561116882543703895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25fe749d1f5dfc40b54b2eaffcc58ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Beam_Charge
 --- !u!1 &6295610827923766197
 GameObject:
   m_ObjectHideFlags: 0
