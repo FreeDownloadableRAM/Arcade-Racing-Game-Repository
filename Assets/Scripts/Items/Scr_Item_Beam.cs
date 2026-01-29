@@ -5,6 +5,9 @@ public class Scr_Item_Beam : MonoBehaviour
     // object duration timer
     private float destructionTimer; // in seconds
 
+    // damage per second
+    [SerializeField] private int shockBeamDPS;
+
     // Update 
     void FixedUpdate()
     {
@@ -16,6 +19,12 @@ public class Scr_Item_Beam : MonoBehaviour
         {
             BeamFireOffEffect();
         }
+    }
+
+    // return the damage amount the flamethrower does on impact
+    public int GetShockBeamDPS()
+    {
+        return shockBeamDPS;
     }
 
     // beam fire destruction effect function

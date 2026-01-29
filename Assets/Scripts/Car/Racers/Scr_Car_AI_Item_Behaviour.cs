@@ -510,6 +510,14 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
         }
 
+        // shock beam use case
+        if (itemHeld == "Shock Beam")
+        {
+            // uuse shock beam immediiately when we have it
+            // for now
+            scr_ItemHandler.UseItemShockBeam();
+
+        }
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
 

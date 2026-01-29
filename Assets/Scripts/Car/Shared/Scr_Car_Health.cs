@@ -51,11 +51,17 @@ public class Scr_Car_Health : MonoBehaviour
     // get flamethrower script component
     [SerializeField] private Scr_Item_Flamethrower scr_Flamethrower;
 
+    // get shock beam script component
+    private Scr_Item_Beam scr_ItemShockBeam;
+
     // get item handler script component
     private Scr_Item_Handler scr_itemHandler;
 
     // flame damage trigger flag
     private bool inFlameArea = false;
+
+    // shock beam damage trigger flag
+    private bool inChargeBeam = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -100,7 +106,6 @@ public class Scr_Car_Health : MonoBehaviour
         // get original car mass
         originalCarMass = carRigidbody.mass;
 
-        
     }
 
     void FixedUpdate()
@@ -151,6 +156,37 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
         }
+
+        // if shock beam toggle is true, apply damage over time
+        if (inChargeBeam)
+        {
+            // check if shock beam script is assigned
+            if (scr_ItemShockBeam == null)
+            {
+                return;
+            }
+
+            // debug log flamethrower hit
+            // Debug.Log("Laser hit detected on " + gameObject.name);
+
+            // get damage amount from shock beam script
+            int shockBeamDamage = scr_ItemShockBeam.GetShockBeamDPS();
+
+            // calculate damage per fixed update frame
+            shockBeamDamage = Mathf.RoundToInt(shockBeamDamage * Time.fixedDeltaTime);
+
+            // subtract rocket damage from car health
+            internalCarHealth -= Mathf.RoundToInt(shockBeamDamage);
+
+            // calculateCollisionDamage = false;
+
+            // if health is below 1, play car destruction particles
+            if (internalCarHealth < 1)
+            {
+                Scr_ParticleHandler.PlayCarDestructionParticles();
+            }
+
+        }
     }
 
     // get current health
@@ -169,7 +205,6 @@ public class Scr_Car_Health : MonoBehaviour
     {
         internalCarHealth = healthAmount;
     }
-
 
     // check if we collided with other object
     private void OnCollisionEnter(Collision collision)
@@ -391,13 +426,33 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
+        if (collision.gameObject.CompareTag("ShockBeam"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
+            {
+                // get componenet
+                scr_ItemShockBeam = collision.gameObject.GetComponent<Scr_Item_Beam>();
+
+            }
+
+            // toggle flag that we are in flame area
+            inChargeBeam = true;
+        }
 
     }
 
     private void OnTriggerExit(Collider collision)
     {
         // toggle flag that we are in flame area
-        inFlameArea = false;
+        if (collision.gameObject.CompareTag("Flamethrower")) 
+        { 
+            inFlameArea = false;
+        }
+        if (collision.gameObject.CompareTag("ShockBeam"))
+        {
+            inChargeBeam = false;
+        }
     }
 
     // while we are in trigger volume
@@ -414,6 +469,20 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
+        if (collision.gameObject.CompareTag("ShockBeam"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
+            {
+                // get componenet
+                scr_ItemShockBeam = collision.gameObject.GetComponent<Scr_Item_Beam>();
+
+            }
+
+            // toggle flag that we are in flame area
+            inChargeBeam = true;
+        }
+
     }
 
     // when we exit collision, re-enable collision damage calculation

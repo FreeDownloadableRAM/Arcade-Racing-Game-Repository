@@ -71,13 +71,16 @@ public class Scr_Item_Handler : MonoBehaviour
     // charge duration
     private float beamChargeTimer = 0f;
     private float beamChargeDuration = 1f;
+    private float beamDestructionTimer = 3f;
     private bool isChargeBeamActive = false;
 
     // fire
     [SerializeField] private GameObject shockBeamItemFirePrefab;
     private float beamFireTimer = 0f;
-    private float beamFireDuration = 1f;
+    private float beamFireDuration = 0.5f;
     private bool isShockBeamActive = false;
+
+    [SerializeField] private float beamSpawnHeightOffset = 0.6f;
 
 
     // helpers
@@ -227,8 +230,26 @@ public class Scr_Item_Handler : MonoBehaviour
 
             if (beamChargeTimer >= beamChargeDuration)
             {
+                // Create Chield object in the front of the car
+                // get car position
+                Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+
+                // get car forward direction
+                Vector3 carForward = transform.forward;
+
+                // get car rotation angle
+                Quaternion carRotation = transform.rotation;
+
+                // calculate spawn position for rocket (in front of car)
+                //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
+
+                Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
+
+                // set projectile rotation to match car rotation
+                Quaternion spawnRotation = carRotation;
+
                 // create actual firing beam
-                GameObject shockBeamFireObject = Instantiate(shockBeamItemFirePrefab, transform.position, transform.rotation);
+                GameObject shockBeamFireObject = Instantiate(shockBeamItemFirePrefab, spawnPosition, spawnRotation, transform);
 
                 // timer to send to object so that it can self destruct after duration
                 shockBeamFireObject.GetComponentInChildren<Scr_Item_Beam>().SetBeamFireDestructionTimer(beamFireDuration);
@@ -274,43 +295,43 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.15f)
+                    if (randomItem < 0.015f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.25f)
+                    else if (randomItem < 0.025f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.35f)
+                    else if (randomItem < 0.035f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.45f)
+                    else if (randomItem < 0.045f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
 
                     }
-                    else if (randomItem < 0.55f)
+                    else if (randomItem < 0.055f)
                     {
                         // give item to player
                         itemHeld = "Flamethrower"; // Flamethrower
 
                     }
-                    else if (randomItem < 0.65f)
+                    else if (randomItem < 0.065f)
                     {
                         // give item to player
                         itemHeld = "Shield"; // Shield
 
                     }
-                    else if (randomItem < 0.75f)
+                    else if (randomItem < 0.075f)
                     {
                         // give item to player
                         itemHeld = "Ghosts"; // Ghost Balls
@@ -587,7 +608,7 @@ public class Scr_Item_Handler : MonoBehaviour
         // calculate spawn position for rocket (in front of car)
         //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
 
-        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
 
         // set projectile rotation to match car rotation
         Quaternion spawnRotation = carRotation;
@@ -596,7 +617,7 @@ public class Scr_Item_Handler : MonoBehaviour
         GameObject ShockBeamChargeObject = Instantiate(shockBeamItemChargePrefab, spawnPosition, spawnRotation, transform);
 
         // set destruction timer for shield
-        ShockBeamChargeObject.GetComponentInChildren<Scr_Item_Beam_Charge>().SetBeamChargeDestructionTimer(beamChargeDuration); // shield lasts for 5 seconds
+        ShockBeamChargeObject.GetComponentInChildren<Scr_Item_Beam_Charge>().SetBeamChargeDestructionTimer(beamDestructionTimer); // shield lasts for 5 seconds
 
         // set shock beam charge active to true
         isChargeBeamActive = true;
@@ -604,6 +625,8 @@ public class Scr_Item_Handler : MonoBehaviour
         // clear item held
         clearItemHeld();
     }
+
+    
 
     // return if shield is active for car health script
     public bool IsShieldActive()
