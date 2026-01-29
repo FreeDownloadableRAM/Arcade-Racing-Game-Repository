@@ -76,9 +76,9 @@ public class Scr_Item_Handler : MonoBehaviour
 
     // fire
     [SerializeField] private GameObject shockBeamItemFirePrefab;
-    private float beamFireTimer = 0f;
+    // private float beamFireTimer = 0f;
     private float beamFireDuration = 0.5f;
-    private bool isShockBeamActive = false;
+    // private bool isShockBeamActive = false;
 
     [SerializeField] private float beamSpawnHeightOffset = 0.6f;
 
@@ -252,7 +252,7 @@ public class Scr_Item_Handler : MonoBehaviour
                 GameObject shockBeamFireObject = Instantiate(shockBeamItemFirePrefab, spawnPosition, spawnRotation, transform);
 
                 // timer to send to object so that it can self destruct after duration
-                shockBeamFireObject.GetComponentInChildren<Scr_Item_Beam>().SetBeamFireDestructionTimer(beamFireDuration);
+                shockBeamFireObject.GetComponentInChildren<Scr_Item_Ion_Beam>().SetBeamFireDestructionTimer(beamFireDuration);
 
                 // deactivate shield
                 isChargeBeamActive = false;
@@ -617,7 +617,7 @@ public class Scr_Item_Handler : MonoBehaviour
         GameObject ShockBeamChargeObject = Instantiate(shockBeamItemChargePrefab, spawnPosition, spawnRotation, transform);
 
         // set destruction timer for shield
-        ShockBeamChargeObject.GetComponentInChildren<Scr_Item_Beam_Charge>().SetBeamChargeDestructionTimer(beamDestructionTimer); // shield lasts for 5 seconds
+        ShockBeamChargeObject.GetComponentInChildren<Scr_Item_Ion_Beam_Charge>().SetBeamChargeDestructionTimer(beamDestructionTimer); // shield lasts for 5 seconds
 
         // set shock beam charge active to true
         isChargeBeamActive = true;

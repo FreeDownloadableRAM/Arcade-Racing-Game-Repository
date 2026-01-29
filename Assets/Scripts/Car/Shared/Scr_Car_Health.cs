@@ -51,8 +51,8 @@ public class Scr_Car_Health : MonoBehaviour
     // get flamethrower script component
     [SerializeField] private Scr_Item_Flamethrower scr_Flamethrower;
 
-    // get shock beam script component
-    private Scr_Item_Beam scr_ItemShockBeam;
+    // get Ion Beam script component
+    private Scr_Item_Ion_Beam scr_ItemIonBeam;
 
     // get item handler script component
     private Scr_Item_Handler scr_itemHandler;
@@ -60,7 +60,7 @@ public class Scr_Car_Health : MonoBehaviour
     // flame damage trigger flag
     private bool inFlameArea = false;
 
-    // shock beam damage trigger flag
+    // Ion Beam damage trigger flag
     private bool inChargeBeam = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -127,6 +127,17 @@ public class Scr_Car_Health : MonoBehaviour
                 return;
             }
 
+            // check if shield is active on car
+            // reference it from item handler script
+            if (scr_itemHandler != null)
+            {
+                if (scr_itemHandler.IsShieldActive())
+                {
+                    // if shield is active, do not apply collision damage
+                    return;
+                }
+            }
+
             // first check if particles are still being spawned
             if (scr_Flamethrower.GetParticleSpawnDurationValue() <= 0)
             {
@@ -157,20 +168,31 @@ public class Scr_Car_Health : MonoBehaviour
 
         }
 
-        // if shock beam toggle is true, apply damage over time
+        // if Ion Beam toggle is true, apply damage over time
         if (inChargeBeam)
         {
-            // check if shock beam script is assigned
-            if (scr_ItemShockBeam == null)
+            // check if Ion Beam script is assigned
+            if (scr_ItemIonBeam == null)
             {
                 return;
+            }
+
+            // check if shield is active on car
+            // reference it from item handler script
+            if (scr_itemHandler != null)
+            {
+                if (scr_itemHandler.IsShieldActive())
+                {
+                    // if shield is active, do not apply collision damage
+                    return;
+                }
             }
 
             // debug log flamethrower hit
             // Debug.Log("Laser hit detected on " + gameObject.name);
 
-            // get damage amount from shock beam script
-            int shockBeamDamage = scr_ItemShockBeam.GetShockBeamDPS();
+            // get damage amount from Ion Beam script
+            int shockBeamDamage = scr_ItemIonBeam.GetShockBeamDPS();
 
             // calculate damage per fixed update frame
             shockBeamDamage = Mathf.RoundToInt(shockBeamDamage * Time.fixedDeltaTime);
@@ -426,13 +448,13 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
-        if (collision.gameObject.CompareTag("Shock Beam"))
+        if (collision.gameObject.CompareTag("Ion Beam"))
         {
             // get flamethrower script component from 
-            if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
+            if (collision.gameObject.TryGetComponent<Scr_Item_Ion_Beam>(out scr_ItemIonBeam))
             {
                 // get componenet
-                scr_ItemShockBeam = collision.gameObject.GetComponent<Scr_Item_Beam>();
+                scr_ItemIonBeam = collision.gameObject.GetComponent<Scr_Item_Ion_Beam>();
 
             }
 
@@ -449,7 +471,7 @@ public class Scr_Car_Health : MonoBehaviour
         { 
             inFlameArea = false;
         }
-        if (collision.gameObject.CompareTag("Shock Beam"))
+        if (collision.gameObject.CompareTag("Ion Beam"))
         {
             inChargeBeam = false;
         }
@@ -469,13 +491,13 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
-        if (collision.gameObject.CompareTag("Shock Beam"))
+        if (collision.gameObject.CompareTag("Ion Beam"))
         {
             // get flamethrower script component from 
-            if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
+            if (collision.gameObject.TryGetComponent<Scr_Item_Ion_Beam>(out scr_ItemIonBeam))
             {
                 // get componenet
-                scr_ItemShockBeam = collision.gameObject.GetComponent<Scr_Item_Beam>();
+                scr_ItemIonBeam = collision.gameObject.GetComponent<Scr_Item_Ion_Beam>();
 
             }
 

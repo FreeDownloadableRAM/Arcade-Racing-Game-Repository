@@ -26,6 +26,7 @@ TagManager:
   - Shield
   - Ghost Ball
   - Shock Beam
+  - Ion Beam
   layers:
   - Default
   - TransparentFX
@@ -48,7 +49,7 @@ TagManager:
   - OffensiveItems
   - DefensiveItems
   - ShockBeam
-  - 
+  - IonBeam
   - 
   - 
   - 

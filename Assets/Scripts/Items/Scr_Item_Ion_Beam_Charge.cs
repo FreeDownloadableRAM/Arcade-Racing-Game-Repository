@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Scr_Item_Beam_Charge : MonoBehaviour
+public class Scr_Item_Ion_Beam_Charge : MonoBehaviour
 {
     // object duration timer
     private float destructionTimer; // in seconds
