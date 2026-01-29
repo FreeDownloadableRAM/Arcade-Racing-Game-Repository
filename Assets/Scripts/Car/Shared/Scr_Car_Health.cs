@@ -426,7 +426,7 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
-        if (collision.gameObject.CompareTag("ShockBeam"))
+        if (collision.gameObject.CompareTag("Shock Beam"))
         {
             // get flamethrower script component from 
             if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
@@ -449,7 +449,7 @@ public class Scr_Car_Health : MonoBehaviour
         { 
             inFlameArea = false;
         }
-        if (collision.gameObject.CompareTag("ShockBeam"))
+        if (collision.gameObject.CompareTag("Shock Beam"))
         {
             inChargeBeam = false;
         }
@@ -469,7 +469,7 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inFlameArea = true;
         }
-        if (collision.gameObject.CompareTag("ShockBeam"))
+        if (collision.gameObject.CompareTag("Shock Beam"))
         {
             // get flamethrower script component from 
             if (collision.gameObject.TryGetComponent<Scr_Item_Beam>(out scr_ItemShockBeam))
