@@ -57,11 +57,14 @@ public class Scr_Car_Health : MonoBehaviour
     // get item handler script component
     private Scr_Item_Handler scr_itemHandler;
 
+    // car ai script reference to get car origin position
+    private CarAISimple scr_CarAISimple;
+
     // flame damage trigger flag
     private bool inFlameArea = false;
 
     // Ion Beam damage trigger flag
-    private bool inChargeBeam = false;
+    private bool inIonBeam = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -76,6 +79,9 @@ public class Scr_Car_Health : MonoBehaviour
 
         // reference car rigidbody
         carRigidbody = GetComponent<Rigidbody>();
+
+        // reference to car ai script
+        scr_CarAISimple = GetComponent<CarAISimple>();
 
         // reference particle handler
         Scr_ParticleHandler = GetComponent<Scr_Particle_Handler>();
@@ -169,11 +175,12 @@ public class Scr_Car_Health : MonoBehaviour
         }
 
         // if Ion Beam toggle is true, apply damage over time
-        if (inChargeBeam)
+        if (inIonBeam)
         {
             // check if Ion Beam script is assigned
             if (scr_ItemIonBeam == null)
             {
+                //Debug.Log("Ion Beam script is null on " + gameObject.name);
                 return;
             }
 
@@ -183,22 +190,54 @@ public class Scr_Car_Health : MonoBehaviour
             {
                 if (scr_itemHandler.IsShieldActive())
                 {
+                    //Debug.Log("Shield is active on " + gameObject.name);
                     // if shield is active, do not apply collision damage
                     return;
                 }
             }
 
+            // draw a ray cast from the car origin to the ion beam origin to check line of sight
+            Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+
+            Vector3 directionToIonBeamOrigin = scr_ItemIonBeam.transform.position - carPosition;
+
+            // get distance to car
+            float distanceToCar = directionToIonBeamOrigin.magnitude;
+
+            Ray rayFromCar = new Ray(scr_ItemIonBeam.transform.position, directionToIonBeamOrigin.normalized);
+
+            if (Physics.Raycast(rayFromCar, out RaycastHit hitInfo, directionToIonBeamOrigin.magnitude))
+            {
+                // if we hit terrain obstacles or outofbounds, return
+                if (hitInfo.collider.gameObject.CompareTag("Obstacle") || hitInfo.collider.gameObject.CompareTag("Terrain")
+                    || hitInfo.collider.gameObject.CompareTag("OutOfBounds"))
+                {
+                    // draw red debug ray
+                    Debug.DrawRay(rayFromCar.origin, rayFromCar.direction * hitInfo.distance, Color.red, 0.2f);
+
+                    //Debug.Log("Ion Beam line of sight blocked on " + gameObject.name + " by " + hitInfo.collider.gameObject.name);
+
+                    return;
+                }
+                
+            }
+
+            Debug.DrawRay(rayFromCar.origin, rayFromCar.direction * hitInfo.distance, Color.green, 0.2f);
+
             // debug log flamethrower hit
             // Debug.Log("Laser hit detected on " + gameObject.name);
 
             // get damage amount from Ion Beam script
-            int shockBeamDamage = scr_ItemIonBeam.GetShockBeamDPS();
+            int ionBeamDamage = scr_ItemIonBeam.GetIonBeamDPS();
 
             // calculate damage per fixed update frame
-            shockBeamDamage = Mathf.RoundToInt(shockBeamDamage * Time.fixedDeltaTime);
+            ionBeamDamage = Mathf.RoundToInt(ionBeamDamage * Time.fixedDeltaTime);
 
             // subtract rocket damage from car health
-            internalCarHealth -= Mathf.RoundToInt(shockBeamDamage);
+            internalCarHealth -= Mathf.RoundToInt(ionBeamDamage);
+
+            // show us how much damage we are taking from ion beam
+            //Debug.Log("Car " + gameObject.name + " taking " + ionBeamDamage + " damage from Ion Beam.");
 
             // calculateCollisionDamage = false;
 
@@ -459,7 +498,7 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
             // toggle flag that we are in flame area
-            inChargeBeam = true;
+            inIonBeam = true;
         }
 
     }
@@ -473,7 +512,7 @@ public class Scr_Car_Health : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Ion Beam"))
         {
-            inChargeBeam = false;
+            inIonBeam = false;
         }
     }
 
@@ -502,7 +541,7 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
             // toggle flag that we are in flame area
-            inChargeBeam = true;
+            inIonBeam = true;
         }
 
     }

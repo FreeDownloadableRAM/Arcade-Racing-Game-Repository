@@ -535,9 +535,25 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             {
                 if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
                 {
-                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
-                    // use flamethrower
-                    scr_ItemHandler.UseItemIonBeam();
+                    // get ray from origin to target
+                    Vector3 rayToTarget = (hitInfo.collider.transform.position - origin).normalized;
+
+                    // create ray from origin to collision point
+                    Ray ray = new Ray(origin, rayToTarget);
+
+                    // raycast hit info to see if we have clear line of sight to target
+                    RaycastHit ionBeamHitInfo;
+
+                    // check if there is a clear line of sight to the target
+                    if (Physics.Raycast(ray, out ionBeamHitInfo, castRange, ItemTargetForMask))
+                    {
+                        if (ionBeamHitInfo.collider == hitInfo.collider)
+                        {
+                            // clear line of sight to target, use ion beam
+                            scr_ItemHandler.UseItemIonBeam();
+                            
+                        }
+                    }
 
                 }
                 else

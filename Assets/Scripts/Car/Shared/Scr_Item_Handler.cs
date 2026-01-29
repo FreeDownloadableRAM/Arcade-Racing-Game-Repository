@@ -71,7 +71,7 @@ public class Scr_Item_Handler : MonoBehaviour
     // charge duration
     private float beamChargeTimer = 0f;
     private float beamChargeDuration = 1f;
-    private float beamDestructionTimer = 3f;
+    private float beamDestructionTimer = 4f;
     private bool isChargeBeamActive = false;
 
     // fire
@@ -80,7 +80,7 @@ public class Scr_Item_Handler : MonoBehaviour
     private float beamFireDuration = 0.5f;
     // private bool isShockBeamActive = false;
 
-    [SerializeField] private float beamSpawnHeightOffset = 0.4f;
+    [SerializeField] private float beamSpawnHeightOffset = 0.25f;
 
 
     // helpers
@@ -243,7 +243,7 @@ public class Scr_Item_Handler : MonoBehaviour
                 // calculate spawn position for rocket (in front of car)
                 //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
 
-                Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
+                Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.75f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
 
                 // set projectile rotation to match car rotation
                 Quaternion spawnRotation = carRotation;
@@ -295,43 +295,43 @@ public class Scr_Item_Handler : MonoBehaviour
                     // generate random number from 0 to 1
                     float randomItem = Random.Range(0f, 1f);
 
-                    if (randomItem < 0.015f)
+                    if (randomItem < 0.15f)
                     {
                         // give item to player
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.025f)
+                    else if (randomItem < 0.25f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.035f)
+                    else if (randomItem < 0.35f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.045f)
+                    else if (randomItem < 0.45f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
 
                     }
-                    else if (randomItem < 0.055f)
+                    else if (randomItem < 0.55f)
                     {
                         // give item to player
                         itemHeld = "Flamethrower"; // Flamethrower
 
                     }
-                    else if (randomItem < 0.065f)
+                    else if (randomItem < 0.65f)
                     {
                         // give item to player
                         itemHeld = "Shield"; // Shield
 
                     }
-                    else if (randomItem < 0.075f)
+                    else if (randomItem < 0.75f)
                     {
                         // give item to player
                         itemHeld = "Ghosts"; // Ghost Balls
@@ -608,7 +608,7 @@ public class Scr_Item_Handler : MonoBehaviour
         // calculate spawn position for rocket (in front of car)
         //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
 
-        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
+        Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.75f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
 
         // set projectile rotation to match car rotation
         Quaternion spawnRotation = carRotation;

@@ -6,7 +6,7 @@ public class Scr_Item_Ion_Beam : MonoBehaviour
     private float destructionTimer; // in seconds
 
     // damage per second
-    [SerializeField] private int shockBeamDPS;
+    [SerializeField] private int IonBeamDPS;
 
     // Update 
     void FixedUpdate()
@@ -22,16 +22,16 @@ public class Scr_Item_Ion_Beam : MonoBehaviour
     }
 
     // return the damage amount the flamethrower does on impact
-    public int GetShockBeamDPS()
+    public int GetIonBeamDPS()
     {
-        return shockBeamDPS;
+        return IonBeamDPS;
     }
 
     // beam fire destruction effect function
     private void BeamFireOffEffect()
     {
         // destroy our laser object
-        Destroy(transform.gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
     // set shield destruction timer value in seconds
