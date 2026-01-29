@@ -80,7 +80,7 @@ public class Scr_Item_Handler : MonoBehaviour
     private float beamFireDuration = 0.5f;
     // private bool isShockBeamActive = false;
 
-    [SerializeField] private float beamSpawnHeightOffset = 0.6f;
+    [SerializeField] private float beamSpawnHeightOffset = 0.4f;
 
 
     // helpers
@@ -340,7 +340,7 @@ public class Scr_Item_Handler : MonoBehaviour
                     else if (randomItem < 0.85f)
                     {
                         // give item to player
-                        itemHeld = "Shock Beam"; // Shock Beam
+                        itemHeld = "Ion Beam"; // Shock Beam
 
                     }
                     else
@@ -593,7 +593,7 @@ public class Scr_Item_Handler : MonoBehaviour
     }
 
     // Shock Beam Use function
-    public void UseItemShockBeam()
+    public void UseItemIonBeam()
     {
         // Create Chield object in the front of the car
         // get car position

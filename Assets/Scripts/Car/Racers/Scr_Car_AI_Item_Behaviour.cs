@@ -510,13 +510,55 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
         }
 
-        // shock beam use case
-        if (itemHeld == "Shock Beam")
+        // Ion beam use case
+        if (itemHeld == "Ion Beam")
         {
-            // uuse shock beam immediiately when we have it
-            // for now
-            scr_ItemHandler.UseItemShockBeam();
+            // target zone in front of us
+            // if targets are inside this zone, use flamethrower
+            RaycastHit hitInfo;
+            float castRange = 125f;   // distance forward
+            Vector3 boxHalfExtents = new Vector3(0.25f, 2f, 1f); // adjust box size as needed
 
+            // Origin of cast
+            Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+            LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+            // Forward direction
+            Vector3 direction = transform.forward;
+
+            // Perform BoxCast 
+            // orientation of the box aligns with the car's rotation 
+            bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+            if (hit)
+            {
+                if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Cars"))
+                {
+                    // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.green);
+                    // use flamethrower
+                    scr_ItemHandler.UseItemIonBeam();
+
+                }
+                else
+                {
+                     // DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.yellow);
+                }
+
+            }
+            // run random ion beam use chance
+            else
+            {
+                //DrawBoxCast(origin, boxHalfExtents, transform.rotation, transform.forward, castRange, Color.red);
+
+                if (Time.frameCount % 420 == 0) // try this every 7 seconds
+                {
+                    // this is based on race progress.
+                    // the further back in the race we are, the more likely we are to fire the flamethrower when theres nothing nearby
+                    IonBeamRandomChance();
+                }
+
+            }
         }
         // update racer position data
         position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
@@ -1130,6 +1172,46 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         }
 
     }
+
+    // random Ion Beam fire chance function
+    private void IonBeamRandomChance()
+    {
+        // if there is someone behind us close by, do not use flamethrower prematurely
+        RaycastHit hitInfo;
+        float castRange = 20f;   // distance backwards
+        Vector3 boxHalfExtents = new Vector3(10f, 3.5f, 5f); // adjust box size as needed
+
+        // Origin of cast
+        Vector3 origin = scr_CarAISimple.getCarOrigin();
+
+        LayerMask ItemTargetForMask = LayerMask.GetMask("Cars", "PlayerCars"); // Layer mask to filter for only Items
+
+        // backward direction
+        Vector3 direction = -transform.forward;
+
+        // Perform BoxCast 
+        // orientation of the box aligns with the car's rotation 
+        bool hit = Physics.BoxCast(origin, boxHalfExtents, direction, out hitInfo, transform.rotation, castRange, ItemTargetForMask);
+
+        if (hit)
+        {
+            // There is a car close behind us
+            // do not use item when above hp heal threshold
+            return;
+        }
+
+        // roll random flamethrower fire chance
+        int IonBeamRoll = Random.Range(0, scr_raceCheckpointsScript.Racers.Count);
+
+        // the further back we are in the race, the more likely we are to use flamethrower at random
+        if (IonBeamRoll <= position + 1)
+        {
+            // use flamethrower
+            scr_ItemHandler.UseItemIonBeam();
+        }
+
+    }
+
 
     // health use case when above heal threshold
     private void shieldSelfChance()
