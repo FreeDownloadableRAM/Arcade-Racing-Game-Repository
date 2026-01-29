@@ -67,15 +67,17 @@ public class Scr_Item_Handler : MonoBehaviour
 
     // beam item prefabs
     // charge
-    [SerializeField] private GameObject beamItemChargePrefab;
+    [SerializeField] private GameObject shockBeamItemChargePrefab;
     // charge duration
     private float beamChargeTimer = 0f;
     private float beamChargeDuration = 1f;
+    private bool isChargeBeamActive = false;
 
     // fire
-    [SerializeField] private GameObject beamItemFirePrefab;
+    [SerializeField] private GameObject shockBeamItemFirePrefab;
     private float beamFireTimer = 0f;
     private float beamFireDuration = 1f;
+    private bool isShockBeamActive = false;
 
 
     // helpers
@@ -216,6 +218,32 @@ public class Scr_Item_Handler : MonoBehaviour
 
         }
 
+        // count down shield timer if shield is active
+        if (isChargeBeamActive)
+        {
+            // shield is active, count up timer
+            // once it equals or is higher than shield duration, deactivate shield
+            beamChargeTimer += Time.fixedDeltaTime;
+
+            if (beamChargeTimer >= beamChargeDuration)
+            {
+                // create actual firing beam
+                GameObject shockBeamFireObject = Instantiate(shockBeamItemFirePrefab, transform.position, transform.rotation);
+
+                // timer to send to object so that it can self destruct after duration
+                shockBeamFireObject.GetComponentInChildren<Scr_Item_Beam>().SetBeamFireDestructionTimer(beamFireDuration);
+
+                // deactivate shield
+                isChargeBeamActive = false;
+                beamChargeTimer = 0.0f; // reset timer
+
+            }
+
+        }
+
+
+
+
         // update racer position data
         // if we are at item 0 in the racer list, we are in first place, but this will return 1.
         // So if we want to get the position ahead of us, from us, we subtract 2 from our position.
@@ -252,40 +280,46 @@ public class Scr_Item_Handler : MonoBehaviour
                         itemHeld = "Nitro"; // nitro
 
                     }
-                    else if (randomItem < 0.3f)
+                    else if (randomItem < 0.25f)
                     {
                         // give item to player
                         itemHeld = "Rocket"; // Rocket
 
                     }
-                    else if (randomItem < 0.45f)
+                    else if (randomItem < 0.35f)
                     {
                         // give item to player
                         itemHeld = "Missile"; // Missile
 
                     }
-                    else if (randomItem < 0.55f)
+                    else if (randomItem < 0.45f)
                     {
                         // give item to player
                         itemHeld = "Laser"; // Laser
 
                     }
-                    else if (randomItem < 0.65f)
+                    else if (randomItem < 0.55f)
                     {
                         // give item to player
                         itemHeld = "Flamethrower"; // Flamethrower
 
                     }
-                    else if (randomItem < 0.8f)
+                    else if (randomItem < 0.65f)
                     {
                         // give item to player
                         itemHeld = "Shield"; // Shield
 
                     }
-                    else if (randomItem < 0.9f)
+                    else if (randomItem < 0.75f)
                     {
                         // give item to player
                         itemHeld = "Ghosts"; // Ghost Balls
+
+                    }
+                    else if (randomItem < 0.85f)
+                    {
+                        // give item to player
+                        itemHeld = "Shock Beam"; // Shock Beam
 
                     }
                     else
@@ -532,6 +566,40 @@ public class Scr_Item_Handler : MonoBehaviour
 
         // set shield active to true
         isShieldActive = true;
+
+        // clear item held
+        clearItemHeld();
+    }
+
+    // Shock Beam Use function
+    public void UseItemShockBeam()
+    {
+        // Create Chield object in the front of the car
+        // get car position
+        Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+
+        // get car forward direction
+        Vector3 carForward = transform.forward;
+
+        // get car rotation angle
+        Quaternion carRotation = transform.rotation;
+
+        // calculate spawn position for rocket (in front of car)
+        //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
+
+        Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + transform.up * rocketSpawnHeightOffset; // adjust offsets as needed
+
+        // set projectile rotation to match car rotation
+        Quaternion spawnRotation = carRotation;
+
+        // we want to create this object as a child of the car so that it moves with the car
+        GameObject ShockBeamChargeObject = Instantiate(shockBeamItemChargePrefab, spawnPosition, spawnRotation, transform);
+
+        // set destruction timer for shield
+        ShockBeamChargeObject.GetComponentInChildren<Scr_Item_Beam_Charge>().SetBeamChargeDestructionTimer(beamChargeDuration); // shield lasts for 5 seconds
+
+        // set shock beam charge active to true
+        isChargeBeamActive = true;
 
         // clear item held
         clearItemHeld();
