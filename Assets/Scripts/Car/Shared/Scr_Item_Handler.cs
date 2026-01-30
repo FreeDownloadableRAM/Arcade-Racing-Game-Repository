@@ -425,8 +425,8 @@ public class Scr_Item_Handler : MonoBehaviour
     public void UseItemHealthPack()
     {
         // health pack heal amount
-        // 50% of max health
-        int healAmount = Mathf.RoundToInt(scr_CarHealth.GetMaxHealth() * 0.5f);
+        // 75% of max health
+        int healAmount = Mathf.RoundToInt(scr_CarHealth.GetMaxHealth() * 0.75f);
 
         // get our current health
         int currentHealth = scr_CarHealth.GetCurrentHealth();
