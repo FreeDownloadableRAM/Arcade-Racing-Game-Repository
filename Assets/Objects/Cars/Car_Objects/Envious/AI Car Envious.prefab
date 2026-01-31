@@ -20344,7 +20344,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  alignmentThreshold: 0.65
+  alignmentThreshold: 0.9
   itemReachedDistance: 1.5
 --- !u!114 &8185018366887885672
 MonoBehaviour:
@@ -20389,7 +20389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Handler
   itemHeld: 
-  rocketSpawnOffset: 5
+  rocketSpawnOffset: 5.25
   rocketSpawnHeightOffset: 1.5
   laserItemPrefab: {fileID: 238546991540539590, guid: 923e231d5cd2c4643bc13012678faa4c, type: 3}
   rocketItemPrefab: {fileID: 6007389463334106660, guid: 6cee495441d5ab9458bfe54e5ab7f2f4, type: 3}
@@ -20400,6 +20400,7 @@ MonoBehaviour:
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
+  beamSpawnHeightOffset: 0.25
 --- !u!114 &1875092522797384628
 MonoBehaviour:
   m_ObjectHideFlags: 0

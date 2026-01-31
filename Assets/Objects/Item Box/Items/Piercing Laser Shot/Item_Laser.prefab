@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907e6822fec7bc14eb4920ed16c21927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Pierce_Laser
-  speed: 375
+  speed: 400
   destructionTimer: 5
   damageAmount: 35
   laserDestructionEffectPrefab: {fileID: 4990471245530512019, guid: d966a21a87d27094a8bbb3148d2e1f25, type: 3}

@@ -243,7 +243,7 @@ public class Scr_Item_Handler : MonoBehaviour
                 // calculate spawn position for rocket (in front of car)
                 //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
 
-                Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.75f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
+                Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.9f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
 
                 // set projectile rotation to match car rotation
                 Quaternion spawnRotation = carRotation;
@@ -608,7 +608,7 @@ public class Scr_Item_Handler : MonoBehaviour
         // calculate spawn position for rocket (in front of car)
         //Vector3 spawnPosition = carPosition + (carForward * rocketSpawnOffset) + scr_CarAISimple.getCarOrigin(); // adjust offsets as needed
 
-        Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.75f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
+        Vector3 spawnPosition = carPosition + (carForward * (rocketSpawnOffset * 0.9f)) + transform.up * beamSpawnHeightOffset; // adjust offsets as needed
 
         // set projectile rotation to match car rotation
         Quaternion spawnRotation = carRotation;
