@@ -40243,7 +40243,7 @@ MonoBehaviour:
   steerVisionDistance: 8
   steerBaseVisionDistance: 3
   steerMinVisionDistance: 3.5
-  steerMaxVisionDistance: 6
+  steerMaxVisionDistance: 16
   steerAroundObjectSpeed: 1
   sideSteerRayMultiplier: 1
   rayAngleForwardR: 15
@@ -40505,7 +40505,7 @@ MonoBehaviour:
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
-  beamSpawnHeightOffset: 0.25
+  beamSpawnHeightOffset: 0
 --- !u!114 &3421228292792802693
 MonoBehaviour:
   m_ObjectHideFlags: 0
