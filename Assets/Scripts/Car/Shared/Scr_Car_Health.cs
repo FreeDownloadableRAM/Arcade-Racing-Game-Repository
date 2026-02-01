@@ -267,6 +267,18 @@ public class Scr_Car_Health : MonoBehaviour
         internalCarHealth = healthAmount;
     }
 
+    // return if we are on fire
+    public bool IsInFlameArea()
+    {
+        return inFlameArea;
+    }
+
+    // return if we are in ion beam
+    public bool IsInIonBeam()
+    {
+        return inIonBeam;
+    }
+
     // check if we collided with other object
     private void OnCollisionEnter(Collision collision)
     {

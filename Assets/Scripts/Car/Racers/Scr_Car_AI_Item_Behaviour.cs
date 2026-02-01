@@ -428,6 +428,23 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // check if an offensive item is approaching us from behind within a certain range
         if (itemHeld == "Shield")
         {
+            // check if we are being targeted by a flamethrower
+            if (scr_CarHealth.IsInFlameArea()) 
+            {
+                // use shield to put out fire
+                scr_ItemHandler.UseItemShield();
+                return;
+            }
+
+            // check if we are in an ion beam
+            if (scr_CarHealth.IsInIonBeam()) 
+            {
+                // use shield to block ion beam
+                scr_ItemHandler.UseItemShield();
+                return;
+            }
+
+            // if we arent in neither of those states, check behind us for offensive items
             // if there is an offensive item approaching us from behind, use shield
             RaycastHit hitInfo;
             float castRange = 25f;   // distance backwards
