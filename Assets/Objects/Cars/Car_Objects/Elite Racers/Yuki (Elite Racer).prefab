@@ -40442,7 +40442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AIMovementTarget: {fileID: 0}
   AIState: Race
-  itemDetectRange: 75
+  itemDetectRange: 90
   itemBoxLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -40450,7 +40450,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   alignmentThreshold: 0.95
-  itemReachedDistance: 1.5
+  itemReachedDistance: 1.75
 --- !u!114 &3319519324140969491
 MonoBehaviour:
   m_ObjectHideFlags: 0

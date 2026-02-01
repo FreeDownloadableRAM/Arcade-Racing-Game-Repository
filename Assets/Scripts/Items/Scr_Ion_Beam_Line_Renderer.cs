@@ -7,6 +7,9 @@ public class Scr_Ion_Beam_Particle_Handler : MonoBehaviour
     public float laserDistance = 225f; // Maximum distance if nothing is hit
     public LayerMask hitLayers; // Define which layers the laser should hit
 
+    // get particle system from child object
+    [SerializeField] private ParticleSystem PartSysImpctEff;
+
     // destroy this object after a set time
     private float destructionTimer = 1f; // in seconds
 
@@ -17,6 +20,13 @@ public class Scr_Ion_Beam_Particle_Handler : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         // Set the first point of the line renderer to the laser's position
         lineRenderer.SetPosition(0, transform.position);
+
+        // get particle system from child object
+        PartSysImpctEff = GetComponentInChildren<ParticleSystem>();
+
+        // make sure the particle system is stopped at start
+        // PartSysImpctEff.Stop();
+
     }
 
     void Update()
@@ -30,13 +40,23 @@ public class Scr_Ion_Beam_Particle_Handler : MonoBehaviour
         {
             // If the ray hits something, set the end position of the line renderer to the hit point
             lineRenderer.SetPosition(1, hit.point);
-            // You can add logic here to interact with the hit object
-            // e.g., hit.collider.GetComponent<TargetScript>()?.TakeDamage();
+
+            // Move the particle system to the hit point and play it
+            PartSysImpctEff.transform.position = hit.point;
+            // play particle system if not already playing
+            if (!PartSysImpctEff.isPlaying)
+            {
+                PartSysImpctEff.Play();
+            }
+
         }
         else
         {
             // If the ray doesn't hit anything, set the end position to the max distance in the forward direction
             lineRenderer.SetPosition(1, transform.position + transform.forward * laserDistance);
+
+            // turn off particle system if no hit
+            PartSysImpctEff.Stop();
         }
 
         // increment destruction timer
