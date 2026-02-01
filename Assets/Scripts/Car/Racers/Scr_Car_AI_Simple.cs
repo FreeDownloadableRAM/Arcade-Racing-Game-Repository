@@ -38,10 +38,15 @@ public class CarAISimple : MonoBehaviour
     Ray rayForward; // Rays for avoiding obstacles
     Ray rayForward_r;
     Ray rayForward_l;
-    Ray rayForward_r_angled;
-    Ray rayForward_l_angled;
-    Ray rayForward_rf_angled;
-    Ray rayForward_lf_angled;
+    Ray rayForward_r_angled; // Ray for forward right (15 degrees)
+    Ray rayForward_l_angled; // Ray for forward left (15 degrees)
+    Ray rayForward_rf_angled; // Ray for forward right (30 degrees)
+    Ray rayForward_lf_angled; // Ray for forward left (30 degrees)
+
+    Ray rayForward_frm_angled; // Ray for forward right (7.5 degrees)
+    Ray rayForward_flm_angled; // Ray for forward left (7.5 degrees)
+    Ray rayForward_rfm_angled; // Ray for forward right (22.5 degrees)
+    Ray rayForward_lfm_angled; // Ray for forward left (22.5 degrees)
 
     Ray rayBackward; // prevent reversing into a wall
     Ray rayBackward_r;
@@ -65,7 +70,6 @@ public class CarAISimple : MonoBehaviour
     [SerializeField] private float obstacleReverseMinVisionDistance; // minimum distance to check for obstacles
     [SerializeField] private float obstacleReverseMaxVisionDistance; // maximum distance to check for obstacles
 
-
     [SerializeField] private float steerVisionDistance; // Distance to check for obstacles in front of the car
     [SerializeField] private float steerBaseVisionDistance; // distance to check for obstacles
     [SerializeField] private float steerMinVisionDistance; // minimum distance to check for obstacles
@@ -80,6 +84,13 @@ public class CarAISimple : MonoBehaviour
     private Vector3 carFrontSide_fl;
     private Vector3 carFrontSide_rf;
     private Vector3 carFrontSide_lf;
+
+    // in between angled rays - vectors
+    private Vector3 carFrontSide_frm; // 7.5 degrees
+    private Vector3 carFrontSide_flm; // -7.5 degrees
+    private Vector3 carFrontSide_rfm; // 22.5 degrees
+    private Vector3 carFrontSide_lfm; // -22.5 degrees
+
     private Vector3 carBack;
     //private Vector3 carBack_r;
     //private Vector3 carBack_l;
@@ -89,6 +100,14 @@ public class CarAISimple : MonoBehaviour
     [SerializeField] private float rayAngleForwardL; // Angle for forward left angled ray (-15 degrees)
     [SerializeField] private float rayAngleForwardRF; // Angle for forward right angled ray (30 degrees)
     [SerializeField] private float rayAngleForwardLF; // Angle for forward left angled ray (-30 degrees)
+
+    // in between angles for more precise obstacle detection
+    [SerializeField] private float rayAngleForwardFRM; // Angle for forward right angled ray (7.5 degrees)
+    [SerializeField] private float rayAngleForwardFLM; // Angle for forward left angled ray (-7.5 degrees)
+    [SerializeField] private float rayAngleForwardRFM; // Angle for forward right angled ray (22.5 degrees)
+    [SerializeField] private float rayAngleForwardLFM; // Angle for forward left angled ray (-22.5 degrees)
+
+
     //[SerializeField] private float rayAngleBackward; // Angle for backward 
     //[SerializeField] private float rayAngleBackwardR; // Angle for backward right angled ray
     //[SerializeField] private float rayAngleBackwardL; // Angle for backward left angled ray
@@ -175,18 +194,30 @@ public class CarAISimple : MonoBehaviour
         // angled rays
         // Front angled rays
         // right
+        Quaternion rotation_frontfrm = Quaternion.AngleAxis(rayAngleForwardFRM, Vector3.up);
+        carFrontSide_frm = (rotation_frontfrm * transform.forward).normalized; // Front right direction 7.5
+
         Quaternion rotation_frontr = Quaternion.AngleAxis(rayAngleForwardR, Vector3.up);
         carFrontSide_fr = (rotation_frontr * transform.forward).normalized; // Front right direction 15
+
+        Quaternion rotation_rightrfm = Quaternion.AngleAxis(rayAngleForwardRFM, Vector3.up);
+        carFrontSide_rfm = (rotation_rightrfm * transform.forward).normalized; // Front right direction 22.5
 
         Quaternion rotation_rightf = Quaternion.AngleAxis(rayAngleForwardRF, Vector3.up);
         carFrontSide_rf = (rotation_rightf * transform.forward).normalized; // Front right direction 30
 
         // left
+        Quaternion rotation_frontflm = Quaternion.AngleAxis(rayAngleForwardFLM, Vector3.up);
+        carFrontSide_flm = (rotation_frontflm * transform.forward).normalized; // Front left direction 7.5
+
         Quaternion rotation_frontl = Quaternion.AngleAxis(rayAngleForwardL, Vector3.up);
         carFrontSide_fl = (rotation_frontl * transform.forward).normalized; // Front left direction 15
 
+        Quaternion rotation_leftfml = Quaternion.AngleAxis(rayAngleForwardLFM, Vector3.up);
+        carFrontSide_lfm = (rotation_leftfml * transform.forward).normalized; // Front left direction 22.5
+
         Quaternion rotation_leftf = Quaternion.AngleAxis(rayAngleForwardLF, Vector3.up);
-        carFrontSide_lf = (rotation_leftf * transform.forward).normalized; // Front right direction 30
+        carFrontSide_lf = (rotation_leftf * transform.forward).normalized; // Front left direction 30
 
         // Backwards angled rays
         // directly behind
@@ -211,6 +242,12 @@ public class CarAISimple : MonoBehaviour
         rayForward_rf_angled = new Ray(carOrigin, carFrontSide_rf);
         rayForward_lf_angled = new Ray(carOrigin, carFrontSide_lf);
 
+        // in between angled rays for better obstacle detection
+        rayForward_frm_angled = new Ray(carOrigin, carFrontSide_frm); // Ray for forward right (7.5 degrees)
+        rayForward_flm_angled = new Ray(carOrigin, carFrontSide_flm); // Ray for forward left (7.5 degrees)
+        rayForward_rfm_angled = new Ray(carOrigin, carFrontSide_rfm); // Ray for forward right (22.5 degrees)
+        rayForward_lfm_angled = new Ray(carOrigin, carFrontSide_lfm); // Ray for forward left (22.5 degrees)
+
         rayBackward = new Ray(carOrigin, -transform.forward);
         rayBackward_r = new Ray(carOrigin + rotatedOffset, -transform.forward);
         rayBackward_l = new Ray(carOrigin - rotatedOffset, -transform.forward);
@@ -226,9 +263,6 @@ public class CarAISimple : MonoBehaviour
         {
             // stop the car
             carControllerAI.SetInputs(0f, raceFinishedRandomSteer, true); // full brake
-
-
-
             return; // exit the update function
         }
 
@@ -274,6 +308,7 @@ public class CarAISimple : MonoBehaviour
             {
                 steerAroundObject(speed, hitSteerAround, distanceToEndTarget, dirToMovePosition, dotProduct, rotatedOffset, steerVisionDistance);
             }
+            // 30 degree rays
             else if (Physics.Raycast(rayForward_rf_angled, out RaycastHit hit_rf_angled, obstacleVisionDistance * 0.5f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_rf_angled);
@@ -282,6 +317,16 @@ public class CarAISimple : MonoBehaviour
             {
                 forwardObstacleAvoidance(speed, hit_lf_angled);
             }
+            // 22.5 degrees rays
+            else if (Physics.Raycast(rayForward_rfm_angled, out RaycastHit hit_rfm_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_rfm_angled);
+            }
+            else if (Physics.Raycast(rayForward_lfm_angled, out RaycastHit hit_lfm_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_lfm_angled);
+            }
+            // 15 degree rays
             else if (Physics.Raycast(rayForward_r_angled, out RaycastHit hit_r_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_r_angled);
@@ -289,6 +334,15 @@ public class CarAISimple : MonoBehaviour
             else if (Physics.Raycast(rayForward_l_angled, out RaycastHit hit_l_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_l_angled);
+            }
+            // 7.5 degree rays
+            else if (Physics.Raycast(rayForward_frm_angled, out RaycastHit hit_frm_angled, obstacleVisionDistance, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_frm_angled);
+            }
+            else if (Physics.Raycast(rayForward_flm_angled, out RaycastHit hit_flm_angled, obstacleVisionDistance, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_flm_angled);
             }
             else if (Physics.Raycast(rayForward_r, out RaycastHit hit_r, obstacleVisionDistance, obstacleLayerMask))
             {
@@ -473,7 +527,7 @@ public class CarAISimple : MonoBehaviour
             // Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
 
             // if we are going slow, you can overtake no matter what, but no overtaking while reversing
-            if (speed < ((carControllerAI.getMaxSpeed() * 0.32f) + 7.5f) && forwardAmount >= 0)
+            if (speed < ((carControllerAI.getMaxSpeed() * 0.2f) + 25.0f) && forwardAmount >= 0)
             {
                 // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
                 if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 35f)

@@ -40243,13 +40243,17 @@ MonoBehaviour:
   steerVisionDistance: 8
   steerBaseVisionDistance: 3
   steerMinVisionDistance: 3.5
-  steerMaxVisionDistance: 16
+  steerMaxVisionDistance: 24
   steerAroundObjectSpeed: 1
   sideSteerRayMultiplier: 1
   rayAngleForwardR: 15
   rayAngleForwardL: -15
   rayAngleForwardRF: 30
   rayAngleForwardLF: -30
+  rayAngleForwardFRM: 7.5
+  rayAngleForwardFLM: -7.5
+  rayAngleForwardRFM: 22.5
+  rayAngleForwardLFM: -22.5
 --- !u!114 &590075458015023729
 MonoBehaviour:
   m_ObjectHideFlags: 0
