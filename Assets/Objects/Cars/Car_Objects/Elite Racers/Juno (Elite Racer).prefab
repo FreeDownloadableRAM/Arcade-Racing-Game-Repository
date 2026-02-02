@@ -55299,6 +55299,10 @@ MonoBehaviour:
   rayAngleForwardL: -15
   rayAngleForwardRF: 30
   rayAngleForwardLF: -30
+  rayAngleForwardFRM: 7.5
+  rayAngleForwardFLM: -7.5
+  rayAngleForwardRFM: 22.5
+  rayAngleForwardLFM: -22.5
 --- !u!114 &3653620838013033069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55554,6 +55558,7 @@ MonoBehaviour:
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
+  beamSpawnHeightOffset: 0.25
 --- !u!114 &7550414657709309667
 MonoBehaviour:
   m_ObjectHideFlags: 0
