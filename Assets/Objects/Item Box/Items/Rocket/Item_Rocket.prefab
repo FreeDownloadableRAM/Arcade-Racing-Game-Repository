@@ -9902,7 +9902,7 @@ MonoBehaviour:
   groundCheckDistance: 5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 24576
+    m_Bits: 4218880
   rotationSpeed: 60
 --- !u!54 &69757947866640823
 Rigidbody:

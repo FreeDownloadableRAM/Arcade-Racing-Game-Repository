@@ -84,7 +84,7 @@ MonoBehaviour:
   groundRayDistance: 5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 4202496
 --- !u!54 &7852730986352637331
 Rigidbody:
   m_ObjectHideFlags: 0
