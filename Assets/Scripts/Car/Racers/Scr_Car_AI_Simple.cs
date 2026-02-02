@@ -56,6 +56,12 @@ public class CarAISimple : MonoBehaviour
     Ray raySteerAround_r; // right ray
     Ray raySteerAround_l; // left ray
 
+    // ray cast pointing towards the ground
+    Ray rayDown; // if this collides with terrain layer objects, we are on offroad, not the road.
+
+    // layer mask for offroad terrain detection
+    private LayerMask offroadTerrainLayerMask; // Layer mask for offroad terrain detection
+
     // Dont re adjust steering when target angle is within this value
     [SerializeField] private float steeringAngleThreshold; // Angle threshold for steering adjustment
 
@@ -147,6 +153,8 @@ public class CarAISimple : MonoBehaviour
 
         // get target for the car AI to follow
         targetPosition = scrCarPathfinder.carTarget; // Get the target position from the Scr_Car_Pathfinder script
+
+        offroadTerrainLayerMask = LayerMask.GetMask("Terrain"); // Layer mask for offroad terrain detection
 
     }
 
@@ -257,6 +265,8 @@ public class CarAISimple : MonoBehaviour
         raySteerAround_r = new Ray(carOrigin + raycastCarWidth, transform.forward);
         raySteerAround_l = new Ray(carOrigin - raycastCarWidth, transform.forward);
 
+        // offroad terrain detection raycast
+        rayDown = new Ray(carOrigin, -transform.up);
 
         // if we finished race, do not run any logic
         if (scrMyRaceProgress.completedRace == true)
@@ -424,8 +434,38 @@ public class CarAISimple : MonoBehaviour
 
         //steerAmount = Mathf.Lerp(steerAmount, turnAmount, steerSmoothSpeed * Time.deltaTime);
 
+        // check if we are offroad with downwards raycast
+        if (Physics.Raycast(rayDown, out RaycastHit hitDown, 5f, offroadTerrainLayerMask))
+        {
+            // we are offroad, set target speed to 30
+            // + 10% of max speed to not slow down too much
+            float targetSpeed; // Default target speed
+
+            // max speed referenced from car controller ai
+            float maxSpeed = carControllerAI.getMaxSpeed();
+
+            brakeInput = false; // reset brake
+
+            // In break zone
+            // get the speed target to slow down to
+            targetSpeed = 30 + (maxSpeed * 0.1f); // Get the target speed to brake towards
+
+            // brake until we reach the target speed
+            if (targetSpeed < Vector3.Magnitude(rigidBody.linearVelocity))
+            {
+                brakeInput = true; // brake
+                forwardAmount = 0f; // release gas
+                                    //Debug.Log("Braking in Brake Zone, target speed: " + targetSpeed + ", current speed: " + Vector3.Magnitude(rigidBody.linearVelocity));
+            }
+            else
+            {
+                brakeInput = false; // release brake
+                                    //forwardAmount = 1f; // move forward
+            }
+
+        }
+
         // Send this movement information to the car controller AI
-        //carControllerAI.SetInputs(forwardAmount, steerAmount, brakeInput);
         carControllerAI.SetInputs(forwardAmount, turnAmount, brakeInput);
     }
 
@@ -604,8 +644,6 @@ public class CarAISimple : MonoBehaviour
         }
 
     }
-    
-
     
     // standard steering behaviour function
     private void standardSteeringBehaviour(float dotProduct, float distanceToTarget, Vector3 dirToMovePosition, Vector3 rotatedOffset) 

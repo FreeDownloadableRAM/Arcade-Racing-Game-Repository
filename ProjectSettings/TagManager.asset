@@ -27,6 +27,7 @@ TagManager:
   - Ghost Ball
   - Shock Beam
   - Ion Beam
+  - Road
   layers:
   - Default
   - TransparentFX
@@ -50,7 +51,7 @@ TagManager:
   - DefensiveItems
   - ShockBeam
   - IonBeam
-  - 
+  - Road
   - 
   - 
   - 
