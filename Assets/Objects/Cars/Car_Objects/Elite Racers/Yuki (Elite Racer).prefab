@@ -40233,7 +40233,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   steeringAngleThreshold: 3
   obstacleVisionDistance: 12
-  obstacleBaseVisionDistance: 1
+  obstacleBaseVisionDistance: 1.5
   obstacleMinVisionDistance: 5
   obstacleMaxVisionDistance: 12
   obstacleReverseVisionDistance: 0
