@@ -565,6 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 67062294336235865}
   - component: {fileID: 2268873512401925084}
+  - component: {fileID: -6088926943481765762}
   m_Layer: 10
   m_Name: RoadBarrerCaution
   m_TagString: Props
@@ -597,7 +598,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8694228648362975785}
   serializedVersion: 5
-  m_Mass: 75
+  m_Mass: 150
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -616,3 +617,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &-6088926943481765762
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694228648362975785}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.825, y: 0.35, z: 0.375}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.37, z: 0.08}
+  m_TimeToStationary: 0.5

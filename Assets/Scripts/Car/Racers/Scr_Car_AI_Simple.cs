@@ -62,6 +62,9 @@ public class CarAISimple : MonoBehaviour
     // layer mask for offroad terrain detection
     private LayerMask offroadTerrainLayerMask; // Layer mask for offroad terrain detection
 
+    // boolean for if we are offroad or not
+    private bool isOffroad = false; // Are we currently offroad?
+
     // Dont re adjust steering when target angle is within this value
     [SerializeField] private float steeringAngleThreshold; // Angle threshold for steering adjustment
 
@@ -173,6 +176,9 @@ public class CarAISimple : MonoBehaviour
         turnAmount = 0f;
 
         brakeInput = false; // No braking by default
+
+        // set offroad flag to false by default, will be set to true if we detect offroad terrain below us
+        isOffroad = false;
 
         // get our speed to scale detection rays
         float speed = Vector3.Magnitude(rigidBody.linearVelocity);
@@ -448,7 +454,7 @@ public class CarAISimple : MonoBehaviour
 
             // In break zone
             // get the speed target to slow down to
-            targetSpeed = 30 + (maxSpeed * 0.1f); // Get the target speed to brake towards
+            targetSpeed = 25 + (maxSpeed * 0.1f); // Get the target speed to brake towards
 
             // brake until we reach the target speed
             if (targetSpeed < Vector3.Magnitude(rigidBody.linearVelocity))
@@ -462,6 +468,9 @@ public class CarAISimple : MonoBehaviour
                 brakeInput = false; // release brake
                                     //forwardAmount = 1f; // move forward
             }
+
+            // set offroad flag to true
+            isOffroad = true;
 
         }
 
@@ -838,6 +847,13 @@ public class CarAISimple : MonoBehaviour
     {
 
         return raycastOffsetFromGround;
+    }
+
+    // return if we are offroad
+    public bool isCarOffroad() 
+    { 
+        return isOffroad;
+
     }
 
 }

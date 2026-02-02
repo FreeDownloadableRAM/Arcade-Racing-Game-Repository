@@ -42,7 +42,7 @@ public class Scr_Car_Cop_Pathfinder : MonoBehaviour
             endtarget = carTargetHandler.initialStartLocation;
         }
 
-        pathFindRecalculateTimer = 10f;
+        pathFindRecalculateTimer = 6f;
 
     }
 

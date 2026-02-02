@@ -43,6 +43,9 @@ public class CarControllerAI : MonoBehaviour
     // get the car cop lights handler script
     [SerializeField] private Scr_Car_Lights_Handler carLightsHandlerScript;
 
+    // get car ai script to know if we are on offroad terrain
+    private CarAISimple carAiScript;
+
     void Start()
     {
         carRb = GetComponent<Rigidbody>();
@@ -51,6 +54,9 @@ public class CarControllerAI : MonoBehaviour
 
         // get the car lights handler script component if not assigned
         carLightsHandlerScript = GetComponentInChildren<Scr_Car_Lights_Handler>();
+
+        // get car ai script component
+        carAiScript = GetComponent<CarAISimple>();
     }
 
     void Update()
@@ -65,8 +71,6 @@ public class CarControllerAI : MonoBehaviour
         Steer();
         Brake();
 
-
-
         // Limit the speed of the car
         if (carRb.linearVelocity.magnitude > maxSpeed)
         {
@@ -75,7 +79,6 @@ public class CarControllerAI : MonoBehaviour
 
         // set brake lights based on brake input
         carLightsHandlerScript.SetBrakeCondition(brakeInput);
-
 
     }
 
@@ -96,9 +99,23 @@ public class CarControllerAI : MonoBehaviour
 
     void Move()
     {
-        foreach (var wheel in wheels)
+        // if we are on offroad terrain, cut acceleration in half
+        if (carAiScript.isCarOffroad())
         {
-            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.motorTorque = moveInput * 600 * (maxAcceleration / 2) * Time.deltaTime;
+            }
+
+        }
+        // if not use default acceleration
+        else
+        {
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            }
+
         }
     }
 

@@ -2001,6 +2001,10 @@ MonoBehaviour:
   rayAngleForwardL: -15
   rayAngleForwardRF: 30
   rayAngleForwardLF: -30
+  rayAngleForwardFRM: 7.5
+  rayAngleForwardFLM: -7.5
+  rayAngleForwardRFM: 22.5
+  rayAngleForwardLFM: -22.5
 --- !u!120 &852161777033075048
 LineRenderer:
   serializedVersion: 2

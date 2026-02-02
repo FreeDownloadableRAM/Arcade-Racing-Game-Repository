@@ -39,6 +39,11 @@ public class Scr_Car_Cop_AI : MonoBehaviour
     Ray rayForward_rf_angled;
     Ray rayForward_lf_angled;
 
+    Ray rayForward_frm_angled; // Ray for forward right (7.5 degrees)
+    Ray rayForward_flm_angled; // Ray for forward left (7.5 degrees)
+    Ray rayForward_rfm_angled; // Ray for forward right (22.5 degrees)
+    Ray rayForward_lfm_angled; // Ray for forward left (22.5 degrees)
+
     Ray rayBackward; // prevent reversing into a wall
     Ray rayBackward_r;
     Ray rayBackward_l;
@@ -76,6 +81,13 @@ public class Scr_Car_Cop_AI : MonoBehaviour
     private Vector3 carFrontSide_fl;
     private Vector3 carFrontSide_rf;
     private Vector3 carFrontSide_lf;
+
+    // in between angled rays - vectors
+    private Vector3 carFrontSide_frm; // 7.5 degrees
+    private Vector3 carFrontSide_flm; // -7.5 degrees
+    private Vector3 carFrontSide_rfm; // 22.5 degrees
+    private Vector3 carFrontSide_lfm; // -22.5 degrees
+
     private Vector3 carBack;
     //private Vector3 carBack_r;
     //private Vector3 carBack_l;
@@ -85,6 +97,13 @@ public class Scr_Car_Cop_AI : MonoBehaviour
     [SerializeField] private float rayAngleForwardL; // Angle for forward left angled ray (-15 degrees)
     [SerializeField] private float rayAngleForwardRF; // Angle for forward right angled ray (30 degrees)
     [SerializeField] private float rayAngleForwardLF; // Angle for forward left angled ray (-30 degrees)
+
+    // in between angles for more precise obstacle detection
+    [SerializeField] private float rayAngleForwardFRM; // Angle for forward right angled ray (7.5 degrees)
+    [SerializeField] private float rayAngleForwardFLM; // Angle for forward left angled ray (-7.5 degrees)
+    [SerializeField] private float rayAngleForwardRFM; // Angle for forward right angled ray (22.5 degrees)
+    [SerializeField] private float rayAngleForwardLFM; // Angle for forward left angled ray (-22.5 degrees)
+
     //[SerializeField] private float rayAngleBackward; // Angle for backward 
     //[SerializeField] private float rayAngleBackwardR; // Angle for backward right angled ray
     //[SerializeField] private float rayAngleBackwardL; // Angle for backward left angled ray
@@ -97,8 +116,14 @@ public class Scr_Car_Cop_AI : MonoBehaviour
 
     private scr_Car_Cop_Target_Handler carCopTargetHandler;
 
-    
+    // ray cast pointing towards the ground
+    Ray rayDown; // if this collides with terrain layer objects, we are on offroad, not the road.
 
+    // layer mask for offroad terrain detection
+    private LayerMask offroadTerrainLayerMask; // Layer mask for offroad terrain detection
+
+    // boolean for if we are offroad or not
+    private bool isOffroad = false; // Are we currently offroad?
 
     private void Awake()
     {
@@ -116,12 +141,9 @@ public class Scr_Car_Cop_AI : MonoBehaviour
     private void Update()
     {
 
-       
-
         // get target for the car AI to follow
         targetPosition = scrCarPathfinder.carTarget; // Get the target position from the Scr_Car_Pathfinder script
 
-       
         // Debug.Log("Target Position: " + targetPosition);
 
         //SetTargetPosition(targetPositionTransform.position);
@@ -131,6 +153,9 @@ public class Scr_Car_Cop_AI : MonoBehaviour
         turnAmount = 0f;
 
         brakeInput = false; // No braking by default
+
+        // set offroad flag to false by default, will be set to true if we detect offroad terrain below us
+        isOffroad = false;
 
         // get our speed to scale detection rays
         float speed = Vector3.Magnitude(rigidBody.linearVelocity);
@@ -160,15 +185,27 @@ public class Scr_Car_Cop_AI : MonoBehaviour
         // angled rays
         // Front angled rays
         // right
+        Quaternion rotation_frontfrm = Quaternion.AngleAxis(rayAngleForwardFRM, Vector3.up);
+        carFrontSide_frm = (rotation_frontfrm * transform.forward).normalized; // Front right direction 7.5
+
         Quaternion rotation_frontr = Quaternion.AngleAxis(rayAngleForwardR, Vector3.up);
         carFrontSide_fr = (rotation_frontr * transform.forward).normalized; // Front right direction 15
+
+        Quaternion rotation_rightrfm = Quaternion.AngleAxis(rayAngleForwardRFM, Vector3.up);
+        carFrontSide_rfm = (rotation_rightrfm * transform.forward).normalized; // Front right direction 22.5
 
         Quaternion rotation_rightf = Quaternion.AngleAxis(rayAngleForwardRF, Vector3.up);
         carFrontSide_rf = (rotation_rightf * transform.forward).normalized; // Front right direction 30
 
         // left
+        Quaternion rotation_frontflm = Quaternion.AngleAxis(rayAngleForwardFLM, Vector3.up);
+        carFrontSide_flm = (rotation_frontflm * transform.forward).normalized; // Front left direction 7.5
+
         Quaternion rotation_frontl = Quaternion.AngleAxis(rayAngleForwardL, Vector3.up);
         carFrontSide_fl = (rotation_frontl * transform.forward).normalized; // Front left direction 15
+
+        Quaternion rotation_leftfml = Quaternion.AngleAxis(rayAngleForwardLFM, Vector3.up);
+        carFrontSide_lfm = (rotation_leftfml * transform.forward).normalized; // Front left direction 22.5
 
         Quaternion rotation_leftf = Quaternion.AngleAxis(rayAngleForwardLF, Vector3.up);
         carFrontSide_lf = (rotation_leftf * transform.forward).normalized; // Front right direction 30
@@ -201,6 +238,13 @@ public class Scr_Car_Cop_AI : MonoBehaviour
         rayBackward_r = new Ray(carOrigin + rotatedOffset, -transform.forward);
         rayBackward_l = new Ray(carOrigin - rotatedOffset, -transform.forward);
 
+        // in between angled rays for better obstacle detection
+        rayForward_frm_angled = new Ray(carOrigin, carFrontSide_frm); // Ray for forward right (7.5 degrees)
+        rayForward_flm_angled = new Ray(carOrigin, carFrontSide_flm); // Ray for forward left (7.5 degrees)
+        rayForward_rfm_angled = new Ray(carOrigin, carFrontSide_rfm); // Ray for forward right (22.5 degrees)
+        rayForward_lfm_angled = new Ray(carOrigin, carFrontSide_lfm); // Ray for forward left (22.5 degrees)
+
+
         // steer around other cars raycast
         raySteerAround = new Ray(carOrigin, transform.forward);
         raySteerAround_r = new Ray(carOrigin + raycastCarWidth, transform.forward);
@@ -208,6 +252,10 @@ public class Scr_Car_Cop_AI : MonoBehaviour
 
         // get ai state from car cop target handler script
         scr_Car_Cop_Target_Handler carCopTargetHandler = GetComponent<scr_Car_Cop_Target_Handler>();
+
+        // offroad terrain detection raycast
+        rayDown = new Ray(carOrigin, -transform.up);
+
 
         // if we are close enough to current target, swap to end target
         if (distanceToTarget < NextVertexDistanceThreshold)
@@ -240,6 +288,7 @@ public class Scr_Car_Cop_AI : MonoBehaviour
             {
                 steerAroundObject(speed, hitSteerAround, distanceToEndTarget, dirToMovePosition, dotProduct, rotatedOffset, steerVisionDistance);
             }
+            // 30 degree rays
             else if (Physics.Raycast(rayForward_rf_angled, out RaycastHit hit_rf_angled, obstacleVisionDistance * 0.5f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_rf_angled);
@@ -248,6 +297,16 @@ public class Scr_Car_Cop_AI : MonoBehaviour
             {
                 forwardObstacleAvoidance(speed, hit_lf_angled);
             }
+            // 22.5 degrees rays
+            else if (Physics.Raycast(rayForward_rfm_angled, out RaycastHit hit_rfm_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_rfm_angled);
+            }
+            else if (Physics.Raycast(rayForward_lfm_angled, out RaycastHit hit_lfm_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_lfm_angled);
+            }
+            // 15 degree rays
             else if (Physics.Raycast(rayForward_r_angled, out RaycastHit hit_r_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_r_angled);
@@ -255,6 +314,15 @@ public class Scr_Car_Cop_AI : MonoBehaviour
             else if (Physics.Raycast(rayForward_l_angled, out RaycastHit hit_l_angled, obstacleVisionDistance * 0.75f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_l_angled);
+            }
+            // 7.5 degree rays
+            else if (Physics.Raycast(rayForward_frm_angled, out RaycastHit hit_frm_angled, obstacleVisionDistance, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_frm_angled);
+            }
+            else if (Physics.Raycast(rayForward_flm_angled, out RaycastHit hit_flm_angled, obstacleVisionDistance, obstacleLayerMask))
+            {
+                forwardObstacleAvoidance(speed, hit_flm_angled);
             }
             else if (Physics.Raycast(rayForward_r, out RaycastHit hit_r, obstacleVisionDistance, obstacleLayerMask))
             {
@@ -349,6 +417,40 @@ public class Scr_Car_Cop_AI : MonoBehaviour
                 standardSteeringBehaviour(speed, distanceToEndTarget, dirToMovePosition, rotatedOffset);
 
             }
+
+        }
+
+        // check if we are offroad with downwards raycast
+        if (Physics.Raycast(rayDown, out RaycastHit hitDown, 5f, offroadTerrainLayerMask))
+        {
+            // we are offroad, set target speed to 35
+            // + 10% of max speed to not slow down too much
+            float targetSpeed; // Default target speed
+
+            // max speed referenced from car controller ai
+            float maxSpeed = CarCopController.getMaxSpeed();
+
+            brakeInput = false; // reset brake
+
+            // In break zone
+            // get the speed target to slow down to
+            targetSpeed = 30 + (maxSpeed * 0.1f); // Get the target speed to brake towards
+
+            // brake until we reach the target speed
+            if (targetSpeed < Vector3.Magnitude(rigidBody.linearVelocity))
+            {
+                brakeInput = true; // brake
+                forwardAmount = 0f; // release gas
+                                    //Debug.Log("Braking in Brake Zone, target speed: " + targetSpeed + ", current speed: " + Vector3.Magnitude(rigidBody.linearVelocity));
+            }
+            else
+            {
+                brakeInput = false; // release brake
+                                    //forwardAmount = 1f; // move forward
+            }
+
+            // set offroad flag to true
+            isOffroad = true;
 
         }
 
@@ -679,4 +781,10 @@ public class Scr_Car_Cop_AI : MonoBehaviour
 
     }
 
+    // return if we are offroad
+    public bool isCarOffroad() 
+    { 
+        return isOffroad;
+
+    }
 }

@@ -46,6 +46,10 @@ public class CarCopController : MonoBehaviour
     // get the car cop lights handler script
     [SerializeField] private Scr_Car_Cop_Lights_Handler carLightsHandlerScript;
 
+    // get car ai script to know if we are on offroad terrain
+    private Scr_Car_Cop_AI carCopAiScript;
+
+
     void Start()
     {
         carRb = GetComponent<Rigidbody>();
@@ -57,7 +61,10 @@ public class CarCopController : MonoBehaviour
 
         // get the car lights handler script component if not assigned
         carLightsHandlerScript = GetComponentInChildren<Scr_Car_Cop_Lights_Handler>();
-        
+
+        // get cop car ai script component
+        carCopAiScript = GetComponent<Scr_Car_Cop_AI>();
+
     }
 
     void Update()
@@ -116,9 +123,23 @@ public class CarCopController : MonoBehaviour
 
     void Move()
     {
-        foreach (var wheel in wheels)
+        // if we are on offroad terrain, cut acceleration in half
+        if (carCopAiScript.isCarOffroad())
         {
-            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.motorTorque = moveInput * 600 * (maxAcceleration / 2) * Time.deltaTime;
+            }
+
+        }
+        // if not use default acceleration
+        else
+        {
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            }
+
         }
     }
 
@@ -174,6 +195,12 @@ public class CarCopController : MonoBehaviour
 
         }
 
+    }
+
+    // getter for max speed
+    public float getMaxSpeed()
+    {
+        return maxSpeed;
     }
 
 }
