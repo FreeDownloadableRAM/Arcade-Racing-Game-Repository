@@ -4863,7 +4863,7 @@ MonoBehaviour:
   laserDistance: 450
   hitLayers:
     serializedVersion: 2
-    m_Bits: 24640
+    m_Bits: 4218944
   PartSysImpctEff: {fileID: 0}
 --- !u!120 &42856252942015969
 LineRenderer:

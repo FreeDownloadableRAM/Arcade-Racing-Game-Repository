@@ -5113,5 +5113,5 @@ MonoBehaviour:
   laserDistance: 450
   hitLayers:
     serializedVersion: 2
-    m_Bits: 24640
+    m_Bits: 4218944
   PartSysImpctEff: {fileID: 648454702264957435}
