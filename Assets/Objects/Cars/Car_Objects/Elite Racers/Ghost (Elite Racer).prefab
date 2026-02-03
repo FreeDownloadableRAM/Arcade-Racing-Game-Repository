@@ -5757,13 +5757,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 3
+    m_Stiffness: 3.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 3
+    m_Stiffness: 3.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -30317,13 +30317,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 3
+    m_Stiffness: 3.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 3
+    m_Stiffness: 3.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -50291,8 +50291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef1a572f36c5041abffbe49591297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 95
-  brakeAcceleration: 80
+  maxAcceleration: 96
+  brakeAcceleration: 72
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -50310,7 +50310,7 @@ MonoBehaviour:
     wheelCollider: {fileID: 8265357838140709073}
     axel: 1
   maxSpeed: 80
-  steeringWheelTurnSpeed: 0.5
+  steeringWheelTurnSpeed: 0.9
   carLightsHandlerScript: {fileID: 0}
 --- !u!114 &291512846728150090
 MonoBehaviour:
@@ -50324,7 +50324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c66444be4ab3894fbb68038e2c971b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextVertexDistanceThreshold: 15
+  NextVertexDistanceThreshold: 10
   raycastOffsetFromGround: {x: 0, y: 1.5, z: 0}
   rigidBody: {fileID: 5377088055322345263}
   raycastCarWidth: {x: 1.5, y: 0, z: 0}
@@ -50339,9 +50339,9 @@ MonoBehaviour:
   obstacleReverseMinVisionDistance: 5
   obstacleReverseMaxVisionDistance: 8
   steerVisionDistance: 8
-  steerBaseVisionDistance: 0
-  steerMinVisionDistance: 0
-  steerMaxVisionDistance: 0
+  steerBaseVisionDistance: 1
+  steerMinVisionDistance: 2
+  steerMaxVisionDistance: 22
   steerAroundObjectSpeed: 1
   sideSteerRayMultiplier: 0.75
   rayAngleForwardR: 15
@@ -50567,8 +50567,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelL: {fileID: 5663606208108798495}
   wheelR: {fileID: 8265357838140709073}
-  AntiRollBarForce: 10000
-  downwardForce: 5
+  AntiRollBarForce: 15000
+  downwardForce: 3
 --- !u!114 &5027370062281233039
 MonoBehaviour:
   m_ObjectHideFlags: 0

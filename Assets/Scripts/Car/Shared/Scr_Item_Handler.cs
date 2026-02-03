@@ -505,6 +505,19 @@ public class Scr_Item_Handler : MonoBehaviour
                 GameObject laserProjectileLeft = Instantiate(laserItemPrefab, spawnPosition + leftOffset, spawnRotation);
                 GameObject laserProjectileRight = Instantiate(laserItemPrefab, spawnPosition + rightOffset, spawnRotation);
 
+                // set laser speed of projectiles
+                // get our own car's linear velocity to set the initial laser speed accordingly
+                float carSpeed = carRigidbody.linearVelocity.magnitude;
+
+                // if car speed is below a minimum threshold, set to minimum speed
+                if ((carSpeed * 1.2) < 400f)
+                {
+                    carSpeed = 400f;
+                }
+                
+                laserProjectileLeft.GetComponentInChildren<Scr_Item_Pierce_Laser>().SetLaserSpeed(1.2f * carSpeed); // set initial laser speed to 120% of car speed
+                laserProjectileRight.GetComponentInChildren<Scr_Item_Pierce_Laser>().SetLaserSpeed(1.2f * carSpeed); // set initial laser speed to 120% of car speed
+
                 // count down number of shots left
                 numberOfShots -= 1;
 

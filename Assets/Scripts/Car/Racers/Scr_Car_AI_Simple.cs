@@ -576,7 +576,7 @@ public class CarAISimple : MonoBehaviour
             // Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
 
             // if we are going slow, you can overtake no matter what, but no overtaking while reversing
-            if (speed < ((carControllerAI.getMaxSpeed() * 0.2f) + 25.0f) && forwardAmount >= 0)
+            if (speed < ((carControllerAI.getMaxSpeed() * 0.2f) + 20.0f) && forwardAmount >= 0)
             {
                 // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
                 if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 35f)

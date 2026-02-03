@@ -79,6 +79,12 @@ public class Scr_Item_Pierce_Laser : MonoBehaviour
         LaserDestructionEffect();
     }
 
+    // set laser speed
+    public void SetLaserSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
     // rocket explosion effect function
     private void LaserDestructionEffect()
     {

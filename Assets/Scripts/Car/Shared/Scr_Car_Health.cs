@@ -210,7 +210,7 @@ public class Scr_Car_Health : MonoBehaviour
             {
                 // if we hit terrain obstacles or outofbounds, return
                 if (hitInfo.collider.gameObject.CompareTag("Obstacle") || hitInfo.collider.gameObject.CompareTag("Terrain")
-                    || hitInfo.collider.gameObject.CompareTag("OutOfBounds"))
+                    || hitInfo.collider.gameObject.CompareTag("OutOfBounds") || hitInfo.collider.gameObject.CompareTag("Road"))
                 {
                     // draw red debug ray
                     Debug.DrawRay(rayFromCar.origin, rayFromCar.direction * hitInfo.distance, Color.red, 0.2f);
