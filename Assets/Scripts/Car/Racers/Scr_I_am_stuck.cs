@@ -119,7 +119,11 @@ public class Scr_I_am_stuck : MonoBehaviour
             }
             else
             {
-                lastCheckpointPassed = scrMyRaceProgress.RaceCheckpointTransforms[0]; // first checkpoint
+                // set last checkpoint passed to the last item in the list
+                lastCheckpointPassed = scrMyRaceProgress.RaceCheckpointTransforms[scrMyRaceProgress.RaceCheckpointTransforms.Count - 1]; // last checkpoint passed
+
+                // OLD
+                // lastCheckpointPassed = scrMyRaceProgress.RaceCheckpointTransforms[0]; // first checkpoint
             }
 
 
