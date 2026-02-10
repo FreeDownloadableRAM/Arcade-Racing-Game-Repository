@@ -28,6 +28,7 @@ TagManager:
   - Shock Beam
   - Ion Beam
   - Road
+  - Water
   layers:
   - Default
   - TransparentFX

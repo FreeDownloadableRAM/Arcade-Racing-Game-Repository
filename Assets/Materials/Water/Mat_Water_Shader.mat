@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4250953616036046878
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mat_Water_Shader
+  m_Shader: {fileID: -6465566751694194690, guid: 1b6660300e9005b4981d5ce8e3d5b08b, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Water_Normal_Map:
+        m_Texture: {fileID: 2800000, guid: 0d1041028b5f1cb4da89e6cd4b3463ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Water_Secondary_Normal_Map:
+        m_Texture: {fileID: 2800000, guid: 472a4d634d1e37b42970a8baa88acf39, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Depth: 5
+    - _Displacement: 0.05
+    - _Foam_Amount: 5
+    - _Foam_Cutoff: 0.1
+    - _Foam_Size: 1500
+    - _Foam_Speed: 0.0025
+    - _Normal_Strength: 0.025
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Smoothness: 0.95
+    - _Strength: 0.045
+    m_Colors:
+    - _Deep_Water_Colour: {r: 0.6603774, g: 0.12171662, b: 0, a: 1}
+    - _Foam_Colour: {r: 3.9999998, g: 3.9999998, b: 3.9999998, a: 1}
+    - _Shallow_Water_Colour: {r: 1, g: 0.39664507, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
