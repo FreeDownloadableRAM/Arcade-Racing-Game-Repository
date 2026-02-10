@@ -137,8 +137,18 @@ public class Scr_I_am_stuck : MonoBehaviour
             // we are stuck, so reset to last checkpoint passed
             if (lastCheckpointPassed != null)
             {
-                transform.position = lastCheckpointPassed.position + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
-                transform.rotation = lastCheckpointPassed.rotation; // align car rotation with checkpoint rotation
+                // if we are finished the race, set position to first checkpoint of the race, do not reset to last checkpoint since we have already finished
+                if (scrMyRaceProgress.completedRace)
+                {
+                    transform.position = scrMyRaceProgress.RaceCheckpointTransforms[0].position + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                    transform.rotation = scrMyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
+                }
+                else 
+                {
+                    transform.position = lastCheckpointPassed.position + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                    transform.rotation = lastCheckpointPassed.rotation; // align car rotation with checkpoint rotation
+
+                }
 
                 // reset wheels
                 scrCarControllerAI.resetWheelsToDefaultPosition();

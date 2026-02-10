@@ -33,6 +33,12 @@ public class Scr_Car_Health : MonoBehaviour
     // original car mass
     float originalCarMass = 0f;
 
+    // get car rigidbody reference to modify mass on reset
+
+
+    // race progress script reference
+    private scr_My_Race_Progress scr_MyRaceProgress;
+
     // car death timer
     private float carDeathTimer = 5f;
 
@@ -88,6 +94,9 @@ public class Scr_Car_Health : MonoBehaviour
 
         // reference item handler script
         scr_itemHandler = GetComponent<Scr_Item_Handler>();
+
+        // get race progress script reference 
+        scr_MyRaceProgress = GetComponent<scr_My_Race_Progress>();
 
         // if this is an ai car, get its controller
         if (gameObject.CompareTag("AI"))
@@ -584,18 +593,29 @@ public class Scr_Car_Health : MonoBehaviour
         Transform lastCheckpoint = scr_IAmStuck.GetLastCheckpointPassed();
         if (lastCheckpoint != null)
         {
-
             carDeathTimer -= Time.deltaTime;
 
             if (carDeathTimer <= 0f)
             {
+                // set rigidbody velocity to zero before teleporting to avoid sliding into walls after reset
+                carRigidbody.linearVelocity = Vector3.zero;
+
                 // stop death particles
                 Scr_ParticleHandler.StopCarDestructionParticles();
 
-                transform.position = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
-                transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
+                // if we are finished the race, set car position to the first checkpoint instead of last checkpoint we passed
+                if (scr_MyRaceProgress.completedRace)
+                {
+                    transform.position = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                    transform.rotation = scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
+                }
+                else 
+                {
+                    transform.position = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                    transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
 
-                
+                }
+
                 // set car rigidbody velocity to zero to avoid car sliding after reset
                 carRigidbody.linearVelocity = Vector3.zero;
                 carRigidbody.angularVelocity = Vector3.zero;
