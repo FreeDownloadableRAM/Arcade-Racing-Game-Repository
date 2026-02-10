@@ -44,6 +44,9 @@
         },
         {
             "m_Id": "436596b4e6494be3a9aa55b1135c25b3"
+        },
+        {
+            "m_Id": "619c5134103f41709019f77141e7d1f7"
         }
     ],
     "m_Keywords": [],
@@ -257,6 +260,9 @@
         },
         {
             "m_Id": "2971d94924534ac2b5f4135acd9b3fc9"
+        },
+        {
+            "m_Id": "492a49090b964a31b4c0a835d4b8d771"
         }
     ],
     "m_GroupDatas": [],
@@ -414,6 +420,34 @@
                     "m_Id": "f07659c995a842f79849f49cf67e19dc"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "492a49090b964a31b4c0a835d4b8d771"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "3da2a5fa99c84a90a72901ceb137a12b"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "492a49090b964a31b4c0a835d4b8d771"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "3dd89d9744db4914b797d35b267fff69"
+                },
+                "m_SlotId": 1
             }
         },
         {
@@ -3032,6 +3066,42 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "492a49090b964a31b4c0a835d4b8d771",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 183.00003051757813,
+            "y": -658.0001220703125,
+            "width": 191.0,
+            "height": 34.00006103515625
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "ac9f2f09bc4d45e28fba3e338f6f3794"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "619c5134103f41709019f77141e7d1f7"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "492cea06e9b24a76a6d215ba09a32a8d",
     "m_Id": 2,
@@ -3712,6 +3782,46 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "619c5134103f41709019f77141e7d1f7",
+    "m_Guid": {
+        "m_GuidSerialized": "b21963cf-3105-4d30-aed9-81e4084e6a00"
+    },
+    "m_Name": "Wave Normal Tile Size",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Wave Normal Tile Size",
+    "m_DefaultReferenceName": "_Wave_Normal_Tile_Size",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_PerRendererData": false,
+    "m_customAttributes": [],
+    "m_Value": 50.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    },
+    "m_SliderType": 0,
+    "m_SliderPower": 3.0,
+    "m_EnumType": 0,
+    "m_CSharpEnumString": "",
+    "m_EnumNames": [
+        "Default"
+    ],
+    "m_EnumValues": [
+        0
+    ]
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "61de8df8872c442fbb3d15a9ccd716c5",
@@ -3773,6 +3883,9 @@
         },
         {
             "m_Id": "436596b4e6494be3a9aa55b1135c25b3"
+        },
+        {
+            "m_Id": "619c5134103f41709019f77141e7d1f7"
         }
     ]
 }
@@ -6047,6 +6160,21 @@
     "m_StageCapability": 2,
     "m_Value": 1.0,
     "m_DefaultValue": 1.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "ac9f2f09bc4d45e28fba3e338f6f3794",
+    "m_Id": 0,
+    "m_DisplayName": "Wave Normal Tile Size",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
     "m_Labels": []
 }
 
