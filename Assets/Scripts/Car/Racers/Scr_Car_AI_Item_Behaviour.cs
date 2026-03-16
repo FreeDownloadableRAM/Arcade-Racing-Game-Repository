@@ -217,6 +217,8 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
                         Vector3 directionToTarget = (hitInfo.collider.transform.position - transform.position).normalized;
 
                         // get the root game object of the target car
+                        // if the game object tag is "player"
+                        
                         GameObject targetRoot =
                         hitInfo.collider.GetComponentInParent<CarControllerAI>()?.gameObject ??
                         hitInfo.collider.GetComponentInParent<CarController>()?.gameObject ??
@@ -698,12 +700,35 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         Vector3 targetVel = rb != null ? rb.linearVelocity : Vector3.zero;
 
         float targetAcc;
-        if (hitInfo.collider.CompareTag("Cars"))
-            targetAcc = targetObject.GetComponentInParent<CarControllerAI>().getAcceleration();
-        else if (hitInfo.collider.CompareTag("Player"))
-            targetAcc = targetObject.GetComponentInParent<CarController>().getAcceleration();
+        if (hitInfo.collider.CompareTag("Cars")) 
+        {
+            // 
+            if (targetObject.GetComponentInParent<CarControllerAI>() != null)
+            {
+                targetAcc = targetObject.GetComponentInParent<CarControllerAI>().getAcceleration();
+            }
+            else 
+            {
+                targetAcc = 0;
+            }
+
+        }
+        else if (hitInfo.collider.CompareTag("Player")) 
+        {
+            if (targetObject.GetComponentInParent<CarController>() != null)
+            {
+                targetAcc = targetObject.GetComponentInParent<CarController>().getAcceleration();
+            }
+            else 
+            {
+                targetAcc = 0;
+            }
+        }
         else
-            targetAcc = 0;
+        { 
+            targetAcc = 0; 
+
+        }
 
         Vector3 targetAccVec = targetAcc * targetObject.transform.forward;
         Vector3 targetPos = targetObject.transform.position;

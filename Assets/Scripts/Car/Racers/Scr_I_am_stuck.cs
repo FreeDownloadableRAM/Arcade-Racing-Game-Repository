@@ -24,6 +24,12 @@ public class Scr_I_am_stuck : MonoBehaviour
     // car controller to control wheels
     private CarControllerAI scrCarControllerAI;
 
+    // player car controller
+    private CarController scrCarControllerPlayer;
+
+    // is this a player car?
+    [SerializeField] private bool isPlayerCar = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,8 +45,18 @@ public class Scr_I_am_stuck : MonoBehaviour
         // get car health script reference
         scrCarHealth = GetComponent<Scr_Car_Health>();
 
-        // get car controller reference
-        scrCarControllerAI = GetComponent<CarControllerAI>();
+        // if its an ai car:
+        if (isPlayerCar == false)
+        {
+            // get car controller reference
+            scrCarControllerAI = GetComponent<CarControllerAI>();
+        }
+        else 
+        {
+            scrCarControllerPlayer = GetComponent<CarController>();
+
+        }
+        
 
     }
 
@@ -64,37 +80,71 @@ public class Scr_I_am_stuck : MonoBehaviour
         // get car speed from Rigidbody component
         carSpeed = Vector3.Magnitude(rigidBody.linearVelocity);
 
-        // if our car speed is lower than 5 (very slow) for the duration of the stuck timer, we are stuck
-        if (carSpeed < 5f)
+        // if this is an ai car
+        if (isPlayerCar == false)
         {
-            stuckTimerCounter -= Time.deltaTime;
-            if (stuckTimerCounter <= 0f)
+            // if our car speed is lower than 5 (very slow) for the duration of the stuck timer, we are stuck
+            if (carSpeed < 5f)
             {
-                // we are stuck, so reset to last checkpoint passed
-                if (lastCheckpointPassed != null && (scrCarHealth.GetCurrentHealth() > 0))
+                stuckTimerCounter -= Time.deltaTime;
+                if (stuckTimerCounter <= 0f)
                 {
-                    transform.position = lastCheckpointPassed.position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
-                    transform.rotation = lastCheckpointPassed.rotation; // align car rotation with checkpoint rotation
+                    // we are stuck, so reset to last checkpoint passed
+                    if (lastCheckpointPassed != null && (scrCarHealth.GetCurrentHealth() > 0))
+                    {
+                        transform.position = lastCheckpointPassed.position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                        transform.rotation = lastCheckpointPassed.rotation; // align car rotation with checkpoint rotation
 
-                    // reset wheels
-                    scrCarControllerAI.resetWheelsToDefaultPosition();
+                        // reset wheels
+                        scrCarControllerAI.resetWheelsToDefaultPosition();
 
-                    Debug.Log("Car was stuck! Resetting to last checkpoint.");
+                        Debug.Log("Car was stuck! Resetting to last checkpoint.");
 
-                    
+
+                    }
+                    else
+                    {
+                        //Debug.Log("No checkpoint passed yet, cannot reset position!");
+                    }
+                    // reset the stuck timer
+                    stuckTimerCounter = stuckTimer;
                 }
-                else
-                {
-                    //Debug.Log("No checkpoint passed yet, cannot reset position!");
-                }
-                // reset the stuck timer
+            }
+            else
+            {
+                // we are not stuck, so reset the stuck timer
                 stuckTimerCounter = stuckTimer;
             }
         }
-        else
+        else 
         {
-            // we are not stuck, so reset the stuck timer
-            stuckTimerCounter = stuckTimer;
+            // if we press the left shift key and our car speed is lower than 5 (very slow), we are stuck and want to reset to last checkpoint
+            if (carSpeed < 5f) 
+            {
+                // if shift is pressed, we want to reset to last checkpoint
+                if (Input.GetKeyDown(KeyCode.LeftShift)) 
+                {
+                    // we are stuck, so reset to last checkpoint passed
+                    if (lastCheckpointPassed != null && (scrCarHealth.GetCurrentHealth() > 0))
+                    {
+                        transform.position = lastCheckpointPassed.position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                        transform.rotation = lastCheckpointPassed.rotation; // align car rotation with checkpoint rotation
+
+                        // reset wheels
+                        scrCarControllerPlayer.resetWheelsToDefaultPosition();
+
+                        Debug.Log("Car was stuck! Resetting to last checkpoint.");
+
+
+                    }
+                    else
+                    {
+                        //Debug.Log("No checkpoint passed yet, cannot reset position!");
+                    }
+                }
+                
+            }
+
         }
 
     }

@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class CarController : MonoBehaviour
 {
+    private Vector3 carOrigin; // Origin of the car for raycasting
+
+    [SerializeField] private Vector3 raycastOffsetFromGround; // Offset for the raycast to come from origin of the car
+
     public enum Axel
     {
         Front,
@@ -55,6 +59,10 @@ public class CarController : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
+
+        // avoid obstacles
+        carOrigin = transform.position + raycastOffsetFromGround; // Set the origin of the raycast
+
     }
 
     void FixedUpdate()
@@ -186,5 +194,16 @@ public class CarController : MonoBehaviour
             // set brake torque high to stop wheel from spinning
             wheel.wheelCollider.brakeTorque = 10000f;
         }
+    }
+
+    public Vector3 getCarOrigin()
+    {
+        return carOrigin;
+    }
+
+    // return car height off ground offset
+    public Vector3 getCarHeightOffGroundRaycastOffset()
+    {
+        return raycastOffsetFromGround;
     }
 }

@@ -113,6 +113,12 @@ public class Scr_Item_Handler : MonoBehaviour
     // car item usage behaviour script
     private Scr_Car_AI_Item_Behaviour scr_CarAIItemBehaviour;
 
+    // player item usage behaviour script
+    private Scr_Player_Item_Behaviour scr_PlayerItemBehaviour;
+
+    // is this car a player or ai?
+    [SerializeField] private bool isPlayerCar = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -134,16 +140,29 @@ public class Scr_Item_Handler : MonoBehaviour
         // get particle handler component
         scr_ParticleHandler = GetComponent<Scr_Particle_Handler>();
 
-        // get these variables so that we can reset car acceleration and max speed after nitro use
-        originalAcceleration = scr_CarControllerAI.getAcceleration();
-        originalMaxSpeed = scr_CarControllerAI.getMaxSpeed();
-
         scr_CarHealth = GetComponent<Scr_Car_Health>();
 
         scr_CarAISimple = GetComponent<CarAISimple>();
 
-        // so the item behaviour and item handler can communicate
-        scr_CarAIItemBehaviour = GetComponent<Scr_Car_AI_Item_Behaviour>();
+        // if player car, get player item behaviour script, if ai car, get ai item behaviour script
+        if (isPlayerCar)
+        {
+            // so the player item behaviour and item handler can communicate
+            scr_PlayerItemBehaviour = GetComponent<Scr_Player_Item_Behaviour>();
+
+            // get these variables so that we can reset car acceleration and max speed after nitro use
+            originalAcceleration = scr_CarController.getAcceleration();
+            originalMaxSpeed = scr_CarController.getMaxSpeed();
+        }
+        else 
+        {
+            // so the item behaviour and item handler can communicate
+            scr_CarAIItemBehaviour = GetComponent<Scr_Car_AI_Item_Behaviour>();
+
+            // get these variables so that we can reset car acceleration and max speed after nitro use
+            originalAcceleration = scr_CarControllerAI.getAcceleration();
+            originalMaxSpeed = scr_CarControllerAI.getMaxSpeed();
+        }
 
         // find the race track object in the scene
         // this will have the racers placement data that we need to home in on the correct target
@@ -154,6 +173,8 @@ public class Scr_Item_Handler : MonoBehaviour
 
         // set racer to this game object
         Racer = gameObject;
+
+        
     }
 
     // fixed update
@@ -261,9 +282,6 @@ public class Scr_Item_Handler : MonoBehaviour
             }
 
         }
-
-
-
 
         // update racer position data
         // if we are at item 0 in the racer list, we are in first place, but this will return 1.
@@ -526,8 +544,15 @@ public class Scr_Item_Handler : MonoBehaviour
             }
             else 
             {
-                scr_CarAIItemBehaviour.setFireLaserBurstToggle(false);
-
+                if (isPlayerCar)
+                {
+                    scr_PlayerItemBehaviour.setFireLaserBurstToggle(false);
+                }
+                else 
+                {
+                    scr_CarAIItemBehaviour.setFireLaserBurstToggle(false);
+                }
+                    
                 // clear item held
                 clearItemHeld();
 
@@ -536,11 +561,7 @@ public class Scr_Item_Handler : MonoBehaviour
                 timeBetweenShots = 0.0f;
 
             }
-
         }
-
-
-        
     }
 
     // Flamethrower  use function 
@@ -575,8 +596,18 @@ public class Scr_Item_Handler : MonoBehaviour
     public void UseItemShield()
     {
         // Create Chield object in the CENTER of the car
-        // get car position
-        Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+        Vector3 carPosition;
+
+        if (isPlayerCar)
+        {
+            carPosition = scr_CarController.getCarOrigin();
+        }
+        else 
+        {
+            // get car position
+            carPosition = scr_CarAISimple.getCarOrigin();
+        }
+        
 
         // get car forward direction
         Vector3 carForward = transform.forward;
@@ -610,7 +641,17 @@ public class Scr_Item_Handler : MonoBehaviour
     {
         // Create Chield object in the front of the car
         // get car position
-        Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+        Vector3 carPosition;
+
+        if (isPlayerCar)
+        {
+            carPosition = scr_CarController.getCarOrigin();
+        }
+        else 
+        {
+            // get car position
+            carPosition = scr_CarAISimple.getCarOrigin();
+        }
 
         // get car forward direction
         Vector3 carForward = transform.forward;
@@ -638,8 +679,6 @@ public class Scr_Item_Handler : MonoBehaviour
         // clear item held
         clearItemHeld();
     }
-
-    
 
     // return if shield is active for car health script
     public bool IsShieldActive()
@@ -714,10 +753,21 @@ public class Scr_Item_Handler : MonoBehaviour
         // this gets the actual racer game object that we need to home in on based on their position
         GameObject homingTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
 
+        // homing target
         // get the car height off ground ray cast offset from the target car to aim for
         // so that we aim at the center of the car rather than the ground
-        Vector3 targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        Vector3 targetCarHeightOffset;
 
+        // if the tag is "player"
+        if (homingTarget.tag == "Player")
+        {
+            targetCarHeightOffset = homingTarget.GetComponent<CarController>().getCarHeightOffGroundRaycastOffset();
+        }
+        else 
+        {
+            targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        }
+            
         // create the missile projectile from prefab and set its initial rocket speed 
         GameObject missileProjectile = Instantiate(missileItemPrefab, spawnPosition, spawnRotation);
 
@@ -791,14 +841,45 @@ public class Scr_Item_Handler : MonoBehaviour
 
         // get the car height off ground ray cast offset from the target car to aim for
         // so that we aim at the center of the car rather than the ground
-        Vector3 targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        Vector3 targetCarHeightOffset;
+
+        // if the tag is "player"
+        if (homingTarget.tag == "Player")
+        {
+            targetCarHeightOffset = homingTarget.GetComponent<CarController>().getCarHeightOffGroundRaycastOffset();
+        }
+        else
+        {
+            targetCarHeightOffset = homingTarget.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        }
 
         // target two
-        Vector3 targetCarHeightOffsetTwo = homingTargetTwo.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        Vector3 targetCarHeightOffsetTwo;
+
+        // if the tag is "player"
+        if (homingTargetTwo.tag == "Player")
+        {
+            targetCarHeightOffsetTwo = homingTargetTwo.GetComponent<CarController>().getCarHeightOffGroundRaycastOffset();
+        }
+        else
+        {
+            targetCarHeightOffsetTwo = homingTargetTwo.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        }
 
         // target three
-        Vector3 targetCarHeightOffsetThree = homingTargetThree.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        Vector3 targetCarHeightOffsetThree;
 
+        // if the tag is "player"
+        if (homingTargetThree.tag == "Player")
+        {
+            targetCarHeightOffsetThree = homingTargetThree.GetComponent<CarController>().getCarHeightOffGroundRaycastOffset();
+        }
+        else
+        {
+            targetCarHeightOffsetThree = homingTargetThree.GetComponent<CarAISimple>().getCarHeightOffGroundRaycastOffset();
+        }
+
+        
         // Target one
         // create the Ghost projectile from prefab and set its initial ghost speed 
         GameObject GhostProjectile = Instantiate(ghostItemPrefab, spawnPosition, spawnRotation);
@@ -842,7 +923,6 @@ public class Scr_Item_Handler : MonoBehaviour
         // clear item held
         clearItemHeld();
     }
-
 
     // get rocket spawn offset
     public float getRocketSpawnOffset()
