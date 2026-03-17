@@ -8,6 +8,15 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private Vector3 raycastOffsetFromGround; // Offset for the raycast to come from origin of the car
 
+    // ray cast pointing towards the ground
+    Ray rayDown; // if this collides with terrain layer objects, we are on offroad, not the road.
+
+    // layer mask for offroad terrain detection
+    private LayerMask offroadTerrainLayerMask; // Layer mask for offroad terrain detection
+
+    // boolean for if we are offroad or not
+    private bool isOffroad = false; // Are we currently offroad?
+
     public enum Axel
     {
         Front,
@@ -53,6 +62,9 @@ public class CarController : MonoBehaviour
 
         // get the car lights handler script component if not assigned
         carLightsHandlerScript = GetComponentInChildren<Scr_Player_Car_Lights_Handler>();
+
+        // Layer mask for offroad terrain detection
+        offroadTerrainLayerMask = LayerMask.GetMask("Terrain"); 
     }
 
     void Update()
@@ -63,18 +75,38 @@ public class CarController : MonoBehaviour
         // avoid obstacles
         carOrigin = transform.position + raycastOffsetFromGround; // Set the origin of the raycast
 
+        // offroad terrain detection raycast
+        rayDown = new Ray(carOrigin, -transform.up);
+
     }
 
     void FixedUpdate()
     {
+        // set offroad flag to false by default, will be set to true if we detect offroad terrain below us
+        isOffroad = false;
+
         Move();
         Steer();
         Brake();
 
-        // Limit the speed of the car
-        if (carRb.linearVelocity.magnitude > maxSpeed)
+        // check if we are offroad with downwards raycast
+        if (Physics.Raycast(rayDown, out RaycastHit hitDown, 5f, offroadTerrainLayerMask))
         {
-            carRb.linearVelocity = Vector3.ClampMagnitude(carRb.linearVelocity,maxSpeed);
+            // set offroad flag to true
+            isOffroad = true;
+
+        }
+
+        // if we are offroad, reduce the max speed by half
+        if (isOffroad)
+        {
+            // force slow down car velocity until it reaches half of max speed
+            carRb.linearVelocity = Vector3.Lerp(carRb.linearVelocity, Vector3.ClampMagnitude(carRb.linearVelocity, maxSpeed / 4), 0.02f);
+
+        }
+        else
+        {
+            carRb.linearVelocity = Vector3.ClampMagnitude(carRb.linearVelocity, maxSpeed);
         }
 
         // set brake lights based on brake input
