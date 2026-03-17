@@ -253,7 +253,16 @@ public class Scr_Item_Handler : MonoBehaviour
             {
                 // Create Chield object in the front of the car
                 // get car position
-                Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+                Vector3 carPosition;
+
+                if (isPlayerCar)
+                {
+                    carPosition = scr_CarController.getCarOrigin();
+                }
+                else 
+                {
+                    carPosition = scr_CarAISimple.getCarOrigin();
+                }
 
                 // get car forward direction
                 Vector3 carForward = transform.forward;

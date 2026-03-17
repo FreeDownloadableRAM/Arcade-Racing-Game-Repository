@@ -64,6 +64,9 @@ public class Scr_Player_Item_Behaviour : MonoBehaviour
 
                 }
 
+                // toggle bool for laser fire, as its a 3 round burst
+                fireLaserBurst = true;
+
                 scr_ItemHandler.UseItemLaser();
             }
 
