@@ -17,6 +17,8 @@ public class Scr_Player_Item_Behaviour : MonoBehaviour
         // get the item handler component
         scr_ItemHandler = GetComponent<Scr_Item_Handler>();
 
+        
+
         // get item held
         itemHeld = scr_ItemHandler.getItemHeld();
 
@@ -27,6 +29,14 @@ public class Scr_Player_Item_Behaviour : MonoBehaviour
     {
         // update item held
         itemHeld = scr_ItemHandler.getItemHeld();
+
+        // if this is true, fire laser, skip rest of the if statement
+        if (fireLaserBurst == true)
+        {
+            scr_ItemHandler.UseItemLaser();
+            return;
+
+        }
 
         // if we press control key, use our held item
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -56,14 +66,7 @@ public class Scr_Player_Item_Behaviour : MonoBehaviour
 
             if (itemHeld == "Laser") 
             {
-                // if this is true, fire laser, skip rest of the if statement
-                if (fireLaserBurst == true)
-                {
-                    scr_ItemHandler.UseItemLaser();
-                    return;
-
-                }
-
+                
                 // toggle bool for laser fire, as its a 3 round burst
                 fireLaserBurst = true;
 

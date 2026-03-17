@@ -52,6 +52,9 @@ public class CarController : MonoBehaviour
     // get the car cop lights handler script
     [SerializeField] private Scr_Player_Car_Lights_Handler carLightsHandlerScript;
 
+    // get race manager script reference
+    private scr_My_Race_Progress scr_myRaceProgress;
+
     private bool brakeInput;
 
     void Start()
@@ -63,12 +66,16 @@ public class CarController : MonoBehaviour
         // get the car lights handler script component if not assigned
         carLightsHandlerScript = GetComponentInChildren<Scr_Player_Car_Lights_Handler>();
 
+        // get race manager component reference
+        scr_myRaceProgress = GetComponent<scr_My_Race_Progress>();
+
         // Layer mask for offroad terrain detection
         offroadTerrainLayerMask = LayerMask.GetMask("Terrain"); 
     }
 
     void Update()
     {
+        
         GetInputs();
         AnimateWheels();
 
@@ -118,12 +125,29 @@ public class CarController : MonoBehaviour
 
     void GetInputs()
     {
+        // check if we have competed the race
+        // if so, do not accept player input for movement, only allow brake input to stop the car after
+        // if we finished race, do not run any logic
+        if (scr_myRaceProgress.completedRace == true)
+        {
+            steerInput = Input.GetAxis("Horizontal");
+
+            return;
+        }
+
         moveInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
     }
 
     void Move()
     {
+        // check if we have competed the race
+        // if we finished race, do not run any logic
+        if (scr_myRaceProgress.completedRace == true)
+        {
+            return;
+        }
+
         foreach (var wheel in wheels)
         {
             wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
@@ -148,6 +172,24 @@ public class CarController : MonoBehaviour
 
     void Brake()
     {
+        // check if we have competed the race
+        // if so, do not accept player input for movement, only allow brake input to stop the car after
+        // if we finished race, do not run any logic
+        if (scr_myRaceProgress.completedRace == true)
+        {
+            brakeInput = true;
+
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration * Time.deltaTime;
+
+            }
+
+            return;
+        }
+        
+
+
         if (Input.GetKey(KeyCode.Space))
         {
             foreach (var wheel in wheels)
