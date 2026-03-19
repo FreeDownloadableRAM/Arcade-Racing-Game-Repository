@@ -181,7 +181,7 @@ public class CarController : MonoBehaviour
 
             foreach (var wheel in wheels)
             {
-                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration * Time.deltaTime;
+                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration * Time.deltaTime; // originally was at 600
 
             }
 
