@@ -20149,6 +20149,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
+  brakeZoneTargetSpeedModifier: 1.1
 --- !u!114 &1530142108287512285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20380,6 +20381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuckTimer: 4.5
   rigidBody: {fileID: 6065241723898246789}
+  isPlayerCar: 0
 --- !u!114 &2264287793535682948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20405,6 +20407,7 @@ MonoBehaviour:
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.1
+  isPlayerCar: 0
 --- !u!114 &1875092522797384628
 MonoBehaviour:
   m_ObjectHideFlags: 0

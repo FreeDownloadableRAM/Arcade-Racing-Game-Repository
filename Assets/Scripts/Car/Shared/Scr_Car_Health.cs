@@ -66,6 +66,7 @@ public class Scr_Car_Health : MonoBehaviour
     // car ai script reference to get car origin position
     private CarAISimple scr_CarAISimple;
 
+
     // flame damage trigger flag
     private bool inFlameArea = false;
 
@@ -205,8 +206,18 @@ public class Scr_Car_Health : MonoBehaviour
                 }
             }
 
+            Vector3 carPosition = new Vector3(0f,0f,0f);
+
             // draw a ray cast from the car origin to the ion beam origin to check line of sight
-            Vector3 carPosition = scr_CarAISimple.getCarOrigin();
+            // if this object is a player use car controller to get car origin
+            if (gameObject.CompareTag("Player"))
+            {
+                carPosition = scr_CarController.getCarOrigin();
+            }
+            else 
+            {
+                carPosition = scr_CarAISimple.getCarOrigin();
+            }
 
             Vector3 directionToIonBeamOrigin = scr_ItemIonBeam.transform.position - carPosition;
 
