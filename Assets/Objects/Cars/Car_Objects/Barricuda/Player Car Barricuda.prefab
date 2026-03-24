@@ -55689,7 +55689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20a5122b72f68e40ae4eb46222e8448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastOffsetFromGround: {x: 0, y: 0, z: 0}
+  raycastOffsetFromGround: {x: 0, y: 0.75, z: 0}
   maxAcceleration: 58
   brakeAcceleration: 120
   turnSensitivity: 1

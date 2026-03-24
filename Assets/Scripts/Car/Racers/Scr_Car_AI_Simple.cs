@@ -130,6 +130,11 @@ public class CarAISimple : MonoBehaviour
     // random race finish steering variable
     float raceFinishedRandomSteer = 0f;
 
+    // brake speed target modifier
+    // > 1 means we are going to go faster than the set brake zone target speed
+    // < 1 means we are going to go slower than the set brake zone target speed
+    [SerializeField] private float brakeZoneTargetSpeedModifier = 1f; // Modifier for the brake zone target speed
+
     // AI Turn wheel speed
     //[SerializeField] float steerSmoothSpeed = 25f;
 
@@ -406,7 +411,7 @@ public class CarAISimple : MonoBehaviour
 
                 // In break zone
                 // get the speed target to slow down to
-                targetSpeed = brakeZoneHintProperties.targetSpeed; // Get the target speed to brake towards
+                targetSpeed = brakeZoneHintProperties.targetSpeed * brakeZoneTargetSpeedModifier; // Get the target speed to brake towards
 
                 // brake until we reach the target speed
                 if (targetSpeed < Vector3.Magnitude(rigidBody.linearVelocity))
