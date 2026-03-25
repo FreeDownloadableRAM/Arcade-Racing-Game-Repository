@@ -14970,6 +14970,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
+  brakeZoneTargetSpeedModifier: 1
 --- !u!114 &6082565402490314619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15201,6 +15202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuckTimer: 4.5
   rigidBody: {fileID: 6838814299223736183}
+  isPlayerCar: 0
 --- !u!114 &5818897041969679677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15214,8 +15216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Handler
   itemHeld: 
-  rocketSpawnOffset: 5
-  rocketSpawnHeightOffset: 0
+  rocketSpawnOffset: 5.75
+  rocketSpawnHeightOffset: 0.75
   laserItemPrefab: {fileID: 238546991540539590, guid: 923e231d5cd2c4643bc13012678faa4c, type: 3}
   rocketItemPrefab: {fileID: 6007389463334106660, guid: 6cee495441d5ab9458bfe54e5ab7f2f4, type: 3}
   missileItemPrefab: {fileID: 5632438409398279603, guid: a2bbede836595ae4c84808555af05a4f, type: 3}
@@ -15226,6 +15228,7 @@ MonoBehaviour:
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
+  isPlayerCar: 0
 --- !u!114 &3519912147016772893
 MonoBehaviour:
   m_ObjectHideFlags: 0
