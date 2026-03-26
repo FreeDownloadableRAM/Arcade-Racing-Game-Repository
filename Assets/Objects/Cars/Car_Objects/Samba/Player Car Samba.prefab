@@ -5330,7 +5330,7 @@ MonoBehaviour:
   brakeLightOnIntensity: 0.5
   brakeLightOffIntensity: 0.05
   carControllerScript: {fileID: 0}
-  isNightTime: 0
+  isNightTime: 1
 --- !u!1 &970053944792648198
 GameObject:
   m_ObjectHideFlags: 0
