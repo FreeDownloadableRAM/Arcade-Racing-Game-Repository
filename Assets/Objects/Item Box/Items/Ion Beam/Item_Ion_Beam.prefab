@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fec6e87f893274dbae9677438b4aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Beam
-  IonBeamDPS: 1500
+  IonBeamDPS: 2000
 --- !u!1 &4384380730588114425
 GameObject:
   m_ObjectHideFlags: 0
