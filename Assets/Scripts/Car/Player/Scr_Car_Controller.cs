@@ -85,6 +85,24 @@ public class CarController : MonoBehaviour
         // offroad terrain detection raycast
         rayDown = new Ray(carOrigin, -transform.up);
 
+        // restart scene when pushing the R key, for testing purposes
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
+
+        // close application when pushing the T key, for testing purposes
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Application.Quit();
+        }
+
+        // when pushing the E key, move to next unity scene, for testing purposes
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            int nextSceneIndex = (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1) % UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 
     void FixedUpdate()

@@ -200,8 +200,17 @@ public class Scr_I_am_stuck : MonoBehaviour
 
                 }
 
-                // reset wheels
-                scrCarControllerAI.resetWheelsToDefaultPosition();
+                // if its an ai car:
+                if (isPlayerCar == false)
+                {
+                    // reset wheels
+                    scrCarControllerAI.resetWheelsToDefaultPosition();
+                }
+                else
+                {
+                    scrCarControllerPlayer.resetWheelsToDefaultPosition();
+
+                }
 
                 //Debug.Log("Car was out of bounds! Resetting to last checkpoint.");
             }
