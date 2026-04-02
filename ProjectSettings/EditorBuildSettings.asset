@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
+    path: Assets/Scenes/Race Scenes/Scn_Island_Race.unity
+    guid: c7eaa99f0380a0a438daa2cde67a1b88
+  - enabled: 1
+    path: Assets/Scenes/Race Scenes/Scn_PineValley.unity
+    guid: 527337ed7bc729a4285e4c4fd1c20f71
+  - enabled: 1
+    path: Assets/Scenes/Race Scenes/Scn_Marina.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

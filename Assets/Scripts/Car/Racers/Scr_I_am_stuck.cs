@@ -187,6 +187,7 @@ public class Scr_I_am_stuck : MonoBehaviour
             // we are stuck, so reset to last checkpoint passed
             if (lastCheckpointPassed != null)
             {
+                /*
                 // if we are finished the race, set position to first checkpoint of the race, do not reset to last checkpoint since we have already finished
                 if (scrMyRaceProgress.completedRace)
                 {
@@ -211,12 +212,18 @@ public class Scr_I_am_stuck : MonoBehaviour
                     scrCarControllerPlayer.resetWheelsToDefaultPosition();
 
                 }
+                */
+                // set car health to zero
+                scrCarHealth.SetCurrentHealth(0);
 
                 //Debug.Log("Car was out of bounds! Resetting to last checkpoint.");
             }
             else
             {
                 //Debug.Log("No checkpoint passed yet, cannot reset position!");
+
+                transform.position = scrMyRaceProgress.RaceCheckpointTransforms[0].position + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                transform.rotation = scrMyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
             }
 
             // reset the stuck timer
