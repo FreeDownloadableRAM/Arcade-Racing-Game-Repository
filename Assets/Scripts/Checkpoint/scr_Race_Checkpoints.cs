@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.VisualScripting.Metadata;
+//using static Unity.VisualScripting.Metadata;
 
 public class scr_RaceCheckpoints : MonoBehaviour
 {

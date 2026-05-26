@@ -92,7 +92,7 @@ public class CarController : MonoBehaviour
         }
 
         // close application when pushing the T key, for testing purposes
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
