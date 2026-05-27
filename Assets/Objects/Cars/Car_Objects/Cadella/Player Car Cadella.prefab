@@ -9810,8 +9810,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567186989168828633}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20106587, y: 0, z: 0, w: 0.9795777}
-  m_LocalPosition: {x: 103.627174, y: 96.346344, z: -82.94}
+  m_LocalRotation: {x: 0, y: 0.9795777, z: -0.20106587, w: 0}
+  m_LocalPosition: {x: 131.22556, y: 96.34629, z: -79.39795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56172,7 +56172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1595475552672997811}
-  - component: {fileID: 4080512497555423477}
+  - component: {fileID: 814755442206271931}
   m_Layer: 0
   m_Name: FrontAndBackLights
   m_TagString: Untagged
@@ -56201,7 +56201,7 @@ Transform:
   - {fileID: 590682899873504454}
   m_Father: {fileID: 1837479191208002901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4080512497555423477
+--- !u!114 &814755442206271931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56210,9 +56210,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9102705506466738270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb267d70141cfcd4e89b385814f67ff1, type: 3}
+  m_Script: {fileID: 11500000, guid: da0dfa0c0a318504896e63fba05d6b23, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scr_Player_Car_Lights_Handler
   headLightLeft: {fileID: 8971778332178840818}
   headLightRight: {fileID: 3184194519052562584}
   headConeLightLeft: {fileID: 6127842606920488582}

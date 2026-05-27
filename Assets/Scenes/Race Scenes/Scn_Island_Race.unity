@@ -15637,6 +15637,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Car Cadella
       objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 103.627174
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 96.346344
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -82.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9795777
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.20106587
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183038974667362561, guid: 2a4a6ea14c764a9409e897b4b1445c52, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
