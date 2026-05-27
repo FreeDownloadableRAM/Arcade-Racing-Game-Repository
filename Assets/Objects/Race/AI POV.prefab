@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetOffset: {x: 0, y: 3, z: 3}
   TrackerSettings:
-    BindingMode: 2
+    BindingMode: 1
     PositionDamping: {x: 1, y: 1, z: 0.2}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}

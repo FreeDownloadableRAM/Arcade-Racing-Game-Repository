@@ -9810,8 +9810,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567186989168828633}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9795777, z: -0.20106587, w: 0}
-  m_LocalPosition: {x: 131.22556, y: 96.34629, z: -79.39795}
+  m_LocalRotation: {x: 0.20106587, y: 0, z: 0, w: 0.9795777}
+  m_LocalPosition: {x: 103.627174, y: 96.346344, z: -82.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35046,13 +35046,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.25
+    m_Stiffness: 1.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1.25
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -35180,8 +35180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastOffsetFromGround: {x: 0, y: 0.5, z: 0}
-  maxAcceleration: 28
-  brakeAcceleration: 46
+  maxAcceleration: 36
+  brakeAcceleration: 50
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -40746,13 +40746,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.25
+    m_Stiffness: 1.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1.25
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
