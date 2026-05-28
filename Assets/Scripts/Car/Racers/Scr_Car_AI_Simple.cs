@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -52,9 +53,31 @@ public class CarAISimple : MonoBehaviour
     Ray rayBackward_r;
     Ray rayBackward_l;
 
+    /*
     Ray raySteerAround; // Ray for steering around other Objects
     Ray raySteerAround_r; // right ray
     Ray raySteerAround_l; // left ray
+    */
+
+    // Ray Steer Around angle increments
+
+    [SerializeField] private float raySteerAroundAngleIncrement = 2.5f; // Angle increment for the steer around rays, to check multiple angles for better obstacle avoidance when steering around objects
+
+    // number of angled steering rays on each side, for better obstacle avoidance when steering around objects. Total rays will be this number times 2 (for left and right) plus the straight ray.
+    
+    [SerializeField] private int raySteerAroundNumberOfAngleIncrements = 24; // Number of angled rays on each side for steering around objects
+
+    // create an array of angled steering rays        
+    // we will create these rays in the update function based on the number of angle increments and the angle increment value,
+    // to allow for more flexible configuration of the steer around obstacle avoidance system.
+    // The rays will be created in a fan shape in front of the car, with the number of rays on each side determined by the raySteerAroundNumberOfAngleIncrements variable,
+    // and the angle between each ray determined by the raySteerAroundAngleIncrement variable.
+    // For example, if we have 3 angle increments and an angle increment value of 10 degrees,
+    // we will have rays at -30, -20, -10, 0, 10, 20, and 30 degrees for steering around obstacles.
+
+    private List<Ray> steerAroundRays = new List<Ray>(); // Create an ArrayList to hold the rays, since we don't know the exact number of rays yet
+
+    private float currentAvoidanceSteer = 0f;
 
     // ray cast pointing towards the ground
     Ray rayDown; // if this collides with terrain layer objects, we are on offroad, not the road.
@@ -164,6 +187,28 @@ public class CarAISimple : MonoBehaviour
 
         offroadTerrainLayerMask = LayerMask.GetMask("Terrain"); // Layer mask for offroad terrain detection
 
+        
+        // straight ray is already handled with raySteerAround, so we only need to create the angled rays here
+        // create rays for the right side
+        for (int i = 1; i <= raySteerAroundNumberOfAngleIncrements; i++)
+        {
+            float angle = raySteerAroundAngleIncrement * i; // Calculate the angle for this ray
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up); // Create a rotation for this angle
+            Vector3 direction = rotation * transform.forward; // Rotate the forward vector by this angle to get the direction of the ray
+            Ray ray = new Ray(carOrigin, direction); // Create a new ray with the car's origin and this direction
+            steerAroundRays.Add(ray); // Add this ray to the ArrayList
+            // also create rays for the left side by negating the angle
+            float leftAngle = -angle; // Calculate the angle for the left ray by negating the right angle
+            Quaternion leftRotation = Quaternion.AngleAxis(leftAngle, Vector3.up); // Create a rotation for this angle
+            Vector3 leftDirection = leftRotation * transform.forward; // Rotate the forward vector by this angle to get the direction of the left ray
+            Ray leftRay = new Ray(carOrigin, leftDirection); // Create a new ray with the car's origin and this direction
+            steerAroundRays.Add(leftRay); // Add this ray to the ArrayList
+
+            // debug draw the rays in the scene view
+            Debug.DrawRay(carOrigin, direction * steerVisionDistance, Color.blue); // Debug draw the right ray in blue
+        }
+
+
     }
 
 
@@ -251,7 +296,7 @@ public class CarAISimple : MonoBehaviour
 
         Vector3 rotatedOffset = transform.rotation * raycastCarWidth; // Rotate the raycast offset to match the car's rotation
 
-
+        /*
         // obstacle avoidance raycast
         rayForward = new Ray(carOrigin, transform.forward);
         rayForward_r = new Ray(carOrigin + raycastCarWidth, transform.forward);
@@ -275,6 +320,102 @@ public class CarAISimple : MonoBehaviour
         raySteerAround = new Ray(carOrigin, transform.forward);
         raySteerAround_r = new Ray(carOrigin + raycastCarWidth, transform.forward);
         raySteerAround_l = new Ray(carOrigin - raycastCarWidth, transform.forward);
+
+        // update the steer around rays in the arraylist based on the current car origin and rotation,
+        // since these rays are created in the awake function and need to be updated each frame to match
+        // the car's current position and rotation for accurate obstacle detection when steering around objects.
+        */
+
+        // obstacle avoidance raycast
+        rayForward = new Ray(carOrigin, transform.forward);
+
+        rayForward_r = new Ray(
+            carOrigin + raycastCarWidth,
+            transform.forward
+        );
+
+        rayForward_l = new Ray(
+            carOrigin - raycastCarWidth,
+            transform.forward
+        );
+
+        rayForward_r_angled = new Ray(
+            carOrigin,
+            carFrontSide_fr
+        );
+
+        rayForward_l_angled = new Ray(
+            carOrigin,
+            carFrontSide_fl
+        );
+
+        rayForward_rf_angled = new Ray(
+            carOrigin,
+            carFrontSide_rf
+        );
+
+        rayForward_lf_angled = new Ray(
+            carOrigin,
+            carFrontSide_lf
+        );
+
+        // in-between angled rays
+        rayForward_frm_angled = new Ray(
+            carOrigin,
+            carFrontSide_frm
+        );
+
+        rayForward_flm_angled = new Ray(
+            carOrigin,
+            carFrontSide_flm
+        );
+
+        rayForward_rfm_angled = new Ray(
+            carOrigin,
+            carFrontSide_rfm
+        );
+
+        rayForward_lfm_angled = new Ray(
+            carOrigin,
+            carFrontSide_lfm
+        );
+
+        // backward rays
+        rayBackward = new Ray(
+            carOrigin,
+            -transform.forward
+        );
+
+        rayBackward_r = new Ray(
+            carOrigin + rotatedOffset,
+            -transform.forward
+        );
+
+        rayBackward_l = new Ray(
+            carOrigin - rotatedOffset,
+            -transform.forward
+        );
+
+
+        for (int i = 0; i < steerAroundRays.Count; i++)
+        {
+            float angle = raySteerAroundAngleIncrement * ((i / 2) + 1); // Calculate the angle for this ray based on its index in the list
+            if (i % 2 == 0) // Even index, right side
+            {
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up); // Create a rotation for this angle
+                Vector3 direction = rotation * transform.forward; // Rotate the forward vector by this angle to get the direction of the ray
+                steerAroundRays[i] = new Ray(carOrigin, direction); // Update the ray with the car's origin and this direction
+            }
+            else // Odd index, left side
+            {
+                Quaternion rotation = Quaternion.AngleAxis(-angle, Vector3.up); // Create a rotation for this angle (negate for left side)
+                Vector3 direction = rotation * transform.forward; // Rotate the forward vector by this angle to get the direction of the ray
+                steerAroundRays[i] = new Ray(carOrigin, direction); // Update the ray with the car's origin and this direction
+            }
+
+            // draw all the steer around rays in the scene view in a thin cyan line to visualize the area that the car is checking for obstacles to steer around
+            //Debug.DrawRay(carOrigin, ((Ray)steerAroundRays[i]).direction * steerVisionDistance, Color.cyan); // Debug draw the ray in cyan
+        }
 
         // offroad terrain detection raycast
         rayDown = new Ray(carOrigin, -transform.up);
@@ -316,7 +457,76 @@ public class CarAISimple : MonoBehaviour
 
             // just release by default
             brakeInput = false; // release brake
+
+            // go through each ray in the angled steering ray arraylist and check for obstacles,
+            // starting with the rays with the smallest angle increment for better obstacle avoidance when steering around objects,
+            // then move to the straight ray if no angled rays detect anything, to allow the car to steer around objects more smoothly instead
+            // of always trying to steer around at the last second with the straight ray when it detects an object, which can cause jittery steering behavior.
+
+            // ======================================================
+            // SMART STEER-AROUND OBSTACLE DETECTION
+            // ======================================================
+
+            RaycastHit bestHit = new RaycastHit();
+
+            bool foundObstacle = false;
+
+            float bestScore = Mathf.Infinity;
+
+            Ray bestRay = new Ray();
+
+            for (int i = 0; i < steerAroundRays.Count; i++)
+            {
+                Ray ray = steerAroundRays[i];
+
+                if (Physics.Raycast(ray, out RaycastHit hit, steerVisionDistance, steerAroundLayerMask))
+                {
+                    // -----------------------------
+                    // DISTANCE SCORE
+                    // -----------------------------
+                    float distanceScore = hit.distance;
+
+                    // -----------------------------
+                    // ANGLE SCORE
+                    // Smaller angles = more important
+                    // -----------------------------
+                    float angleFromForward =
+                        Vector3.Angle(transform.forward, ray.direction);
+
+                    // Weight angle importance
+                    // Tune this value
+                    float angleWeight = 0.35f;
+
+                    float angleScore = angleFromForward * angleWeight;
+
+                    // -----------------------------
+                    // FINAL SCORE
+                    // Lower = more dangerous
+                    // -----------------------------
+                    float totalScore = distanceScore + angleScore;
+
+                    // Debug rays
+                    //Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.darkOrange);
+
+                    // -----------------------------
+                    // BEST OBSTACLE?
+                    // -----------------------------
+                    if (totalScore < bestScore)
+                    {
+                        bestScore = totalScore;
+
+                        bestHit = hit;
+
+                        bestRay = ray;
+
+                        foundObstacle = true;
+                    }
+                }
+            }
+
             
+
+            /*
             if (Physics.Raycast(raySteerAround_r, out RaycastHit hitSteerAround_r, steerVisionDistance * sideSteerRayMultiplier, steerAroundLayerMask))
             {
                 steerAroundObject(speed, hitSteerAround_r, distanceToEndTarget, dirToMovePosition, dotProduct, rotatedOffset, steerVisionDistance * sideSteerRayMultiplier);
@@ -329,8 +539,10 @@ public class CarAISimple : MonoBehaviour
             {
                 steerAroundObject(speed, hitSteerAround, distanceToEndTarget, dirToMovePosition, dotProduct, rotatedOffset, steerVisionDistance);
             }
+            */
+
             // 30 degree rays
-            else if (Physics.Raycast(rayForward_rf_angled, out RaycastHit hit_rf_angled, obstacleVisionDistance * 0.5f, obstacleLayerMask))
+            if (Physics.Raycast(rayForward_rf_angled, out RaycastHit hit_rf_angled, obstacleVisionDistance * 0.5f, obstacleLayerMask))
             {
                 forwardObstacleAvoidance(speed, hit_rf_angled);
             }
@@ -378,6 +590,33 @@ public class CarAISimple : MonoBehaviour
                 forwardObstacleAvoidance(speed, hit);
 
             }
+
+            // ======================================================
+            // USE BEST OBSTACLE
+            // ======================================================
+
+            else if (foundObstacle)
+            {
+                steerAroundObject(
+                    speed,
+                    bestHit,
+                    distanceToEndTarget,
+                    dirToMovePosition,
+                    dotProduct,
+                    rotatedOffset,
+                    steerVisionDistance
+                );
+
+                // Draw selected steering ray
+                Debug.DrawRay(
+                    bestRay.origin,
+                    bestRay.direction * bestHit.distance,
+                    Color.yellow
+                );
+
+
+            }
+
             else if (Physics.Raycast(rayBackward, out RaycastHit back_hit, obstacleReverseVisionDistance, obstacleLayerMask))
             {
                 backwardObstacleAvoidance(speed, back_hit, dirToMovePosition);
@@ -479,6 +718,10 @@ public class CarAISimple : MonoBehaviour
 
         }
 
+        // debug log, show forward amount, turn amount, and brake input for tuning purposes
+
+        // Debug.Log(transform.name + " FINAL Forward Amount: " + forwardAmount + ", Turn Amount: " + turnAmount + ", Brake Input: " + brakeInput);
+
         // Send this movement information to the car controller AI
         carControllerAI.SetInputs(forwardAmount, turnAmount, brakeInput);
     }
@@ -522,6 +765,8 @@ public class CarAISimple : MonoBehaviour
 
 
     }
+
+    // OLD STEER AROUND BEHAVIOUR
     
     // steer around behaviour function
     private void steerAroundObject(float speed, RaycastHit hitSteerAround, float distanceToEndTarget, Vector3 dirToMovePosition, float dotProduct, Vector3 rotatedOffset, float steerVisionDistance) 
@@ -577,37 +822,47 @@ public class CarAISimple : MonoBehaviour
             // get angle between this cars forward direction and the end target vector
             float angleBetweenCarFrontToEndTarget = Vector3.SignedAngle(transform.forward, dirToEndTarget, Vector3.up);
 
-            // direction we are steering towards
-            // Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
+            
 
             // if we are going slow, you can overtake no matter what, but no overtaking while reversing
             if (speed < ((carControllerAI.getMaxSpeed() * 0.2f) + 20.0f) && forwardAmount >= 0)
             {
                 // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
-                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 35f)
+                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 25f)
                 {
-                    // steer towards the target
-                    //turnAmount = Mathf.Clamp((angleToTarget / 70f), -1f, 1f);
-
+                    
                     // execute standard steering behaviour
                     standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
 
                     // debug, show the direction we are steering towards to avoid the object
                     Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.black);
 
+                    // direction we are steering towards
+                    Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
+
                     return; // exit the function
 
                 }
 
+                //standardSteeringBehaviour(dotProduct, distanceToEndTarget, steerTargetPosition, rotatedOffset);
 
-                // steer towards the target
+                // steer away from obstacle
                 turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
+
+                // debug log the angle to the steering target and the angle between the steering target and the end target for tuning purposes
+                // Debug.Log(transform.name + " Angle to steer target: " + angleToSteer + " Turn amount: " + turnAmount);
+
+
+                Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.white);
+
+                // direction we are steering towards
+                Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.green);
 
             }
             else 
             {
                 // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
-                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 30f)
+                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 15f)
                 {
                     // steer towards the target
                     //turnAmount = Mathf.Clamp((angleToTarget / 70f), -1f, 1f);
@@ -658,7 +913,8 @@ public class CarAISimple : MonoBehaviour
         }
 
     }
-    
+  
+
     // standard steering behaviour function
     private void standardSteeringBehaviour(float dotProduct, float distanceToTarget, Vector3 dirToMovePosition, Vector3 rotatedOffset) 
     {
@@ -746,7 +1002,358 @@ public class CarAISimple : MonoBehaviour
         // Debug.DrawRay(carOrigin - rotatedOffset, -transform.forward * obstacleReverseVisionDistance, Color.purple);
 
     }
+    
+    /*
+    // ======================================================
+    // IMPROVED STEER AROUND BEHAVIOUR
+    // ======================================================
 
+    private void steerAroundObject(float speed, RaycastHit hitSteerAround, float distanceToEndTarget, Vector3 dirToMovePosition, float dotProduct, 
+       Vector3 rotatedOffset,float steerVisionDistance)
+    {
+        Transform steerObstacleTransform = hitSteerAround.transform;
+
+        if (steerObstacleTransform == null)
+            return;
+
+        // ======================================================
+        // DIRECTIONS
+        // ======================================================
+
+        Vector3 dirToObstacle =
+            (hitSteerAround.point - carOrigin).normalized;
+
+        Vector3 dirToMovementTarget =
+            (new Vector3(
+                targetPosition.x,
+                carOrigin.y,
+                targetPosition.z
+            ) - carOrigin).normalized;
+
+        Vector3 dirToEndTarget =
+            (new Vector3(
+                scrCarPathfinder.endtarget.position.x,
+                carOrigin.y,
+                scrCarPathfinder.endtarget.position.z
+            ) - carOrigin).normalized;
+
+        // ======================================================
+        // ANGLES
+        // ======================================================
+
+        float angleToObstacle =
+            Vector3.SignedAngle(
+                transform.forward,
+                dirToObstacle,
+                Vector3.up
+            );
+
+        float angleToEndTarget =
+            Vector3.SignedAngle(
+                transform.forward,
+                dirToEndTarget,
+                Vector3.up
+            );
+
+        // ======================================================
+        // SHARP TURN CHECK
+        // Avoid overtaking during sharp turns
+        // ======================================================
+
+        float noOvertakeTurnThreshold = 7.5f;
+
+        if (Mathf.Abs(angleToEndTarget) > noOvertakeTurnThreshold)
+        {
+            standardSteeringBehaviour(
+                dotProduct,
+                distanceToEndTarget,
+                dirToMovePosition,
+                rotatedOffset
+            );
+
+            Debug.DrawRay(carOrigin, dirToMovePosition * obstacleVisionDistance, Color.black);
+
+            return;
+        }
+
+        // ======================================================
+        // DETERMINE OVERTAKE SIDE
+        // ======================================================
+
+        // Positive = turn right
+        // Negative = turn left
+
+        bool trackTurningRight = angleToEndTarget > 0f;
+
+        // ======================================================
+        // OUTSIDE OVERTAKE LOGIC
+        // ======================================================
+
+        // If track turns right:
+        // overtake on LEFT (outside)
+
+        // If track turns left:
+        // overtake on RIGHT (outside)
+
+        float desiredSteerDirection = 0f;
+
+        if (trackTurningRight)
+        {
+            desiredSteerDirection = -1f;
+        }
+        else
+        {
+            desiredSteerDirection = 1f;
+        }
+
+        // ======================================================
+        // OBSTACLE POSITION FACTOR
+        // ======================================================
+
+        float obstacleForwardFactor =
+            1f - Mathf.Clamp01(
+                Mathf.Abs(angleToObstacle) / 90f
+            );
+
+        // Directly ahead = 1
+        // To side = 0
+
+        // ======================================================
+        // STEERING STRENGTH
+        // More aggressive if obstacle directly ahead
+        // ======================================================
+
+        float minSteerStrength = 0.01f;
+        float maxSteerStrength = 1.0f;
+
+        float steerStrength =
+            Mathf.Lerp(
+                minSteerStrength,
+                maxSteerStrength,
+                obstacleForwardFactor
+            );
+
+        // ======================================================
+        // DISTANCE FACTOR
+        // ======================================================
+
+        // 0 = far away
+        // 1 = extremely close
+
+        float distanceFactor =
+            1f - Mathf.Clamp01(
+                hitSteerAround.distance / steerVisionDistance
+            );
+
+        // ======================================================
+        // NONLINEAR CURVE
+        // Makes distant cars MUCH less influential
+        // ======================================================
+
+        distanceFactor = Mathf.Pow(distanceFactor, 2.5f);
+
+        // ======================================================
+        // APPLY DISTANCE TO STEERING
+        // ======================================================
+
+        steerStrength *= Mathf.Lerp(
+            0.01f,   // almost no steering at long range
+            1f,   // strong steering up close
+            distanceFactor
+        );
+
+        // ======================================================
+        // FINAL STEERING
+        // ======================================================
+
+        float targetSteer =
+        Mathf.Clamp(
+            desiredSteerDirection * steerStrength,
+            -1f,
+            1f
+        );
+
+        // Smooth steering response
+        currentAvoidanceSteer =
+        Mathf.Lerp(
+            currentAvoidanceSteer,
+            targetSteer,
+            Time.deltaTime * 3.5f
+        );
+
+        turnAmount = currentAvoidanceSteer;
+
+        // ======================================================
+        // SPEED CONTROL
+        // Slow slightly when directly behind another car
+        // Prevents pushing cars off track
+        // ======================================================
+
+        bool directlyBehindCar =
+            Mathf.Abs(angleToObstacle) < 4f;
+
+        if (directlyBehindCar)
+        {
+            float slowDownFactor =
+                Mathf.InverseLerp(
+                    steerVisionDistance,
+                    steerVisionDistance * 0.2f,
+                    hitSteerAround.distance
+                );
+
+            forwardAmount =
+                Mathf.Lerp(
+                    1f,
+                    0.6f,
+                    slowDownFactor
+                );
+        }
+        else
+        {
+            forwardAmount = 1f;
+        }
+
+        // ======================================================
+        // EXTRA SLOWDOWN FOR VERY CLOSE OBSTACLES
+        // ======================================================
+
+        if (hitSteerAround.distance <
+            steerVisionDistance * 0.1f)
+        {
+            forwardAmount *= 0.8f;
+        }
+
+        // ======================================================
+        // DEBUG
+        // ======================================================
+
+        
+        Debug.DrawRay(
+            carOrigin,
+            dirToObstacle * steerVisionDistance,
+            Color.red
+        );
+
+        Debug.DrawRay(
+            carOrigin,
+            dirToEndTarget * steerVisionDistance,
+            Color.green
+        );
+        
+    }
+    
+    */
+
+
+    
+    // ======================================================
+    // IMPROVED STANDARD STEERING
+    // ======================================================
+    
+    /*
+    private void standardSteeringBehaviour(float dotProduct, float distanceToTarget, Vector3 dirToMovePosition, Vector3 rotatedOffset)
+    {
+        // ======================================================
+        // FORWARD / REVERSE
+        // ======================================================
+
+        if (dotProduct > 0)
+        {
+            float brakeDistance = 15f;
+
+            if (distanceToTarget < brakeDistance)
+            {
+                forwardAmount = 0.25f;
+                brakeInput = false;
+            }
+            else
+            {
+                forwardAmount = 1f;
+                brakeInput = false;
+            }
+        }
+        else
+        {
+            float reverseDistance = 15f;
+
+            if (distanceToTarget > reverseDistance)
+            {
+                forwardAmount = 1f;
+            }
+            else
+            {
+                forwardAmount = -1f;
+            }
+        }
+
+        // ======================================================
+        // TARGET STEERING
+        // ======================================================
+
+        float angleToDir =
+            Vector3.SignedAngle(
+                transform.forward,
+                dirToMovePosition,
+                Vector3.up
+            );
+
+        // ======================================================
+        // DYNAMIC STEERING RESPONSE
+        // Sharper turns = more steering
+        // ======================================================
+
+        float absAngle = Mathf.Abs(angleToDir);
+
+        float steeringSensitivity =
+            Mathf.Lerp(
+                55f,
+                30f,
+                Mathf.Clamp01(absAngle / 90f)
+            );
+
+        // ======================================================
+        // DEADZONE
+        // ======================================================
+
+        if (absAngle < steeringAngleThreshold)
+        {
+            turnAmount = 0f;
+        }
+        else
+        {
+            float steering =
+                Mathf.Clamp(
+                    angleToDir / steeringSensitivity,
+                    -1f,
+                    1f
+                );
+
+            // Reverse steering correction
+            if (forwardAmount < 0f)
+            {
+                steering *= -1f;
+            }
+
+            // ======================================================
+            // SMOOTH STEERING CURVE
+            // Less twitchy near center
+            // ======================================================
+
+            steering =
+                Mathf.Sign(steering) *
+                Mathf.Pow(Mathf.Abs(steering), 1.35f);
+
+            turnAmount = steering;
+        }
+
+        // ======================================================
+        // DEBUG
+        // ======================================================
+
+        //Debug.DrawRay(carOrigin,dirToMovePosition * obstacleVisionDistance,Color.white);
+    }
+    
+    */
     // forward obstacle avoidance behaviour function
     private void forwardObstacleAvoidance(float speed, RaycastHit hitObstacleAvoid) 
     {
@@ -774,7 +1381,7 @@ public class CarAISimple : MonoBehaviour
         // move away from obstacle
         turnAmount = (Mathf.Clamp((angleToObstacle / 70f) * (-1f), -1f, 1f)); // turn away
 
-        Debug.DrawRay(carOrigin, dirToObstacle * obstacleVisionDistance, Color.red);
+        // Debug.DrawRay(carOrigin, dirToObstacle * obstacleVisionDistance, Color.red);
     }
 
     // backward obstacle avoidance behaviour function

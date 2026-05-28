@@ -10096,10 +10096,12 @@ MonoBehaviour:
   rigidBody: {fileID: 8715494097815314431}
   raycastCarWidth: {x: 1.75, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 6
   obstacleVisionDistance: 8
-  obstacleBaseVisionDistance: 1.25
-  obstacleMinVisionDistance: 6.75
+  obstacleBaseVisionDistance: 2.25
+  obstacleMinVisionDistance: 5.75
   obstacleMaxVisionDistance: 16
   obstacleReverseVisionDistance: 0
   obstacleReverseBaseVisionDistance: 1
@@ -10108,7 +10110,7 @@ MonoBehaviour:
   steerVisionDistance: 4
   steerBaseVisionDistance: 1.5
   steerMinVisionDistance: 3.5
-  steerMaxVisionDistance: 26
+  steerMaxVisionDistance: 12
   steerAroundObjectSpeed: 1
   sideSteerRayMultiplier: 1
   rayAngleForwardR: 15
@@ -10119,7 +10121,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
-  brakeZoneTargetSpeedModifier: 0.85
+  brakeZoneTargetSpeedModifier: 0.82
 --- !u!114 &3783787738996263773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10349,7 +10351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06fbb536baf79b94ebb9bc7913427eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stuckTimer: 7.5
+  stuckTimer: 10
   rigidBody: {fileID: 8715494097815314431}
   isPlayerCar: 0
 --- !u!114 &8967661129970245316
