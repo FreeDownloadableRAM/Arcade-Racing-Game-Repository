@@ -53,11 +53,11 @@ public class CarAISimple : MonoBehaviour
     Ray rayBackward_r;
     Ray rayBackward_l;
 
-    /*
+    
     Ray raySteerAround; // Ray for steering around other Objects
     Ray raySteerAround_r; // right ray
     Ray raySteerAround_l; // left ray
-    */
+    
 
     // Ray Steer Around angle increments
 
@@ -76,7 +76,7 @@ public class CarAISimple : MonoBehaviour
     // we will have rays at -30, -20, -10, 0, 10, 20, and 30 degrees for steering around obstacles.
 
     private List<Ray> steerAroundRays = new List<Ray>(); // Create an ArrayList to hold the rays, since we don't know the exact number of rays yet
-
+    
     private float currentAvoidanceSteer = 0f;
 
     // ray cast pointing towards the ground
@@ -139,7 +139,7 @@ public class CarAISimple : MonoBehaviour
     [SerializeField] private float rayAngleForwardRFM; // Angle for forward right angled ray (22.5 degrees)
     [SerializeField] private float rayAngleForwardLFM; // Angle for forward left angled ray (-22.5 degrees)
 
-
+    
     //[SerializeField] private float rayAngleBackward; // Angle for backward 
     //[SerializeField] private float rayAngleBackwardR; // Angle for backward right angled ray
     //[SerializeField] private float rayAngleBackwardL; // Angle for backward left angled ray
@@ -214,6 +214,10 @@ public class CarAISimple : MonoBehaviour
 
     private void Update()
     {
+        // avoid only these layers
+        LayerMask obstacleLayerMask = LayerMask.GetMask("Obstacles"); // Layer mask to filter obstacles
+        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars"); // Layer mask to filter steering around objects
+
 
         // Debug.Log("Target Position: " + targetPosition);
         // get target for the car AI to follow
@@ -296,7 +300,7 @@ public class CarAISimple : MonoBehaviour
 
         Vector3 rotatedOffset = transform.rotation * raycastCarWidth; // Rotate the raycast offset to match the car's rotation
 
-        /*
+        
         // obstacle avoidance raycast
         rayForward = new Ray(carOrigin, transform.forward);
         rayForward_r = new Ray(carOrigin + raycastCarWidth, transform.forward);
@@ -324,78 +328,9 @@ public class CarAISimple : MonoBehaviour
         // update the steer around rays in the arraylist based on the current car origin and rotation,
         // since these rays are created in the awake function and need to be updated each frame to match
         // the car's current position and rotation for accurate obstacle detection when steering around objects.
-        */
+        
 
-        // obstacle avoidance raycast
-        rayForward = new Ray(carOrigin, transform.forward);
-
-        rayForward_r = new Ray(
-            carOrigin + raycastCarWidth,
-            transform.forward
-        );
-
-        rayForward_l = new Ray(
-            carOrigin - raycastCarWidth,
-            transform.forward
-        );
-
-        rayForward_r_angled = new Ray(
-            carOrigin,
-            carFrontSide_fr
-        );
-
-        rayForward_l_angled = new Ray(
-            carOrigin,
-            carFrontSide_fl
-        );
-
-        rayForward_rf_angled = new Ray(
-            carOrigin,
-            carFrontSide_rf
-        );
-
-        rayForward_lf_angled = new Ray(
-            carOrigin,
-            carFrontSide_lf
-        );
-
-        // in-between angled rays
-        rayForward_frm_angled = new Ray(
-            carOrigin,
-            carFrontSide_frm
-        );
-
-        rayForward_flm_angled = new Ray(
-            carOrigin,
-            carFrontSide_flm
-        );
-
-        rayForward_rfm_angled = new Ray(
-            carOrigin,
-            carFrontSide_rfm
-        );
-
-        rayForward_lfm_angled = new Ray(
-            carOrigin,
-            carFrontSide_lfm
-        );
-
-        // backward rays
-        rayBackward = new Ray(
-            carOrigin,
-            -transform.forward
-        );
-
-        rayBackward_r = new Ray(
-            carOrigin + rotatedOffset,
-            -transform.forward
-        );
-
-        rayBackward_l = new Ray(
-            carOrigin - rotatedOffset,
-            -transform.forward
-        );
-
+        
 
         for (int i = 0; i < steerAroundRays.Count; i++)
         {
@@ -451,9 +386,7 @@ public class CarAISimple : MonoBehaviour
         if (distanceToEndTarget > reachedTargetDistance)
         {
 
-            // avoid only these layers
-            LayerMask obstacleLayerMask = LayerMask.GetMask("Obstacles"); // Layer mask to filter obstacles
-            LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars", "Cops"); // Layer mask to filter steering around objects
+            
 
             // just release by default
             brakeInput = false; // release brake
@@ -525,8 +458,8 @@ public class CarAISimple : MonoBehaviour
             }
 
             
-
             /*
+            
             if (Physics.Raycast(raySteerAround_r, out RaycastHit hitSteerAround_r, steerVisionDistance * sideSteerRayMultiplier, steerAroundLayerMask))
             {
                 steerAroundObject(speed, hitSteerAround_r, distanceToEndTarget, dirToMovePosition, dotProduct, rotatedOffset, steerVisionDistance * sideSteerRayMultiplier);
@@ -597,6 +530,8 @@ public class CarAISimple : MonoBehaviour
 
             else if (foundObstacle)
             {
+
+                
                 steerAroundObject(
                     speed,
                     bestHit,
@@ -606,6 +541,8 @@ public class CarAISimple : MonoBehaviour
                     rotatedOffset,
                     steerVisionDistance
                 );
+                
+                    
 
                 // Draw selected steering ray
                 Debug.DrawRay(
@@ -771,9 +708,15 @@ public class CarAISimple : MonoBehaviour
     // steer around behaviour function
     private void steerAroundObject(float speed, RaycastHit hitSteerAround, float distanceToEndTarget, Vector3 dirToMovePosition, float dotProduct, Vector3 rotatedOffset, float steerVisionDistance) 
     {
+        // avoid only these layers
+        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars"); // Layer mask to filter steering around objects
+
+
 
         // get the transform of the object we are steering around
         Transform steerObstacleTransform = hitSteerAround.transform;
+
+        bool doWeSteerAround = false; // default to false
 
         // make sure we have a valid transform
         if (steerObstacleTransform != null) 
@@ -800,7 +743,6 @@ public class CarAISimple : MonoBehaviour
             // Vector3 dirToEndTarget = (scrCarPathfinder.endtarget.position - carOrigin).normalized;
             Vector3 dirToEndTarget = (new Vector3(scrCarPathfinder.endtarget.position.x, carOrigin.y, scrCarPathfinder.endtarget.position.z) - carOrigin).normalized;
 
-
             // debug, show the direction to the end target
             // Debug.DrawRay(carOrigin, dirToEndTarget * steerVisionDistance, Color.yellow);
 
@@ -813,6 +755,7 @@ public class CarAISimple : MonoBehaviour
             // set the steering target position that we are going to steer towards
             Vector3 steerTargetPosition = transform.TransformDirection(localDirToObstacle).normalized;
 
+            
             // Determine steering direction
             float angleToSteer = Vector3.SignedAngle(transform.forward, steerTargetPosition, Vector3.up);
 
@@ -822,93 +765,169 @@ public class CarAISimple : MonoBehaviour
             // get angle between this cars forward direction and the end target vector
             float angleBetweenCarFrontToEndTarget = Vector3.SignedAngle(transform.forward, dirToEndTarget, Vector3.up);
 
-            
-
-            // if we are going slow, you can overtake no matter what, but no overtaking while reversing
-            if (speed < ((carControllerAI.getMaxSpeed() * 0.2f) + 20.0f) && forwardAmount >= 0)
+            // check if there is a car in front of us, if these rays dont collide with anything,
+            // there is room directly in front of us, dont bother steering around rays that collide with something to our side
+            if (Physics.Raycast(raySteerAround_r, out RaycastHit hitSteerAround_r, steerVisionDistance * sideSteerRayMultiplier, steerAroundLayerMask))
             {
-                // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
-                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 25f)
-                {
-                    
-                    // execute standard steering behaviour
-                    standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+                doWeSteerAround = true;
 
-                    // debug, show the direction we are steering towards to avoid the object
-                    Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.black);
+                // draw the forward ray that detects the object we are steering around in red for debugging purposes
+                Debug.DrawRay(carOrigin, raySteerAround_r.direction * hitSteerAround_r.distance, Color.red); // Debug draw the ray in red
 
-                    // direction we are steering towards
-                    Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
+            }
+            else if (Physics.Raycast(raySteerAround_l, out RaycastHit hitSteerAround_l, steerVisionDistance * sideSteerRayMultiplier, steerAroundLayerMask))
+            {
+                doWeSteerAround = true;
+                Debug.DrawRay(carOrigin, raySteerAround_l.direction * hitSteerAround_l.distance, Color.red); // Debug draw the ray in red
 
-                    return; // exit the function
-
-                }
-
-                //standardSteeringBehaviour(dotProduct, distanceToEndTarget, steerTargetPosition, rotatedOffset);
-
-                // steer away from obstacle
-                turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
-
-                // debug log the angle to the steering target and the angle between the steering target and the end target for tuning purposes
-                // Debug.Log(transform.name + " Angle to steer target: " + angleToSteer + " Turn amount: " + turnAmount);
-
-
-                Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.white);
-
-                // direction we are steering towards
-                Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.green);
-
+            }
+            else if (Physics.Raycast(raySteerAround, out RaycastHit hitSteerAroundf, steerVisionDistance, steerAroundLayerMask))
+            {
+                doWeSteerAround = true;
+                Debug.DrawRay(carOrigin, raySteerAround.direction * hitSteerAround.distance, Color.red); // Debug draw the ray in red
             }
             else 
             {
-                // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
-                if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 15f)
-                {
-                    // steer towards the target
-                    //turnAmount = Mathf.Clamp((angleToTarget / 70f), -1f, 1f);
-
-                    // execute standard steering behaviour
-                    standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
-
-                    // debug, show the direction we are steering towards to avoid the object
-                    // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.black);
-
-                    return; // exit the function
-
-                }
-
-                // are we approaching a turn? do not overtake on turns
-                if (Mathf.Abs(angleBetweenCarFrontToEndTarget) > 15f)
-                {
-                    // execute standard steering behaviour
-                    standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
-
-                    // debug, show the direction we are steering towards to avoid the object
-                    // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.purple);
-
-                    return; // exit the function
-                }
-
-                // try not to overtake if we would turn too steeply away from our movement target direction
-                float angleBetweenSteerObjectAndTarget = Vector3.SignedAngle(dirToSteerObject, dirToMovementTarget, Vector3.up);
-                if (Mathf.Abs(angleBetweenSteerObjectAndTarget) > 7.5f)
-                {
-
-                    // execute standard steering behaviour
-                    standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
-
-                    // debug, show the direction we are steering towards to avoid the object
-                    // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.blue);
-
-                    return; // exit the function
-                }
+                doWeSteerAround = false;
 
             }
 
+            // here we actually execute steering logic
+
+            if (doWeSteerAround == true)
+            {
+                // if we are going slow, you can overtake no matter what, but no overtaking while reversing
+                if (speed < ((carControllerAI.getMaxSpeed() * 0.6f) + 20.0f) && forwardAmount >= 0)
+                {
+                    // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
+                    if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 60f)
+                    {
+
+                        // execute standard steering behaviour
+                        standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+
+                        // debug, show the direction we are steering towards to avoid the object
+                        Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.black);
+
+                        // direction we are steering towards
+                        Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.hotPink);
+
+                        return; // exit the function
+
+                    }
+
+                    //standardSteeringBehaviour(dotProduct, distanceToEndTarget, steerTargetPosition, rotatedOffset);
+
+                    // check if the angle to the end distination target is on the same side as the angle to steer around
+                    // if they are, that means we are trying to overtake on the side we are going to be turning towards, the inside of the turn.
+                    // we want to overtake on the outside of the turn.
+
+                    if (angleBetweenCarFrontToEndTarget > 0)
+                    {
+                        // We are on a right turn, or we are going to have to make one
+                        // only overtake if we are turning towards the left
+                        if (angleToSteer < 0)
+                        {
+
+                            // steer away from obstacle
+                            turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
+
+                        }
+                        else 
+                        {
+                            // do standard steering behaviour
+                            standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+                            return; // exit the function
+                        }
+                       
+                    }
+                    else 
+                    {
+                        // we are on a left turn or are going to have to make one, only overtake if we are turning towards the right, the outside of the turn
+                        if (angleToSteer > 0)
+                        {
+
+                            // steer away from obstacle
+                            turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
+
+                        }
+                        else
+                        {
+                            // do standard steering behaviour
+                            standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+                            return; // exit the function
+                        }
+
+                    }
+
+
+                    // debug log the angle to the steering target and the angle between the steering target and the end target for tuning purposes
+                    // Debug.Log(transform.name + " Angle to steer target: " + angleToSteer + " Turn amount: " + turnAmount);
+
+
+                    Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.white);
+
+                    // direction we are steering towards
+                    Debug.DrawRay(carOrigin, steerTargetPosition * steerVisionDistance, Color.green);
+
+                }
+                else
+                {
+                    // default values for if statements are 30, 15, 7.5 respectively
+
+                    // if the angle is too big between where we want to steer to and the end target, dont steer away, just follow race path
+                    if (Mathf.Abs(angleBetweenSteerAwayDirectionAndEndTarget) > 15f)
+                    {
+                        // steer towards the target
+                        //turnAmount = Mathf.Clamp((angleToTarget / 70f), -1f, 1f);
+
+                        // execute standard steering behaviour
+                        standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+
+                        // debug, show the direction we are steering towards to avoid the object
+                        // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.black);
+
+                        return; // exit the function
+
+                    }
+
+                    // are we approaching a turn? do not overtake on turns
+                    if (Mathf.Abs(angleBetweenCarFrontToEndTarget) > 10f)
+                    {
+                        // execute standard steering behaviour
+                        standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+
+                        // debug, show the direction we are steering towards to avoid the object
+                        // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.purple);
+
+                        return; // exit the function
+                    }
+
+                    // try not to overtake if we would turn too steeply away from our movement target direction
+                    float angleBetweenSteerObjectAndTarget = Vector3.SignedAngle(dirToSteerObject, dirToMovementTarget, Vector3.up);
+                    if (Mathf.Abs(angleBetweenSteerObjectAndTarget) > 7.5f)
+                    {
+
+                        // execute standard steering behaviour
+                        standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+
+                        // debug, show the direction we are steering towards to avoid the object
+                        // Debug.DrawRay(carOrigin, dirToMovementTarget * steerVisionDistance, Color.blue);
+
+                        return; // exit the function
+                    }
+
+                }
+            }
+            else 
+            {
+                standardSteeringBehaviour(dotProduct, distanceToEndTarget, dirToMovePosition, rotatedOffset);
+
+            }
+            
+
             // steer towards the target
             // turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
-
-            
 
         }
 
