@@ -29,6 +29,7 @@ TagManager:
   - Ion Beam
   - Road
   - Water
+  - Orbital Ray
   layers:
   - Default
   - TransparentFX

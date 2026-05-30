@@ -77,7 +77,7 @@ public class Scr_Item_Handler : MonoBehaviour
     // fire
     [SerializeField] private GameObject shockBeamItemFirePrefab;
     // private float beamFireTimer = 0f;
-    private float beamFireDuration = 0.5f;
+    private float beamFireDuration = 1.5f; // 0.5f default
     // private bool isShockBeamActive = false;
 
     [SerializeField] private float beamSpawnHeightOffset = 0.25f;
