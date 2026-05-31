@@ -11,7 +11,7 @@ public class Scr_Ion_Beam_Particle_Handler : MonoBehaviour
     [SerializeField] private ParticleSystem PartSysImpctEff;
 
     // destroy this object after a set time
-    private float destructionTimer = 1f; // in seconds
+    private float destructionTimer = 3f; // in seconds
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

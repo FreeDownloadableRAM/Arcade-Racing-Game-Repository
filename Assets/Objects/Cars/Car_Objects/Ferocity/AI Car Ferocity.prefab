@@ -14909,8 +14909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef1a572f36c5041abffbe49591297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 125
-  brakeAcceleration: 88
+  maxAcceleration: 124
+  brakeAcceleration: 96
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -14947,6 +14947,8 @@ MonoBehaviour:
   rigidBody: {fileID: 6838814299223736183}
   raycastCarWidth: {x: 1.35, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 4.25
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 2.25

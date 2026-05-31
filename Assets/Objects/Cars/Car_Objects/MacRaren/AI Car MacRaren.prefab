@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 128
-  brakeAcceleration: 94
+  brakeAcceleration: 98
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -223,6 +223,8 @@ MonoBehaviour:
   rigidBody: {fileID: 6575557418464635853}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.75

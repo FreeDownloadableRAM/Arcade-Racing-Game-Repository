@@ -45572,7 +45572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 142
-  brakeAcceleration: 98
+  brakeAcceleration: 106
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -45609,6 +45609,8 @@ MonoBehaviour:
   rigidBody: {fileID: 7730530093916862369}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.5
@@ -45632,6 +45634,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
+  brakeZoneTargetSpeedModifier: 1
 --- !u!114 &366538015351116321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45863,6 +45866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stuckTimer: 4.25
   rigidBody: {fileID: 7730530093916862369}
+  isPlayerCar: 0
 --- !u!114 &7524997542951296576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45888,6 +45892,7 @@ MonoBehaviour:
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
+  isPlayerCar: 0
 --- !u!114 &5948860690887373629
 MonoBehaviour:
   m_ObjectHideFlags: 0

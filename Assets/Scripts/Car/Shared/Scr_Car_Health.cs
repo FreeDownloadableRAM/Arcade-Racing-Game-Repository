@@ -60,6 +60,9 @@ public class Scr_Car_Health : MonoBehaviour
     // get Ion Beam script component
     private Scr_Item_Ion_Beam scr_ItemIonBeam;
 
+    // get orbital ray script component
+    private Scr_OrbitalRayFire scr_ItemOrbitalRayFire;
+
     // get item handler script component
     private Scr_Item_Handler scr_itemHandler;
 
@@ -72,6 +75,9 @@ public class Scr_Car_Health : MonoBehaviour
 
     // Ion Beam damage trigger flag
     private bool inIonBeam = false;
+
+    // Orbital Ray Damage trigger flag
+    private bool inOrbitalRay = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -268,6 +274,92 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
         }
+
+
+        // if Orbital Ray damage toggle is true, apply damage over time
+        if (inOrbitalRay)
+        {
+            // check if Ion Beam script is assigned
+            if (scr_ItemOrbitalRayFire == null)
+            {
+                //Debug.Log("Orbital Ray Fire script is null on " + gameObject.name);
+                return;
+            }
+
+            // check if shield is active on car
+            // reference it from item handler script
+            if (scr_itemHandler != null)
+            {
+                if (scr_itemHandler.IsShieldActive())
+                {
+                    //Debug.Log("Shield is active on " + gameObject.name);
+                    // if shield is active, do not apply collision damage
+                    return;
+                }
+            }
+
+            Vector3 carPosition = new Vector3(0f, 0f, 0f);
+
+            // draw a ray cast from the car origin to the ion beam origin to check line of sight
+            // if this object is a player use car controller to get car origin
+            if (gameObject.CompareTag("Player"))
+            {
+                carPosition = scr_CarController.getCarOrigin();
+            }
+            else
+            {
+                carPosition = scr_CarAISimple.getCarOrigin();
+            }
+
+            Vector3 directionToOrbitalRayOrigin = scr_ItemOrbitalRayFire.transform.position - carPosition;
+
+            // get distance to car
+            float distanceToCar = directionToOrbitalRayOrigin.magnitude;
+
+            Ray rayFromCar = new Ray(scr_ItemOrbitalRayFire.transform.position, directionToOrbitalRayOrigin.normalized);
+
+            if (Physics.Raycast(rayFromCar, out RaycastHit hitInfo, directionToOrbitalRayOrigin.magnitude))
+            {
+                // if we hit terrain obstacles or outofbounds, return
+                if (hitInfo.collider.gameObject.CompareTag("Obstacle") || hitInfo.collider.gameObject.CompareTag("Terrain")
+                    || hitInfo.collider.gameObject.CompareTag("OutOfBounds") || hitInfo.collider.gameObject.CompareTag("Road"))
+                {
+                    // draw red debug ray
+                    Debug.DrawRay(rayFromCar.origin, rayFromCar.direction * hitInfo.distance, Color.red, 0.2f);
+
+                    //Debug.Log("Orbital Ray line of sight blocked on " + gameObject.name + " by " + hitInfo.collider.gameObject.name);
+
+                    return;
+                }
+
+            }
+
+            Debug.DrawRay(rayFromCar.origin, rayFromCar.direction * hitInfo.distance, Color.green, 0.2f);
+
+            // debug log flamethrower hit
+            // Debug.Log("Laser hit detected on " + gameObject.name);
+
+            // get damage amount from Orbital Ray script
+            int orbitalRayDamage = scr_ItemOrbitalRayFire.GetOrbitalRayDPS();
+
+            // calculate damage per fixed update frame
+            orbitalRayDamage = Mathf.RoundToInt(orbitalRayDamage * Time.fixedDeltaTime);
+
+            // subtract rocket damage from car health
+            internalCarHealth -= Mathf.RoundToInt(orbitalRayDamage);
+
+            // show us how much damage we are taking from Orbital Ray
+            //Debug.Log("Car " + gameObject.name + " taking " + orbitalRayDamage + " damage from Orbital Ray.");
+
+            // calculateCollisionDamage = false;
+
+            // if health is below 1, play car destruction particles
+            if (internalCarHealth < 1)
+            {
+                Scr_ParticleHandler.PlayCarDestructionParticles();
+            }
+
+        }
     }
 
     // get current health
@@ -297,6 +389,12 @@ public class Scr_Car_Health : MonoBehaviour
     public bool IsInIonBeam()
     {
         return inIonBeam;
+    }
+
+    // return if we are in orbital Ray
+    public bool IsInOrbitalRay()
+    {
+        return inOrbitalRay;
     }
 
     // check if we collided with other object
@@ -532,6 +630,19 @@ public class Scr_Car_Health : MonoBehaviour
             // toggle flag that we are in flame area
             inIonBeam = true;
         }
+        if (collision.gameObject.CompareTag("Orbital Ray"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_OrbitalRayFire>(out scr_ItemOrbitalRayFire))
+            {
+                // get componenet
+                scr_ItemOrbitalRayFire = collision.gameObject.GetComponent<Scr_OrbitalRayFire>();
+
+            }
+
+            // toggle flag that we are in flame area
+            inOrbitalRay = true;
+        }
 
     }
 
@@ -545,6 +656,10 @@ public class Scr_Car_Health : MonoBehaviour
         if (collision.gameObject.CompareTag("Ion Beam"))
         {
             inIonBeam = false;
+        }
+        if (collision.gameObject.CompareTag("Orbital Ray"))
+        {
+            inOrbitalRay = false;
         }
     }
 
@@ -574,6 +689,19 @@ public class Scr_Car_Health : MonoBehaviour
 
             // toggle flag that we are in flame area
             inIonBeam = true;
+        }
+        if (collision.gameObject.CompareTag("Orbital Ray"))
+        {
+            // get flamethrower script component from 
+            if (collision.gameObject.TryGetComponent<Scr_OrbitalRayFire>(out scr_ItemOrbitalRayFire))
+            {
+                // get componenet
+                scr_ItemOrbitalRayFire = collision.gameObject.GetComponent<Scr_OrbitalRayFire>();
+
+            }
+
+            // toggle flag that we are in flame area
+            inOrbitalRay = true;
         }
 
     }

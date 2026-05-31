@@ -216,7 +216,7 @@ public class CarAISimple : MonoBehaviour
     {
         // avoid only these layers
         LayerMask obstacleLayerMask = LayerMask.GetMask("Obstacles"); // Layer mask to filter obstacles
-        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars"); // Layer mask to filter steering around objects
+        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars", "AvoidMe"); // Layer mask to filter steering around objects
 
 
         // Debug.Log("Target Position: " + targetPosition);
@@ -709,7 +709,7 @@ public class CarAISimple : MonoBehaviour
     private void steerAroundObject(float speed, RaycastHit hitSteerAround, float distanceToEndTarget, Vector3 dirToMovePosition, float dotProduct, Vector3 rotatedOffset, float steerVisionDistance) 
     {
         // avoid only these layers
-        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars"); // Layer mask to filter steering around objects
+        LayerMask steerAroundLayerMask = LayerMask.GetMask("Cars", "AvoidMe"); // Layer mask to filter steering around objects
 
 
 
@@ -758,6 +758,22 @@ public class CarAISimple : MonoBehaviour
             
             // Determine steering direction
             float angleToSteer = Vector3.SignedAngle(transform.forward, steerTargetPosition, Vector3.up);
+
+            // if the object we are trying to steer around is "AvoidMe", we steer away no matter what.
+            if (hitSteerAround.collider.gameObject.layer == LayerMask.NameToLayer("AvoidMe"))
+            {
+                // steer away from obstacle
+                // brake and steer away.
+
+                // if we are moving at a certain speed of our max speed, we can break, if not, dont bother breaking
+                if (speed > (carControllerAI.getMaxSpeed() * 0.35f))
+                {
+                    brakeInput = true;
+
+                }
+                turnAmount = Mathf.Clamp((angleToSteer / 70f), -1f, 1f);
+                return; // exit the function, no need for further checks
+            }
 
             // try not to overtake on turns -------------------------
             float angleBetweenSteerAwayDirectionAndEndTarget = Vector3.SignedAngle(steerTargetPosition, dirToEndTarget, Vector3.up);
