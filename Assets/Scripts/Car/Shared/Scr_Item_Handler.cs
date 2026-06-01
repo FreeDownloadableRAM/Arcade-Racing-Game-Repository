@@ -373,7 +373,7 @@ public class Scr_Item_Handler : MonoBehaviour
                         itemHeld = "Ion Beam"; // Shock Beam
 
                     }
-                    else if (randomItem < 0.95f)
+                    else if (randomItem < 0.90f)
                     {
                         // give item to player
                         itemHeld = "Orbital Ray"; // Orbital Ray
@@ -587,8 +587,10 @@ public class Scr_Item_Handler : MonoBehaviour
         // get car object that is in first place
         GameObject firstPlaceCar = scr_raceCheckpointsScript.GetRacerByPosition(0);
 
-        // create orbital ray object on top of that car
-        Instantiate(orbitalRayPrefab, firstPlaceCar.transform.position + Vector3.up * 50f, Quaternion.identity); // adjust height as needed
+        // create orbital ray object on the car, under its object hierarchy so that it moves with the car, and set it to destroy itself after a few seconds in the orbital ray charge script
+        Instantiate(orbitalRayPrefab, firstPlaceCar.transform.position, Quaternion.identity, firstPlaceCar.transform); // adjust height as needed
+
+        // Instantiate(orbitalRayPrefab, firstPlaceCar.transform.position, Quaternion.identity); // adjust height as needed
 
 
         // clear item held

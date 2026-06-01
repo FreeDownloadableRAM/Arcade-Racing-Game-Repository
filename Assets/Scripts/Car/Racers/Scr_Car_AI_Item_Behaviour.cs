@@ -66,6 +66,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
     // object racer to keep track of
     private GameObject Racer;
 
+    int orbitalRayFireAttempts = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -430,8 +431,26 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // use the orbital ray item 3 to 8 seconds upon getting it
         if (itemHeld == "Orbital Ray") 
         {
+
+            // every second, have a 25% to fire orbital ray
+            // after 7 attempts, fire no matter what
+            if (Time.frameCount % 60 == 0) // try this every 1 second
+            {
+                // this is based on race progress.
+                // the further back in the race we are, the more likely we are to fire the flamethrower when theres nothing nearby
+                fireOrbitalRayRandomChance();
+
+                if (orbitalRayFireAttempts >= 7) 
+                {
+                    scr_ItemHandler.UseItemOrbitalRay();
+
+                    // reset counter
+                    orbitalRayFireAttempts = 0;
+                }
+
+                orbitalRayFireAttempts++;
+            }
             
-            fireOrbitalRayRandomChance();
             
         }
 
@@ -450,6 +469,15 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
             // check if we are in an ion beam
             if (scr_CarHealth.IsInIonBeam()) 
+            {
+                // use shield to block ion beam
+                scr_ItemHandler.UseItemShield();
+                return;
+            }
+
+            // check if we are in orbital Ray
+            // check if we are in an ion beam
+            if (scr_CarHealth.IsInOrbitalRay())
             {
                 // use shield to block ion beam
                 scr_ItemHandler.UseItemShield();
@@ -1363,21 +1391,17 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
     // Orbital Ray Use Case
     private void fireOrbitalRayRandomChance() 
-    { 
-        // generate random number between 3-8 seconds
-        // once the timer runs out, fire orbital ray item
-    
-        float randomOrbitalRayTimer = Random.Range(3, 8); // 3 to 8 seconds 
+    {
+        // roll random flamethrower fire chance
+        int randomOrbitalRayRoll = Random.Range(0, 4);
 
-        // count down orbital ray timer
-        randomOrbitalRayTimer -= Time.deltaTime;
-
-        // once it reaches zero, fire orbital ray
-        if (randomOrbitalRayTimer <= 0f) 
+        // 25% chance to fire orbital ray when this function is called, adjust as needed
+        if (randomOrbitalRayRoll == 0) 
         {
             scr_ItemHandler.UseItemOrbitalRay();
-        }
+
+            // reset counter
+            orbitalRayFireAttempts = 0;
+        } 
     }
-
-
 }

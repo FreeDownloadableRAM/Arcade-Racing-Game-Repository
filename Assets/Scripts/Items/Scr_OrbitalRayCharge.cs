@@ -14,6 +14,12 @@ public class Scr_OrbitalRayCharge : MonoBehaviour
     // track if we spawned an orbital ray fire object yet
     private bool hasSpawnedOrbitalRayFire = false;
 
+    // set rotationto 0, 0, 0 relative to the world, not relative to the parent object, so it does not rotate with the parent object and always faces up
+    void Awake()
+    {
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -60,5 +66,8 @@ public class Scr_OrbitalRayCharge : MonoBehaviour
         {
             // move this object across the ground
         }
+
+        // keep object rotation at 0, 0, 0 relative to the world, not relative to the parent object, so it does not rotate with the parent object and always faces up
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 }

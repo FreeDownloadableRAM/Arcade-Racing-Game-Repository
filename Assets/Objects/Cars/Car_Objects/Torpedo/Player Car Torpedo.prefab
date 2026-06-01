@@ -35450,6 +35450,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 1529966680930672028, guid: ef4e4a90c837a0441a4f47dc73f43fa4, type: 3}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
