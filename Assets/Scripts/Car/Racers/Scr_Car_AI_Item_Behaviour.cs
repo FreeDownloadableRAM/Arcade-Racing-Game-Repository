@@ -107,6 +107,9 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // update item held
         itemHeld = scr_ItemHandler.getItemHeld();
 
+        // update racer position data
+        position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
+
         // if we have no items at all, exit
         if (itemHeld == "None") 
         {
@@ -432,6 +435,39 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         if (itemHeld == "Orbital Ray") 
         {
 
+            // if we are position 0, dont run this logic
+            if (position == 0) 
+            {
+                // debug your position
+                Debug.Log(gameObject.name + ": Not firing because Pos = " + position + ".");
+                return;
+            }
+
+            // if we have completed race, dont run this logic
+            if (scr_MyRaceProgress.GetCompletedRaceStatus() == true) 
+            {
+                Debug.Log(gameObject.name + ": Not firing because of race completion status being true.");
+                return;
+            }
+
+            // check if the car directly in front of us in the race has completed the race or not
+            GameObject racerInFront = scr_raceCheckpointsScript.GetRacerByPosition(position - 1);
+
+            // if this is a null entry, exit
+            if (racerInFront == null) 
+            {
+                Debug.Log(gameObject.name + ": Not firing because of racer in front is a null value.");
+                return;
+            }
+
+            // if the racer in front of us completed the race, dont use, as the orbital ray targets the closest person to finishing a race that still hasnt completed it.
+            if (racerInFront.GetComponent<scr_My_Race_Progress>().completedRace == true) 
+            {
+                Debug.Log(gameObject.name + ": Not firing because of racer in front has completed the race.");
+                return;
+            
+            }
+
             // every second, have a 25% to fire orbital ray
             // after 7 attempts, fire no matter what
             if (Time.frameCount % 60 == 0) // try this every 1 second
@@ -633,8 +669,7 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
 
             }
         }
-        // update racer position data
-        position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
+        
 
 
     }

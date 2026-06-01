@@ -585,7 +585,27 @@ public class Scr_Item_Handler : MonoBehaviour
     public void UseItemOrbitalRay() 
     {
         // get car object that is in first place
-        GameObject firstPlaceCar = scr_raceCheckpointsScript.GetRacerByPosition(0);
+        // check if that racer has finished the race.
+        // if so, iterate down the racer list
+        int firstPlaceIndex = 0;
+
+        GameObject firstPlaceCar = scr_raceCheckpointsScript.GetRacerByPosition(firstPlaceIndex);
+
+        // get length of racer list to avoid out of bounds error when iterating down the list if the first place car has finished
+        int racerListLength = scr_raceCheckpointsScript.Racers.Count;
+
+        for (int i = 0; i < racerListLength; i++)
+        {
+            firstPlaceCar = scr_raceCheckpointsScript.GetRacerByPosition(i);
+            // check if this car has finished
+
+            if (firstPlaceCar.GetComponent<scr_My_Race_Progress>().completedRace == false)
+            {
+                // this car is in first place and has not finished
+                break;
+            }
+            
+        }
 
         // create orbital ray object on the car, under its object hierarchy so that it moves with the car, and set it to destroy itself after a few seconds in the orbital ray charge script
         Instantiate(orbitalRayPrefab, firstPlaceCar.transform.position, Quaternion.identity, firstPlaceCar.transform); // adjust height as needed

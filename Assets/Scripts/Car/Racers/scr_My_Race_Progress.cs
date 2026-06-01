@@ -89,4 +89,10 @@ public class scr_My_Race_Progress : MonoBehaviour
 
     }
 
+    // get race completion status
+    public bool GetCompletedRaceStatus()
+    {
+        return completedRace;
+    }
+
 }
