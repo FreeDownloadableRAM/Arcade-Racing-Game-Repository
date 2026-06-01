@@ -39,7 +39,7 @@ public class Scr_OrbitalRayCharge : MonoBehaviour
 
         }
         // disable collider shortly after the orbital ray goes off
-        else if (selfDestructTimer <= 3.5f) 
+        else if (selfDestructTimer <= 3.75f) 
         { 
             // disable our collider
             GetComponent<Collider>().enabled = false;

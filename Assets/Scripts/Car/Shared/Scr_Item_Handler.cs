@@ -65,6 +65,9 @@ public class Scr_Item_Handler : MonoBehaviour
     // Ghost balls object reference
     [SerializeField] private GameObject ghostItemPrefab;
 
+    // orbital ray object reference
+    [SerializeField] private GameObject orbitalRayPrefab;
+
     // beam item prefabs
     // charge
     [SerializeField] private GameObject shockBeamItemChargePrefab;
@@ -370,6 +373,11 @@ public class Scr_Item_Handler : MonoBehaviour
                         itemHeld = "Ion Beam"; // Shock Beam
 
                     }
+                    else if (randomItem < 0.95f)
+                    {
+                        // give item to player
+                        itemHeld = "Orbital Ray"; // Orbital Ray
+                    }
                     else
                     {
                         // give health pack to player
@@ -571,6 +579,20 @@ public class Scr_Item_Handler : MonoBehaviour
 
             }
         }
+    }
+
+    // Orbital Ray Use function
+    public void UseItemOrbitalRay() 
+    {
+        // get car object that is in first place
+        GameObject firstPlaceCar = scr_raceCheckpointsScript.GetRacerByPosition(0);
+
+        // create orbital ray object on top of that car
+        Instantiate(orbitalRayPrefab, firstPlaceCar.transform.position + Vector3.up * 50f, Quaternion.identity); // adjust height as needed
+
+
+        // clear item held
+        clearItemHeld();
     }
 
     // Flamethrower  use function 

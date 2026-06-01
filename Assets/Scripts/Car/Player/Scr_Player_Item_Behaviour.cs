@@ -73,6 +73,13 @@ public class Scr_Player_Item_Behaviour : MonoBehaviour
                 scr_ItemHandler.UseItemLaser();
             }
 
+            if (itemHeld == "Orbital Ray")
+            {
+
+
+                scr_ItemHandler.UseItemOrbitalRay();
+            }
+
             if (itemHeld == "Flamethrower") 
             {
                 scr_ItemHandler.UseItemFlamethrower();

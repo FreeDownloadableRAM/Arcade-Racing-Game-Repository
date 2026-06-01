@@ -376,7 +376,8 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             }
         }
 
-        // for now, just use flamethrower as soon as we have it
+        // Use flamethrower when another car is in front of this one
+        // or randomly when no other car is nearby, to get rid of it.
         if (itemHeld == "Flamethrower") 
         {
             // target zone in front of us
@@ -425,6 +426,15 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             }
             
         }
+
+        // use the orbital ray item 3 to 8 seconds upon getting it
+        if (itemHeld == "Orbital Ray") 
+        {
+            
+            fireOrbitalRayRandomChance();
+            
+        }
+
 
         // shield use case
         // check if an offensive item is approaching us from behind within a certain range
@@ -1350,5 +1360,24 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         }
 
     }
+
+    // Orbital Ray Use Case
+    private void fireOrbitalRayRandomChance() 
+    { 
+        // generate random number between 3-8 seconds
+        // once the timer runs out, fire orbital ray item
+    
+        float randomOrbitalRayTimer = Random.Range(3, 8); // 3 to 8 seconds 
+
+        // count down orbital ray timer
+        randomOrbitalRayTimer -= Time.deltaTime;
+
+        // once it reaches zero, fire orbital ray
+        if (randomOrbitalRayTimer <= 0f) 
+        {
+            scr_ItemHandler.UseItemOrbitalRay();
+        }
+    }
+
 
 }
