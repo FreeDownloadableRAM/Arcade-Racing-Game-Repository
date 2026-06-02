@@ -120,6 +120,13 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
         // Check if we are in a nitro trigger zone and have nitro to us
         if (itemHeld == "Nitro") 
         {
+            // get our health and if it is at or below zero, we are dead.
+            // do not use nitro.
+            if (scr_CarHealth.GetCurrentHealth() <= 0) 
+            {
+                return;
+            }
+
             if (isInNitroTriggerZone) 
             {
                 // get the transform of the next checkpoint
@@ -439,14 +446,14 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             if (position == 0) 
             {
                 // debug your position
-                Debug.Log(gameObject.name + ": Not firing because Pos = " + position + ".");
+                // Debug.Log(gameObject.name + ": Not firing because Pos = " + position + ".");
                 return;
             }
 
             // if we have completed race, dont run this logic
             if (scr_MyRaceProgress.GetCompletedRaceStatus() == true) 
             {
-                Debug.Log(gameObject.name + ": Not firing because of race completion status being true.");
+                // Debug.Log(gameObject.name + ": Not firing because of race completion status being true.");
                 return;
             }
 
@@ -456,14 +463,14 @@ public class Scr_Car_AI_Item_Behaviour : MonoBehaviour
             // if this is a null entry, exit
             if (racerInFront == null) 
             {
-                Debug.Log(gameObject.name + ": Not firing because of racer in front is a null value.");
+                // Debug.Log(gameObject.name + ": Not firing because of racer in front is a null value.");
                 return;
             }
 
             // if the racer in front of us completed the race, dont use, as the orbital ray targets the closest person to finishing a race that still hasnt completed it.
             if (racerInFront.GetComponent<scr_My_Race_Progress>().completedRace == true) 
             {
-                Debug.Log(gameObject.name + ": Not firing because of racer in front has completed the race.");
+                // Debug.Log(gameObject.name + ": Not firing because of racer in front has completed the race.");
                 return;
             
             }

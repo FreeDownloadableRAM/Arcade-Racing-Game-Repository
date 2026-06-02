@@ -747,11 +747,16 @@ public class Scr_Car_Health : MonoBehaviour
                 {
                     transform.position = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
                     transform.rotation = scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
+
+                    // freeze rotation 
+                    // transform.rotation = Quaternion.Euler(scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.x, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.y, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.z);
                 }
                 else 
                 {
                     transform.position = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
                     transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
+
+                    // transform.rotation = Quaternion.Euler(scr_IAmStuck.GetLastCheckpointPassed().rotation.x, scr_IAmStuck.GetLastCheckpointPassed().rotation.y, scr_IAmStuck.GetLastCheckpointPassed().rotation.z);
 
                 }
 
@@ -786,6 +791,12 @@ public class Scr_Car_Health : MonoBehaviour
 
                 // reset the stuck timer
                 carDeathTimer = 5f;
+
+                // set velocity to zero again after reset just to be safe
+                carRigidbody.linearVelocity = Vector3.zero;
+
+                // set angular velocity to zero again after reset just to be safe
+                carRigidbody.angularVelocity = Vector3.zero;
             }
             else 
             {

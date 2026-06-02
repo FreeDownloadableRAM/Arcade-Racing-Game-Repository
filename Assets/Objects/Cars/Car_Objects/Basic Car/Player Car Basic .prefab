@@ -19967,13 +19967,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -49665,7 +49665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastOffsetFromGround: {x: 0, y: 0.75, z: 0}
-  maxAcceleration: 38
+  maxAcceleration: 36
   brakeAcceleration: 80
   turnSensitivity: 1
   maxSteerAngle: 45
@@ -49683,7 +49683,7 @@ MonoBehaviour:
   - wheelModel: {fileID: 4371507424884812384}
     wheelCollider: {fileID: 2806032066079403274}
     axel: 1
-  maxSpeed: 51
+  maxSpeed: 44
   carLightsHandlerScript: {fileID: 0}
 --- !u!114 &3175181419772349646
 MonoBehaviour:
@@ -55101,13 +55101,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

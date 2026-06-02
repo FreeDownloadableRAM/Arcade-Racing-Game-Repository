@@ -230,13 +230,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -40051,7 +40051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef1a572f36c5041abffbe49591297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 38
+  maxAcceleration: 36
   brakeAcceleration: 40
   turnSensitivity: 1
   maxSteerAngle: 45
@@ -40069,7 +40069,7 @@ MonoBehaviour:
   - wheelModel: {fileID: 3196723632044641123}
     wheelCollider: {fileID: 6787055432918864410}
     axel: 1
-  maxSpeed: 51
+  maxSpeed: 44
   steeringWheelTurnSpeed: 0.6
   carLightsHandlerScript: {fileID: 0}
 --- !u!114 &9002305125955584950
@@ -40091,7 +40091,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   raySteerAroundAngleIncrement: 2.5
   raySteerAroundNumberOfAngleIncrements: 24
-  steeringAngleThreshold: 8
+  steeringAngleThreshold: 4
   obstacleVisionDistance: 12
   obstacleBaseVisionDistance: 1.25
   obstacleMinVisionDistance: 4
@@ -40114,7 +40114,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
-  brakeZoneTargetSpeedModifier: 1
+  brakeZoneTargetSpeedModifier: 0.9
 --- !u!114 &5469348617869230192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45612,13 +45612,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

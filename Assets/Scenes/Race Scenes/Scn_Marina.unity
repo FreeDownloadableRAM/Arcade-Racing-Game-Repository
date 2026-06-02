@@ -127,47 +127,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 404222676209973192}
     m_Modifications:
-    - target: {fileID: 4909481998207426382, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 4619600742530734459, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_Name
-      value: Player Car MacRaren
+      value: Karbuli Palau (Elite Racer)
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalPosition.x
       value: -594.69
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalPosition.z
       value: -63.69
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+    - target: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -175,17 +175,102 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
 --- !u!4 &238392376 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5795001670072291329, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 964975594480200389, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
   m_PrefabInstance: {fileID: 238392375}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &238392377 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4909481998207426382, guid: 8e8257bdcb5f7574493ad2bb4151452a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4619600742530734459, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
   m_PrefabInstance: {fileID: 238392375}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &385754791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 369280407304599278, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_Name
+      value: AI POV
+      objectReference: {fileID: 0}
+    - target: {fileID: 3954511868323090774, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 767.9651
+      objectReference: {fileID: 0}
+    - target: {fileID: 3954511868323090774, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 41.7863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3954511868323090774, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -591.7846
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611334705200284905, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: Target.TrackingTarget
+      value: 
+      objectReference: {fileID: 238392376}
+    - target: {fileID: 6830109477091446264, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 767.9651
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830109477091446264, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 41.7863
+      objectReference: {fileID: 0}
+    - target: {fileID: 6830109477091446264, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -591.7846
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -170.51506
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -38.7863
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 587.6346
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819335715119168234, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2a8d5b0fa50ed994c86c40c30a5d4a55, type: 3}
 --- !u!1001 &1961912977
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46752,6 +46837,8 @@ MonoBehaviour:
   rigidBody: {fileID: 1574473517321008005}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -97505,6 +97592,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -103003,6 +103091,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -113523,6 +113612,8 @@ MonoBehaviour:
   rigidBody: {fileID: 7065161677143456745}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -186705,6 +186796,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -207048,6 +207140,8 @@ MonoBehaviour:
   rigidBody: {fileID: 597376930537783076}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -282140,6 +282234,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -299362,6 +299457,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -318965,6 +319061,8 @@ MonoBehaviour:
   rigidBody: {fileID: 3349217598710499220}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -324784,6 +324882,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -368382,6 +368481,8 @@ MonoBehaviour:
   rigidBody: {fileID: 3662756019350147873}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -405085,6 +405186,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -405542,6 +405644,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -410668,6 +410771,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -427783,6 +427887,8 @@ MonoBehaviour:
   rigidBody: {fileID: 2570292347779472946}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -458917,6 +459023,8 @@ MonoBehaviour:
   rigidBody: {fileID: 6028327532684268428}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.5
@@ -459672,6 +459780,8 @@ MonoBehaviour:
   rigidBody: {fileID: 5777470886860457930}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -485072,6 +485182,8 @@ MonoBehaviour:
   rigidBody: {fileID: 8045675955590059999}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -523644,6 +523756,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -529069,6 +529182,8 @@ MonoBehaviour:
   rigidBody: {fileID: 4759068045495466481}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.25
@@ -579236,6 +579351,7 @@ MonoBehaviour:
   shieldItemPrefab: {fileID: 7434488441825796331, guid: 0e9afb300550ecb4e8920df40ef6ea1c, type: 3}
   shieldDispersionEffectPrefab: {fileID: 3341689712502328035, guid: 4b8b95ead7b3ed54abfb03db4ef24b2c, type: 3}
   ghostItemPrefab: {fileID: 8927881392925269523, guid: fec03214b6631ba41a6dae883d7b427d, type: 3}
+  orbitalRayPrefab: {fileID: 0}
   shockBeamItemChargePrefab: {fileID: 5561116882543703895, guid: 3c4600f8f713db244acd2ec297e14cd4, type: 3}
   shockBeamItemFirePrefab: {fileID: 4384380730588114425, guid: 99d6b7d13e1040d428ddda49e3648579, type: 3}
   beamSpawnHeightOffset: 0.25
@@ -594701,6 +594817,8 @@ MonoBehaviour:
   rigidBody: {fileID: 7844162349159597698}
   raycastCarWidth: {x: 1.38, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  raySteerAroundAngleIncrement: 2.5
+  raySteerAroundNumberOfAngleIncrements: 24
   steeringAngleThreshold: 1.75
   obstacleVisionDistance: 1
   obstacleBaseVisionDistance: 1.5
@@ -639696,3 +639814,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 2758266411865812299}
   - {fileID: 1961912977}
+  - {fileID: 385754791}
