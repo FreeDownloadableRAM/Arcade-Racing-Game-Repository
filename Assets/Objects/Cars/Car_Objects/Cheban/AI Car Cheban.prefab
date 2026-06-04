@@ -5000,13 +5000,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -29987,13 +29987,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.25
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.25
+    m_Stiffness: 1
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -49843,7 +49843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 74
-  brakeAcceleration: 44
+  brakeAcceleration: 114
   turnSensitivity: 1
   maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
@@ -49905,7 +49905,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
-  brakeZoneTargetSpeedModifier: 1
+  brakeZoneTargetSpeedModifier: 0.75
 --- !u!114 &1651903873915423246
 MonoBehaviour:
   m_ObjectHideFlags: 0
