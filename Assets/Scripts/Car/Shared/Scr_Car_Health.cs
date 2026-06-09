@@ -33,9 +33,6 @@ public class Scr_Car_Health : MonoBehaviour
     // original car mass
     float originalCarMass = 0f;
 
-    // get car rigidbody reference to modify mass on reset
-
-
     // race progress script reference
     private scr_My_Race_Progress scr_MyRaceProgress;
 
@@ -69,6 +66,12 @@ public class Scr_Car_Health : MonoBehaviour
     // car ai script reference to get car origin position
     private CarAISimple scr_CarAISimple;
 
+    // Layer mask to look for collisions when trying to place a car back on a checkpoint after death.
+    // check for cops, cars, and players.
+    private LayerMask spawnBlockingLayers;
+
+    // spawn blocking box cast dimensions, based on car collider size, to check for blocking objects when respawning after death
+    private Vector3 spawnBlockingBoxCastDimensions;
 
     // flame damage trigger flag
     private bool inFlameArea = false;
@@ -127,6 +130,20 @@ public class Scr_Car_Health : MonoBehaviour
 
         // get original car mass
         originalCarMass = carRigidbody.mass;
+
+        // define spawn blocking layers
+        spawnBlockingLayers = LayerMask.GetMask("Cars", "Cops", "PlayerCars");
+
+        // set spawn blocking box cast dimensions based on car collider size, we will use this to check for blocking objects when respawning after death
+        if (TryGetComponent<BoxCollider>(out BoxCollider carBoxCollider))
+        {
+            spawnBlockingBoxCastDimensions = carBoxCollider.size;
+        }
+        else
+        {
+            // if we cannot find a box collider, use default dimensions for the box cast
+            spawnBlockingBoxCastDimensions = new Vector3(3f, 3f, 4f); // adjust as needed based on average car size
+        }
 
     }
 
@@ -745,17 +762,94 @@ public class Scr_Car_Health : MonoBehaviour
                 // if we are finished the race, set car position to the first checkpoint instead of last checkpoint we passed
                 if (scr_MyRaceProgress.completedRace)
                 {
-                    transform.position = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+                    // set box cast to where we will attempt to place the car back, if there is something there, generate a new random position
+                    // box cast will be the dimensions of the car collider. We will keep generating a new random position until we find one that is not colliding with anything.
+                    // This is to prevent the car from being placed inside another and start an extreme physics interaction
+
+                    // generate a random position around top of the checkpoint to spawn the car back on
+                    Vector3 RespawnPosition = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
+
+                    int numberOfAttempts = 10; // counter to track number of attempts to find a non-colliding position
+
+                    // check if that respawn position is colliding with anything using a box cast with the dimensions of the car collider, if it is, generate a new random position until we find one that is not colliding with anything.
+                    // This is to prevent the car from being placed inside another and start an extreme physics interaction
+                    while (Physics.CheckBox(RespawnPosition, spawnBlockingBoxCastDimensions * 1.5f, Quaternion.identity, spawnBlockingLayers))
+                    {
+                        // if we are colliding with something, generate a new random position and check again
+                        RespawnPosition = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f;
+
+                        // debug, draw the box cast in the scene view to see where we are checking for collisions when respawning after death
+                        Debug.DrawLine(RespawnPosition - spawnBlockingBoxCastDimensions, RespawnPosition + spawnBlockingBoxCastDimensions, Color.red, 1f);
+                        Debug.Log(transform.name + " Respawn position " + RespawnPosition + " is colliding with something, generating new position.");
+
+                        // if not colliding, break out of the loop and use that position for respawn
+                        if (!Physics.CheckBox(RespawnPosition, spawnBlockingBoxCastDimensions * 1.5f, Quaternion.identity, spawnBlockingLayers))
+                        {
+                            Debug.DrawLine(RespawnPosition - spawnBlockingBoxCastDimensions, RespawnPosition + spawnBlockingBoxCastDimensions, Color.green, 1f);
+                            Debug.Log(transform.name + " Respawn position " + RespawnPosition + " is not colliding with anything, placed.");
+
+                            break;
+                        }
+
+                        // after x amount of attempts to find a non-colliding position, just place the car at the checkpoint position even if it is colliding with something to avoid infinite loop, this is a rare edge case and we want to make sure the car respawns even if we cannot find a perfect position for it
+                        numberOfAttempts--;
+
+                        if (numberOfAttempts <= 0)
+                        {
+                            Debug.LogWarning(transform.name + " Could not find a non-colliding respawn position after 10 attempts, placing at checkpoint position anyway.");
+                            break;
+                        }
+                    }
+
+                    transform.position = RespawnPosition;
                     transform.rotation = scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
+
 
                     // freeze rotation 
                     // transform.rotation = Quaternion.Euler(scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.x, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.y, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.z);
                 }
                 else 
                 {
-                    transform.position = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
-                    transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
+                    // generate a random position around top of the checkpoint to spawn the car back on
+                    Vector3 RespawnPosition = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f; // move car slightly above the checkpoint to avoid collision
 
+                    int numberOfAttempts = 20; // counter to track number of attempts to find a non-colliding position
+
+
+                    // check if that respawn position is colliding with anything using a box cast with the dimensions of the car collider, if it is, generate a new random position until we find one that is not colliding with anything.
+                    // This is to prevent the car from being placed inside another and start an extreme physics interaction
+                    while (Physics.CheckBox(RespawnPosition, spawnBlockingBoxCastDimensions * 1.5f, Quaternion.identity, spawnBlockingLayers))
+                    {
+                        // if we are colliding with something, generate a new random position and check again
+                        RespawnPosition = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f;
+
+                        // debug, draw the box cast in the scene view to see where we are checking for collisions when respawning after death
+                        Debug.DrawLine(RespawnPosition - spawnBlockingBoxCastDimensions, RespawnPosition + spawnBlockingBoxCastDimensions, Color.red, 1f);
+                        Debug.Log(transform.name + " Respawn position " + RespawnPosition + " is colliding with something, generating new position.");
+
+                        // if not colliding, break out of the loop and use that position for respawn
+                        if (!Physics.CheckBox(RespawnPosition, spawnBlockingBoxCastDimensions * 1.5f, Quaternion.identity, spawnBlockingLayers))
+                        {
+                            Debug.DrawLine(RespawnPosition - spawnBlockingBoxCastDimensions, RespawnPosition + spawnBlockingBoxCastDimensions, Color.green, 1f);
+                            Debug.Log(transform.name + " Respawn position " + RespawnPosition + " is not colliding with anything, placed.");
+
+                            break;
+                        }
+
+                        // after x amount of attempts to find a non-colliding position, just place the car at the checkpoint position even if it is colliding with something to avoid infinite loop, this is a rare edge case and we want to make sure the car respawns even if we cannot find a perfect position for it
+                        numberOfAttempts--;
+
+                        if (numberOfAttempts <= 0)
+                        {
+                            Debug.LogWarning(transform.name + " Could not find a non-colliding respawn position after 20 attempts, placing at checkpoint position anyway.");
+                            break;
+                        }
+
+                    }
+
+                    transform.position = RespawnPosition;
+                    transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
+                    
                     // transform.rotation = Quaternion.Euler(scr_IAmStuck.GetLastCheckpointPassed().rotation.x, scr_IAmStuck.GetLastCheckpointPassed().rotation.y, scr_IAmStuck.GetLastCheckpointPassed().rotation.z);
 
                 }
@@ -822,5 +916,6 @@ public class Scr_Car_Health : MonoBehaviour
             
         }
     }
+
 
 }
