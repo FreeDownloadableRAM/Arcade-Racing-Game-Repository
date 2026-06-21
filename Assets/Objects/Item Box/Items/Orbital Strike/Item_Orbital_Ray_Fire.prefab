@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scr_OrbitalRayFire
   selfDestructTimer: 0.3
   orbitalRayFireImpactEffectObject: {fileID: 2133252360434535058, guid: 9c638c7749a66f94cb74204c91df716d, type: 3}
-  orbitalRayDPS: 2400
+  orbitalRayDPS: 3000
 --- !u!135 &2413945877550247841
 SphereCollider:
   m_ObjectHideFlags: 0
