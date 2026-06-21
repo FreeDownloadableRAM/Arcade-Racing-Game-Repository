@@ -82,6 +82,9 @@ public class Scr_Car_Health : MonoBehaviour
     // Orbital Ray Damage trigger flag
     private bool inOrbitalRay = false;
 
+    // get nav mesh agent component reference
+    private UnityEngine.AI.NavMeshAgent navMeshAgent;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -145,6 +148,9 @@ public class Scr_Car_Health : MonoBehaviour
             spawnBlockingBoxCastDimensions = new Vector3(3f, 3f, 4f); // adjust as needed based on average car size
         }
 
+        // get nav mesh agent component reference from child object
+        navMeshAgent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
+
     }
 
     void FixedUpdate()
@@ -152,8 +158,23 @@ public class Scr_Car_Health : MonoBehaviour
         // if health is 0, place car back to last checkpoint passed
         if (internalCarHealth <= 0)
         {
-            
+            // disable nav mesh agent whilst car is dead
+            if (navMeshAgent != null)
+            {
+                navMeshAgent.enabled = false;
+            }
+
+            // reset car to last checkpoint we passed
             ResetToLastCheckpoint();
+
+            // once checkpoint reset is complete, re-enable nav mesh agent
+            if (navMeshAgent != null)
+            {
+                navMeshAgent.enabled = true;
+
+                // place nav mesh agent on baked nav mesh
+                navMeshAgent.Warp(transform.position);
+            }
 
         }
 
