@@ -9480,6 +9480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI Car Cadalla (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2779340764821787655, guid: b6b0e6b77274f0449b873cf191593b19, type: 3}
+      propertyPath: maxSpeed
+      value: 61
+      objectReference: {fileID: 0}
     - target: {fileID: 2779826212088831475, guid: b6b0e6b77274f0449b873cf191593b19, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

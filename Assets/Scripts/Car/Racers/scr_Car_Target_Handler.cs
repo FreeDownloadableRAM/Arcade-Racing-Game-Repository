@@ -70,6 +70,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -126,6 +127,12 @@ public class scr_Car_Target_Handler : MonoBehaviour
     // bounds for chase cooldown timer
     [SerializeField] private float chaseCooldownTimerLowerBound = 5f;
     [SerializeField] private float chaseCooldownTimerUpperBound = 15f;
+
+    // chase distance threshold
+    private float chaseDistanceThreshold = 100f; // if the target is farther than this, we won't chase
+
+    // chase target game object.
+    private GameObject chaseTarget;
 
     private void Awake()
     {
@@ -209,12 +216,15 @@ public class scr_Car_Target_Handler : MonoBehaviour
         // make sure target position index is within bounds
         if (targetPositionIndex < 0)
         {
+            // set chase timer cooldown so we dont immediately re-enter chase state after exiting it
+            chaseCooldownTimer = UnityEngine.Random.Range(chaseCooldownTimerLowerBound, chaseCooldownTimerUpperBound);
+
             AIState = "Race";
         }
         else 
         {
             // get the game object we are going to chase
-            GameObject chaseTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
+            chaseTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
 
             // check if that car game object has health, if its dead, do not chase it.
             if (chaseTarget == null || chaseTarget.GetComponent<Scr_Car_Health>().GetCurrentHealth() <= 0)
@@ -276,19 +286,33 @@ public class scr_Car_Target_Handler : MonoBehaviour
         }
         else 
         {
-            // set the homing target
-            int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
-
             // we have an item, check if its an offensive item that we have to aim with
             // if so, enter chase state
             if (itemHandler.getItemHeld() == "Rocket" || itemHandler.getItemHeld() == "Laser" || itemHandler.getItemHeld() == "Ion Beam")
             {
+                // set the homing target
+                int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
+
                 if (targetPositionIndex >= 0 && chaseCooldownTimer <= 0) 
                 {
-                    // set chase timer
-                    chaseTimer = UnityEngine.Random.Range(chaseTimerLowerBound, chaseTimerUpperBound);
+                    // check if distance between this object and the target chase object is within a certain range. If its close enough, we can chase.
+                    // get the game object we are going to chase
+                    chaseTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
 
-                    AIState = "Chase";
+                    // calculate distance to target
+                    if (chaseTarget != null) 
+                    {
+                        float distanceToTarget = Vector3.Distance(transform.position, chaseTarget.transform.position);
+
+                        if (distanceToTarget <= chaseDistanceThreshold) 
+                        {
+                            // target is close enough, enter chase state
+                            // set chase timer
+                            chaseTimer = UnityEngine.Random.Range(chaseTimerLowerBound, chaseTimerUpperBound);
+
+                            AIState = "Chase";
+                        }
+                    }
                 }
             }
         }

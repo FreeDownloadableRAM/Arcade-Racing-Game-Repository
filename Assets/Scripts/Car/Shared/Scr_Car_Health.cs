@@ -842,7 +842,7 @@ public class Scr_Car_Health : MonoBehaviour
                     while (Physics.CheckBox(RespawnPosition, spawnBlockingBoxCastDimensions * 1.5f, Quaternion.identity, spawnBlockingLayers))
                     {
                         // if we are colliding with something, generate a new random position and check again
-                        RespawnPosition = scr_MyRaceProgress.RaceCheckpointTransforms[0].position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f;
+                        RespawnPosition = scr_IAmStuck.GetLastCheckpointPassed().position + new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 4f), Random.Range(-8f, 8f)) + Vector3.up * 2f;
 
                         // debug, draw the box cast in the scene view to see where we are checking for collisions when respawning after death
                         Debug.DrawLine(RespawnPosition - spawnBlockingBoxCastDimensions, RespawnPosition + spawnBlockingBoxCastDimensions, Color.red, 1f);
