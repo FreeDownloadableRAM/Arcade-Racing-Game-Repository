@@ -66,9 +66,12 @@ public class scr_Car_Target_Handler : MonoBehaviour
 */
 
 // new code
-using UnityEngine;
-using System.Collections.Generic;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 public class scr_Car_Target_Handler : MonoBehaviour
 {
@@ -86,7 +89,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
     public LayerMask itemBoxLayer;                // Layer for item boxes
     public LayerMask obstacleMask;                // Layer for obstacles (walls, track boundaries, etc.)
     public float alignmentThreshold = 0.65f;       // Forward direction alignment (0–1)
-    public float itemReachedDistance = 1.5f;        // Distance at which we consider the item "collected"
+    public float itemReachedDistance = 1.25f;        // Distance at which we consider the item "collected"
 
     private Transform nearestItemBox;
 
@@ -95,6 +98,34 @@ public class scr_Car_Target_Handler : MonoBehaviour
 
     // item handler script reference
     private Scr_Item_Handler itemHandler;
+
+    // get race manager script from race manager game object
+    // race track object
+    private GameObject RaceTrackObject;
+
+    // race manager script reference
+    private scr_RaceCheckpoints scr_raceCheckpointsScript;
+
+    // object racer to keep track of
+    private GameObject Racer;
+
+    // track Racer position
+    private int position;
+
+    // chase timer
+    // once this reachers zero, reset back to race state.
+    private float chaseTimer = 7f; // seconds to chase before giving up and going back to racing
+
+    // bounds for chase timer
+    [SerializeField] private float chaseTimerLowerBound = 7f;
+    [SerializeField] private float chaseTimerUpperBound = 12f;
+
+    // chase cooldown timer, prevents us from immediately re-entering chase state after exiting it.
+    private float chaseCooldownTimer = 5f; // in seconds
+
+    // bounds for chase cooldown timer
+    [SerializeField] private float chaseCooldownTimerLowerBound = 5f;
+    [SerializeField] private float chaseCooldownTimerUpperBound = 15f;
 
     private void Awake()
     {
@@ -114,6 +145,16 @@ public class scr_Car_Target_Handler : MonoBehaviour
 
         // get item handler script
         itemHandler = GetComponent<Scr_Item_Handler>();
+
+        // find the race track object in the scene
+        // this will have the racers placement data that we need to home in on the correct target
+        RaceTrackObject = GameObject.FindWithTag("Race");
+
+        // get the race checkpoints script from the race track object
+        scr_raceCheckpointsScript = RaceTrackObject.GetComponent<scr_RaceCheckpoints>();
+
+        // set racer to this game object
+        Racer = gameObject;
     }
 
     private void Start()
@@ -134,10 +175,17 @@ public class scr_Car_Target_Handler : MonoBehaviour
     // AI State Machine 
     private void Update()
     {
+        // thats the value of the racer that the homing target should be heading towards.
+        position = scr_raceCheckpointsScript.GetRacerPosition(Racer);
+
         switch (AIState)
         {
             case "Race":
                 HandleRaceState();
+                break;
+
+            case "Chase":
+                HandleChaseState();
                 break;
 
             case "Get Item":
@@ -146,13 +194,66 @@ public class scr_Car_Target_Handler : MonoBehaviour
         }
     }
 
+    private void HandleChaseState()
+    {
+        // count down chase timer
+        chaseTimer -= Time.deltaTime;
+
+        // if we have an OFFENSIVE item, set AI movement target to the racer in the position ahead of us, if there is one. If there isnt any, default to race state.
+        // only chase with items that require us to aim. Dont chase with flamethrower as its good for zoning.
+        // anything else, default to race state.
+
+        // set the homing target
+        int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
+
+        // make sure target position index is within bounds
+        if (targetPositionIndex < 0)
+        {
+            AIState = "Race";
+        }
+        else 
+        {
+            // get the game object we are going to chase
+            GameObject chaseTarget = scr_raceCheckpointsScript.GetRacerByPosition(targetPositionIndex);
+
+            // check if that car game object has health, if its dead, do not chase it.
+            if (chaseTarget == null || chaseTarget.GetComponent<Scr_Car_Health>().GetCurrentHealth() <= 0)
+            {
+                Transform nextCheckpoint = MyRaceProgress.RaceCheckpointTransforms[MyRaceProgress.nextCheckpointIndex];
+                AIMovementTarget = nextCheckpoint;
+            }
+            else 
+            {
+                // set our ai movement target to the transform of the target we are chasing
+                AIMovementTarget = chaseTarget.transform;
+            }
+
+        }
+
+        // if chase timer reachers zero, set to race ai state
+        if (chaseTimer <= 0f)
+        {
+            // set chase timer cooldown so we dont immediately re-enter chase state after exiting it
+            chaseCooldownTimer = UnityEngine.Random.Range(chaseCooldownTimerLowerBound, chaseCooldownTimerUpperBound);
+
+            AIState = "Race";
+        }
+
+    }
+
     private void HandleRaceState()
     {
         Transform nextCheckpoint = MyRaceProgress.RaceCheckpointTransforms[MyRaceProgress.nextCheckpointIndex];
         AIMovementTarget = nextCheckpoint;
 
+        // increment chase cooldown timer, when its zero, we can chase again if we get another item
+        if (chaseCooldownTimer > 0f) 
+        {
+            chaseCooldownTimer -= Time.deltaTime;
+        }
+
         // only look for item box if we don't already have an item
-        if (itemHandler.getItemHeld() == "None") 
+        if (itemHandler.getItemHeld() == "None")
         {
             // get nearest item box between us and next checkpoint
             nearestItemBox = FindItemBoxBetween(transform.position, nextCheckpoint.position);
@@ -170,16 +271,27 @@ public class scr_Car_Target_Handler : MonoBehaviour
                     AIState = "Get Item";
 
                 }
-                else 
-                {
-                    AIState = "Race";
-
-                }
-
             }
 
         }
+        else 
+        {
+            // set the homing target
+            int targetPositionIndex = position - 1; // get the position index of the racer ahead of us
 
+            // we have an item, check if its an offensive item that we have to aim with
+            // if so, enter chase state
+            if (itemHandler.getItemHeld() == "Rocket" || itemHandler.getItemHeld() == "Laser" || itemHandler.getItemHeld() == "Ion Beam")
+            {
+                if (targetPositionIndex >= 0 && chaseCooldownTimer <= 0) 
+                {
+                    // set chase timer
+                    chaseTimer = UnityEngine.Random.Range(chaseTimerLowerBound, chaseTimerUpperBound);
+
+                    AIState = "Chase";
+                }
+            }
+        }
     }
 
     private void HandleGetItemState()

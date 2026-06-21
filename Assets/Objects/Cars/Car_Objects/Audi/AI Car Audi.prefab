@@ -45551,6 +45551,10 @@ MonoBehaviour:
     m_Bits: 0
   alignmentThreshold: 0.65
   itemReachedDistance: 1.5
+  chaseTimerLowerBound: 7
+  chaseTimerUpperBound: 12
+  chaseCooldownTimerLowerBound: 5
+  chaseCooldownTimerUpperBound: 15
 --- !u!114 &9090329969465027480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45596,7 +45600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scr_Item_Handler
   itemHeld: 
   rocketSpawnOffset: 5.5
-  rocketSpawnHeightOffset: 1
+  rocketSpawnHeightOffset: 1.15
   laserItemPrefab: {fileID: 238546991540539590, guid: 923e231d5cd2c4643bc13012678faa4c, type: 3}
   rocketItemPrefab: {fileID: 6007389463334106660, guid: 6cee495441d5ab9458bfe54e5ab7f2f4, type: 3}
   missileItemPrefab: {fileID: 5632438409398279603, guid: a2bbede836595ae4c84808555af05a4f, type: 3}
