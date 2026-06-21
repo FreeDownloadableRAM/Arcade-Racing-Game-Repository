@@ -352,6 +352,7 @@ GameObject:
   - component: {fileID: 4699822189868425350}
   - component: {fileID: 6152571773667981446}
   - component: {fileID: 4132312015728829279}
+  - component: {fileID: 2890900969611482229}
   m_Layer: 6
   m_Name: G-Object.004
   m_TagString: Untagged
@@ -451,6 +452,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.004044036, y: 0.0035152812, z: 0.008469486}
   m_Center: {x: -0.0025217899, y: 0.0022366836, z: 0.004282036}
+--- !u!208 &2890900969611482229
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975100203087811074}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.002, y: 0.002, z: 0.004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.003, y: 0.002, z: 0.004}
+  m_TimeToStationary: 0.5
 --- !u!1 &1207797576359106233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,7 +1173,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8967406460367798769}
-  - component: {fileID: 2144279196595331987}
   - component: {fileID: 7912178321812945794}
   - component: {fileID: 5976184893342568970}
   m_Layer: 6
@@ -1182,26 +1198,6 @@ Transform:
   - {fileID: 1756786837946982486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2144279196595331987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5424735492994017936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
-  m_SerializedVersion: 0
-  m_OverrideArea: 0
-  m_Area: 0
-  m_OverrideGenerateLinks: 0
-  m_GenerateLinks: 0
-  m_IgnoreFromBuild: 1
-  m_ApplyToChildren: 1
-  m_AffectedAgents: ffffffff
 --- !u!114 &7912178321812945794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1416,6 +1412,7 @@ GameObject:
   - component: {fileID: 6754524645065985982}
   - component: {fileID: 2575031912941263940}
   - component: {fileID: 148039094107387205}
+  - component: {fileID: 2653588972928168867}
   m_Layer: 6
   m_Name: G-Object.009
   m_TagString: Untagged
@@ -1515,6 +1512,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.004400142, y: 0.0038623973, z: 0.008200719}
   m_Center: {x: -0.0024887312, y: 0.0021812285, z: 0.0041003595}
+--- !u!208 &2653588972928168867
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659823335675128192}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.002, y: 0.002, z: 0.004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: 0.002, z: 0.004}
+  m_TimeToStationary: 0.5
 --- !u!1 &6938367633376352815
 GameObject:
   m_ObjectHideFlags: 0

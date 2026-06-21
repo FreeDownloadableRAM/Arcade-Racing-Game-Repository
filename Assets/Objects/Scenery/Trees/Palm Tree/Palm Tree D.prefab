@@ -1098,6 +1098,7 @@ GameObject:
   - component: {fileID: 2771406832122771014}
   - component: {fileID: 3696102611385764391}
   - component: {fileID: 1437776316612731727}
+  - component: {fileID: 3861993270702094614}
   m_Layer: 6
   m_Name: Trunk
   m_TagString: Obstacle
@@ -1197,6 +1198,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.008528135, y: 0.008111567, z: 0.04419151}
   m_Center: {x: -0.008465899, y: 0.008707281, z: 0.022095943}
+--- !u!208 &3861993270702094614
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6304110945347502581}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.007, y: 0.007, z: 0.035}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.007, y: 0.007, z: 0.035}
+  m_TimeToStationary: 0.5
 --- !u!1 &6663157188754241796
 GameObject:
   m_ObjectHideFlags: 0

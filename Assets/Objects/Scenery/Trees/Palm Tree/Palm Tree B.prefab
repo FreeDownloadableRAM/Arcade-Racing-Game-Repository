@@ -1169,6 +1169,7 @@ GameObject:
   - component: {fileID: 8934447656037558587}
   - component: {fileID: 764801429900380030}
   - component: {fileID: 2828263133583134455}
+  - component: {fileID: 806736237218846545}
   m_Layer: 0
   m_Name: Trunk
   m_TagString: Untagged
@@ -1268,3 +1269,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.007105, y: 0.006637, z: 0.05528}
   m_Center: {x: -0.01123, y: 0.01098, z: 0.02764}
+--- !u!208 &806736237218846545
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964284499945962160}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.007, y: 0.007, z: 0.05}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.007, y: 0.007, z: 0.05}
+  m_TimeToStationary: 0.5

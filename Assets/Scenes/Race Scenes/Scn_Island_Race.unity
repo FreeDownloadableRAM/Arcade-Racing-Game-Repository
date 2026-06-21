@@ -5508,6 +5508,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 269778283}
     m_Modifications:
+    - target: {fileID: 1875379348055161399, guid: 760c4789bb2bc5a498ca3d9e53552118, type: 3}
+      propertyPath: m_Name
+      value: AI Car Ferocity (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6650399492707001059, guid: 760c4789bb2bc5a498ca3d9e53552118, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15
@@ -5547,10 +5551,6 @@ PrefabInstance:
     - target: {fileID: 6650399492707001059, guid: 760c4789bb2bc5a498ca3d9e53552118, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875379348055161399, guid: 760c4789bb2bc5a498ca3d9e53552118, type: 3}
-      propertyPath: m_Name
-      value: AI Car Ferocity (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
