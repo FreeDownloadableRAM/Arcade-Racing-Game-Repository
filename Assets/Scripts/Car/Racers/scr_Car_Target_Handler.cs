@@ -129,7 +129,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
     [SerializeField] private float chaseCooldownTimerUpperBound = 15f;
 
     // chase distance threshold
-    private float chaseDistanceThreshold = 100f; // if the target is farther than this, we won't chase
+    private float chaseDistanceThreshold = 50f; // if the target is farther than this, we won't chase
 
     // chase target game object.
     private GameObject chaseTarget;
