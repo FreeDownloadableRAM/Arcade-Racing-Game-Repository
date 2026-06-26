@@ -231,6 +231,7 @@ public class scr_Car_Target_Handler : MonoBehaviour
             {
                 Transform nextCheckpoint = MyRaceProgress.RaceCheckpointTransforms[MyRaceProgress.nextCheckpointIndex];
                 AIMovementTarget = nextCheckpoint;
+
             }
             else 
             {

@@ -19,7 +19,7 @@ public class scr_RaceCheckpoints : MonoBehaviour
     private int nextCheckpointIndex;
 
     // determine the amount of laps the race has
-    [SerializeField] public int numOfLaps;
+    [SerializeField] private int numOfLaps;
 
     private void Awake()
     {
@@ -176,5 +176,11 @@ public class scr_RaceCheckpoints : MonoBehaviour
         {
             return Racers[Racers.Count() - 1]; // invalid position, just set value to the last racer in the list
         }
+    }
+
+    // return the amount of laps there are in the race
+    public int GetNumOfLaps()
+    {
+        return numOfLaps;
     }
 }

@@ -5132,13 +5132,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 3
+    m_Stiffness: 1.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 3
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -39603,14 +39603,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c66444be4ab3894fbb68038e2c971b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextVertexDistanceThreshold: 7.5
+  NextVertexDistanceThreshold: 3.5
   raycastOffsetFromGround: {x: 0, y: 0.5, z: 0}
   rigidBody: {fileID: 2889584401995837142}
   raycastCarWidth: {x: 1.25, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   raySteerAroundAngleIncrement: 2.5
   raySteerAroundNumberOfAngleIncrements: 24
-  steeringAngleThreshold: 2.75
+  steeringAngleThreshold: 5
   obstacleVisionDistance: 10
   obstacleBaseVisionDistance: 1.25
   obstacleMinVisionDistance: 2.75
@@ -39818,6 +39818,10 @@ MonoBehaviour:
     m_Bits: 0
   alignmentThreshold: 0.65
   itemReachedDistance: 1.5
+  chaseTimerLowerBound: 7
+  chaseTimerUpperBound: 12
+  chaseCooldownTimerLowerBound: 5
+  chaseCooldownTimerUpperBound: 15
 --- !u!114 &7380834946140234204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55012,13 +55016,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 3
+    m_Stiffness: 1.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 3
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -33,7 +33,7 @@ public class scr_My_Race_Progress : MonoBehaviour
         {
             // set this list equal to the list determined by RaceCheckpoints game object
             RaceCheckpointTransforms = RaceTrackObject.GetComponent<scr_RaceCheckpoints>().CheckpointTransforms;
-            totalLaps = RaceTrackObject.GetComponent<scr_RaceCheckpoints>().numOfLaps; // Get the total number of
+            totalLaps = RaceTrackObject.GetComponent<scr_RaceCheckpoints>().GetNumOfLaps(); // Get the total number of
 
         }
 
@@ -93,6 +93,12 @@ public class scr_My_Race_Progress : MonoBehaviour
     public bool GetCompletedRaceStatus()
     {
         return completedRace;
+    }
+
+    // get the current lap number
+    public int GetCurrentLap()
+    {
+        return currentLap;
     }
 
 }

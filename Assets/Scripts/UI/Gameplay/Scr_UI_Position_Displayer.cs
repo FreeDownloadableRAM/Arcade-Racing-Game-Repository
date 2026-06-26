@@ -53,6 +53,10 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
     // car health handler script to see what health our racer currently has
     private Scr_Car_Health scr_MyCarHealth;
 
+    // lap tracker
+    private int currentLap = 0;
+    private int numberOfLaps = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -82,8 +86,11 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
             // get max car health
             carMaxHealth = scr_MyCarHealth.GetMaxHealth();
 
+            // get number of laps
+            numberOfLaps = scr_RaceCheckpoints.GetNumOfLaps();
+
             // update text to read the position / list length
-            racerPosition.text = "Pos: " + position.ToString() + scr_RaceCheckpoints.Racers.Count.ToString();
+            racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString() + " Lap: " + currentLap + " / " + numberOfLaps;
 
             racerSpeed.text = "Speed: " + ((int)(speed * conversionRatio)).ToString() + " Km/hr";
 
@@ -111,8 +118,11 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
                 // get reference object - use the racer completion list
                 position = scr_RaceCheckpoints.GetRacerCompletionPosition(Racer) + 1;
 
+                // update lap
+                currentLap = scr_MyRaceProgress.GetCurrentLap() + 1;
+
                 // update text to read the position / list length
-                racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString();
+                racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString() + " Lap: " + currentLap + " / " + numberOfLaps;
             }
             else 
             {
@@ -120,8 +130,11 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
                 // get reference object - use the racers list
                 position = scr_RaceCheckpoints.GetRacerPosition(Racer) + 1;
 
+                // update lap
+                currentLap = scr_MyRaceProgress.GetCurrentLap() + 1;
+
                 // update text to read the position / list length
-                racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString();
+                racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString() + " Lap: " + currentLap + " / " + numberOfLaps;
 
             }
 
