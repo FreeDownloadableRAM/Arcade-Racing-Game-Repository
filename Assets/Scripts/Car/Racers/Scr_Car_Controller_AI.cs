@@ -253,7 +253,11 @@ public class CarControllerAI : MonoBehaviour
                 }
 
             }
-                
+            else
+            {
+                wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+            }
+
         }
     }
 

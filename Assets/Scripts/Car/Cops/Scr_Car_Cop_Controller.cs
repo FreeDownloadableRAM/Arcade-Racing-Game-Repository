@@ -232,6 +232,10 @@ public class CarCopController : MonoBehaviour
                 }
 
             }
+            else
+            {
+                wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+            }
 
         }
     }
