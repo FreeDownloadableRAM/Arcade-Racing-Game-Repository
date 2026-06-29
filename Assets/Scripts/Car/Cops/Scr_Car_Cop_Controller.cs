@@ -216,6 +216,10 @@ public class CarCopController : MonoBehaviour
                 {
                     wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = true;
                 }
+                else
+                {
+                    wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+                }
             }
             // if are not braking, stop skid marks trail effects
             else
