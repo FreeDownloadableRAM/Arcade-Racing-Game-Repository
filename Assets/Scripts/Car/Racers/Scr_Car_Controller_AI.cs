@@ -15,6 +15,7 @@ public class CarControllerAI : MonoBehaviour
     {
         public GameObject wheelModel;
         public WheelCollider wheelCollider;
+        public GameObject WheelEffectObject;
         public Axel axel;
     }
 
@@ -63,6 +64,7 @@ public class CarControllerAI : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
+        WheelSkidEffects();
     }
 
     void FixedUpdate()
@@ -209,8 +211,37 @@ public class CarControllerAI : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            // set brake torque high to stop wheel from spinning
-            wheel.wheelCollider.brakeTorque = 10000f;
+            // reset wheel spin to zero by setting the wheel collider's rpm to zero
+            wheel.wheelCollider.motorTorque = 0f;
+
+            // get rid of its angular velocity so it is not spinning
+            wheel.wheelCollider.attachedRigidbody.angularVelocity = Vector3.zero;
+        }
+    }
+
+    // wheel effects functions
+    // skid marks
+    public void WheelSkidEffects() 
+    {
+        foreach (var wheel in wheels)
+        {
+            // set each wheel trail renderer object transform rotation to lay flat on the ground
+            wheel.WheelEffectObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+            // if we are braking, play skid marks trail effects
+            if (brakeInput == true)
+            {
+                // check if we are grounded
+                if (wheel.wheelCollider.isGrounded)
+                {
+                    wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = true;
+                }
+            }
+            // if are not braking, stop skid marks trail effects
+            else
+            {
+                wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+            }
         }
     }
 

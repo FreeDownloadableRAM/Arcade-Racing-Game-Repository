@@ -15,6 +15,7 @@ public class CarCopController : MonoBehaviour
     {
         public GameObject wheelModel;
         public WheelCollider wheelCollider;
+        public GameObject WheelEffectObject;
         public Axel axel;
     }
 
@@ -71,6 +72,7 @@ public class CarCopController : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
+        WheelSkidEffects();
     }
 
     void FixedUpdate()
@@ -195,6 +197,32 @@ public class CarCopController : MonoBehaviour
 
         }
 
+    }
+
+    // wheel effects functions
+    // skid marks
+    public void WheelSkidEffects()
+    {
+        foreach (var wheel in wheels)
+        {
+            // set each wheel trail renderer object transform rotation to lay flat on the ground
+            wheel.WheelEffectObject.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+            // if we are braking, play skid marks trail effects
+            if (brakeInput == true)
+            {
+                // check if we are grounded
+                if (wheel.wheelCollider.isGrounded)
+                {
+                    wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = true;
+                }
+            }
+            // if are not braking, stop skid marks trail effects
+            else
+            {
+                wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+            }
+        }
     }
 
     // getter for max speed
