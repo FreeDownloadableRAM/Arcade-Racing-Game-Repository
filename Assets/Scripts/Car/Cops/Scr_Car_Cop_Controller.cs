@@ -73,6 +73,7 @@ public class CarCopController : MonoBehaviour
         GetInputs();
         AnimateWheels();
         WheelSkidEffects();
+        TireParticleEffects();
     }
 
     void FixedUpdate()
@@ -199,6 +200,7 @@ public class CarCopController : MonoBehaviour
 
     }
 
+    
     // wheel effects functions
     // skid marks
     public void WheelSkidEffects()
@@ -208,23 +210,60 @@ public class CarCopController : MonoBehaviour
             // set each wheel trail renderer object transform rotation to lay flat on the ground
             wheel.WheelEffectObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
-            // if we are braking, play skid marks trail effects
-            if (brakeInput == true)
+            if (carRb.linearVelocity.magnitude > 20f)
             {
-                // check if we are grounded
-                if (wheel.wheelCollider.isGrounded)
+                // if we are braking, play skid marks trail effects
+                if (brakeInput == true)
                 {
-                    wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = true;
+                    // check if we are grounded
+                    if (wheel.wheelCollider.isGrounded)
+                    {
+                        wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = true;
+                    }
+                    else
+                    {
+                        wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+                    }
                 }
+                // if are not braking, stop skid marks trail effects
                 else
                 {
                     wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
                 }
+
             }
-            // if are not braking, stop skid marks trail effects
+
+        }
+    }
+
+    // tire particle effects
+    // when driving these effects will play
+    public void TireParticleEffects()
+    {
+        foreach (var wheel in wheels)
+        {
+            // if we are braking, play tire particle effects
+            if (brakeInput == true)
+            {
+
+                // check if we are grounded
+                if (wheel.wheelCollider.isGrounded)
+                {
+                    // play the particle system if it is not already playing
+                    if (!wheel.WheelEffectObject.GetComponent<ParticleSystem>().isPlaying)
+                    {
+                        wheel.WheelEffectObject.GetComponent<ParticleSystem>().Play();
+                    }
+                }
+                else
+                {
+                    wheel.WheelEffectObject.GetComponent<ParticleSystem>().Stop();
+                }
+            }
+            // if are not braking, stop tire particle effects
             else
             {
-                wheel.WheelEffectObject.GetComponent<TrailRenderer>().emitting = false;
+                wheel.WheelEffectObject.GetComponent<ParticleSystem>().Stop();
             }
         }
     }
