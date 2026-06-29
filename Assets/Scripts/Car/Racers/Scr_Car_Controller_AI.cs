@@ -231,7 +231,7 @@ public class CarControllerAI : MonoBehaviour
             // set each wheel trail renderer object transform rotation to lay flat on the ground
             wheel.WheelEffectObject.transform.rotation = Quaternion.Euler(90, 0, 0);
 
-            if (carRb.linearVelocity.magnitude > 40f)
+            if (carRb.linearVelocity.magnitude > 30f)
             {
                 // if we are braking, play skid marks trail effects
                 if (brakeInput == true)
