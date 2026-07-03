@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 5940076066256146147}
   - component: {fileID: 704666995248952196}
   - component: {fileID: 4114822085106401652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exhaust Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4890,7 +4890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8345962685384333186}
   - component: {fileID: 8277141839786464651}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontAndBackLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4952,7 +4952,7 @@ GameObject:
   - component: {fileID: 4589742652860110587}
   - component: {fileID: 2200915860540322526}
   - component: {fileID: 6867867887147244584}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9966,7 +9966,7 @@ GameObject:
   - component: {fileID: 3431331040494071418}
   - component: {fileID: 9110340738938602576}
   - component: {fileID: 8987755944741996026}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Explosion Particle Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14936,7 +14936,7 @@ GameObject:
   - component: {fileID: 408120681847046543}
   - component: {fileID: 4403875508535933263}
   - component: {fileID: 8344128715909696660}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Explosion Particle Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19945,7 +19945,7 @@ GameObject:
   - component: {fileID: 3669257703695028477}
   - component: {fileID: 3011268155158889129}
   - component: {fileID: 3108944431559463324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20137,7 +20137,7 @@ GameObject:
   - component: {fileID: 401948850801030631}
   - component: {fileID: 7216884967964504484}
   - component: {fileID: 7008223050595193977}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nitro Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24983,7 +24983,7 @@ GameObject:
   - component: {fileID: 589545073901089341}
   - component: {fileID: 8816593221134859008}
   - component: {fileID: 8784660029051326874}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Heal Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29829,7 +29829,7 @@ GameObject:
   - component: {fileID: 9127167518034391018}
   - component: {fileID: 430954150340367275}
   - component: {fileID: 1887644491938528569}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exhaust Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34673,7 +34673,7 @@ GameObject:
   - component: {fileID: 2283780062385568673}
   - component: {fileID: 1917988602104145523}
   - component: {fileID: 3235373638335560800}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeftSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35303,7 +35303,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5350913414727506076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Destruction Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35336,7 +35336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7765885611973719498}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35371,7 +35371,7 @@ GameObject:
   - component: {fileID: 2427133167346986625}
   - component: {fileID: 5900543415680829883}
   - component: {fileID: 3986545176539627770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Severe Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40588,7 +40588,7 @@ GameObject:
   - component: {fileID: 3784372077534377174}
   - component: {fileID: 6982504275974796464}
   - component: {fileID: 8564549565388607290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRightSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40845,7 +40845,7 @@ GameObject:
   - component: {fileID: 4672786161395483996}
   - component: {fileID: 3227478987292134686}
   - component: {fileID: 8455090448892023844}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40973,7 +40973,7 @@ GameObject:
   - component: {fileID: 25118812029499234}
   - component: {fileID: 8172608154477232927}
   - component: {fileID: 4172719354105316317}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nitro Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46201,7 +46201,7 @@ GameObject:
   - component: {fileID: 2349119398385127707}
   - component: {fileID: 6270049327265665262}
   - component: {fileID: 8561677863406229039}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46326,7 +46326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 202696206598329590}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Exhaust Object Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46361,7 +46361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2688446663497642829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Health Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46399,7 +46399,7 @@ GameObject:
   - component: {fileID: 7963134007603685450}
   - component: {fileID: 8281685279328244293}
   - component: {fileID: 7271429623362008280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Medium Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51241,7 +51241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760271146964475418}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Heal Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51275,7 +51275,7 @@ GameObject:
   - component: {fileID: 6468011766786805079}
   - component: {fileID: 8296935761032651299}
   - component: {fileID: 6262693789344781358}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51403,7 +51403,7 @@ GameObject:
   - component: {fileID: 372063331572700941}
   - component: {fileID: 4044160799351851834}
   - component: {fileID: 4080828827125830292}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Large Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

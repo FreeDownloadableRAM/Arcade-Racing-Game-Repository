@@ -9735,7 +9735,7 @@ GameObject:
   - component: {fileID: 3045864093738782267}
   - component: {fileID: 6326774262139567214}
   - component: {fileID: 3928362283845309266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeftSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9987,7 +9987,7 @@ GameObject:
   - component: {fileID: 588344881690830622}
   - component: {fileID: 6501719480428410292}
   - component: {fileID: 2673876953257944646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15020,7 +15020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5278067429085710542}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15054,7 +15054,7 @@ GameObject:
   - component: {fileID: 9195450839717182834}
   - component: {fileID: 75688449057948168}
   - component: {fileID: 6221930051411040446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20061,7 +20061,7 @@ GameObject:
   - component: {fileID: 6795075532646847337}
   - component: {fileID: 1206915486635250354}
   - component: {fileID: 3428180666797048039}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRightSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25158,7 +25158,7 @@ GameObject:
   - component: {fileID: 4104200708083668542}
   - component: {fileID: 4907757028631782053}
   - component: {fileID: 5730204856960770845}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30388,7 +30388,7 @@ GameObject:
   - component: {fileID: 119710158813599842}
   - component: {fileID: 4519124714993285019}
   - component: {fileID: 8061521956729030164}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40441,7 +40441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3550877602707201603}
   - component: {fileID: 8243361812607729483}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontAndBackLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}

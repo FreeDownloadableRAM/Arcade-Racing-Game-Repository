@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7080558861037917317}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Destruction Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3798496719983841273}
   - component: {fileID: 8405737917860843310}
   - component: {fileID: 5679107259191726994}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7337752609485278848}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Exhaust Object Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 512362607507189994}
   - component: {fileID: 4194970668838246546}
   - component: {fileID: 759066234683814124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Explosion Particle Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5115,7 +5115,7 @@ GameObject:
   - component: {fileID: 7260192726396255429}
   - component: {fileID: 3646142295733697738}
   - component: {fileID: 9080334124255578071}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5243,7 +5243,7 @@ GameObject:
   - component: {fileID: 9145404418693417424}
   - component: {fileID: 3714124334178450824}
   - component: {fileID: 8114416115918387581}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Severe Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10276,7 +10276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1890586014331765992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10345,7 +10345,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3009362894336973807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Health Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10383,7 +10383,7 @@ GameObject:
   - component: {fileID: 8170079120468330078}
   - component: {fileID: 8562287830355643348}
   - component: {fileID: 5655943838217975379}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Medium Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15326,7 +15326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3460799308828302862}
   - component: {fileID: 268822095690964811}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontAndBackLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15890,7 +15890,7 @@ GameObject:
   - component: {fileID: 6726655283969687613}
   - component: {fileID: 646310128644175788}
   - component: {fileID: 5932284904138425007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exhaust Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20766,7 +20766,7 @@ GameObject:
   - component: {fileID: 4341259166386073309}
   - component: {fileID: 6916427229325146860}
   - component: {fileID: 5817382886757829989}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRightSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21168,7 +21168,7 @@ GameObject:
   - component: {fileID: 2281390942010443895}
   - component: {fileID: 7181508466001013168}
   - component: {fileID: 6740550326965962041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Large Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26044,7 +26044,7 @@ GameObject:
   - component: {fileID: 8037919246114909422}
   - component: {fileID: 7139209797768615489}
   - component: {fileID: 7537800911643359004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BackLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26172,7 +26172,7 @@ GameObject:
   - component: {fileID: 4655014863496909255}
   - component: {fileID: 8630721208491052186}
   - component: {fileID: 2659047437653705596}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Exhaust Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31016,7 +31016,7 @@ GameObject:
   - component: {fileID: 4795558292620791451}
   - component: {fileID: 6813115665763395506}
   - component: {fileID: 1488841412480064248}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31599,7 +31599,7 @@ GameObject:
   - component: {fileID: 52544283144918650}
   - component: {fileID: 6364779329122064122}
   - component: {fileID: 4583327772484269724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light Damage Smoke Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36444,7 +36444,7 @@ GameObject:
   - component: {fileID: 7797231796857004543}
   - component: {fileID: 3284449439787359289}
   - component: {fileID: 6564664742927095880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nitro Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41325,7 +41325,7 @@ GameObject:
   - component: {fileID: 2842120241248618595}
   - component: {fileID: 3028738400922044477}
   - component: {fileID: 8556501967300547280}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Explosion Particle Flares
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46170,7 +46170,7 @@ GameObject:
   - component: {fileID: 4950985218013161639}
   - component: {fileID: 833869974298867329}
   - component: {fileID: 4169939055018863030}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FrontLightLeftSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46397,7 +46397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388526606405651971}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Heal Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46625,7 +46625,7 @@ GameObject:
   - component: {fileID: 6646056888376361461}
   - component: {fileID: 4269608795908970653}
   - component: {fileID: 1909066554849578745}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Nitro Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51471,7 +51471,7 @@ GameObject:
   - component: {fileID: 3364467854839812713}
   - component: {fileID: 33211955646939840}
   - component: {fileID: 3158679587933740176}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Car Heal Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
