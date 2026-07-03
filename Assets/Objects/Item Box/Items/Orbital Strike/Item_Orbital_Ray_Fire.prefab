@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f318f4de815a94f8fd78a837baaa26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scr_OrbitalRayFire
-  selfDestructTimer: 0.3
+  selfDestructTimer: 0.5
   orbitalRayFireImpactEffectObject: {fileID: 2133252360434535058, guid: 9c638c7749a66f94cb74204c91df716d, type: 3}
   orbitalRayDPS: 3000
 --- !u!135 &2413945877550247841
@@ -59,7 +59,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4609
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -68,7 +68,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 6
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!120 &5588148163599504535
 LineRenderer:
