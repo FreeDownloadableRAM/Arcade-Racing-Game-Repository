@@ -3965,7 +3965,11 @@ PrefabInstance:
     - target: {fileID: 795475873963847267, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f1cb8dbbae8cbab43a2df4653c9de832, type: 2}
+      objectReference: {fileID: 2100000, guid: d94f8298ad1260549975bb5245a12509, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 83
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (4)
@@ -7596,6 +7600,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 944a3bfddb6ff4f4e8487fc3d8da388c, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (3)
@@ -11711,6 +11719,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 62cec4e16a80cc04a9a0a67903251a76, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (12)
@@ -13985,6 +13997,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f768da56c956b1f4c8699e96a7f76199, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (9)
@@ -14628,6 +14644,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b8378dd7404d0b245a2dd1a9f320398c, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (1)
@@ -15834,6 +15854,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 60cf4443b5baa884ca584f1c8837f455, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (8)
@@ -17458,6 +17482,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5280546209238574447, guid: e723cd8d05e4ad948a94fa0ec69812ab, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ffef320fa32807438a0a32fd12e6b91, type: 2}
     - target: {fileID: 7065837170529150891, guid: e723cd8d05e4ad948a94fa0ec69812ab, type: 3}
       propertyPath: m_Name
       value: Yuki (Elite Racer)
@@ -17489,6 +17517,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1156b27781919e542a3b7e14dc795c47, type: 2}
+    - target: {fileID: 1462353569054933464, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
+      propertyPath: maxSpeed
+      value: 81
+      objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
       value: AI Car Envious (10)
