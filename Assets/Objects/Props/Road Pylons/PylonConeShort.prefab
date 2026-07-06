@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6611868331012332116}
-  m_Mesh: {fileID: -7850270596342435837, guid: b696db52fad6751468f2e277d56e84b3, type: 3}
+  m_Mesh: {fileID: -7850270596342435837, guid: 33ac95c998e8a38469e44e8e40fbe54e, type: 3}
 --- !u!23 &5480377154191796949
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,12 +63,14 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3109802454424434118, guid: b696db52fad6751468f2e277d56e84b3, type: 3}
-  - {fileID: -3192963810748411485, guid: b696db52fad6751468f2e277d56e84b3, type: 3}
-  - {fileID: 3911203267030055321, guid: b696db52fad6751468f2e277d56e84b3, type: 3}
+  - {fileID: 3109802454424434118, guid: 33ac95c998e8a38469e44e8e40fbe54e, type: 3}
+  - {fileID: -3192963810748411485, guid: 33ac95c998e8a38469e44e8e40fbe54e, type: 3}
+  - {fileID: 3911203267030055321, guid: 33ac95c998e8a38469e44e8e40fbe54e, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,6 +88,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
