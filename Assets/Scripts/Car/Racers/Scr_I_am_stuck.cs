@@ -98,6 +98,9 @@ public class Scr_I_am_stuck : MonoBehaviour
                         // reset wheels
                         scrCarControllerAI.resetWheelsToDefaultPosition();
 
+                        // reset wheel spin to zero so it is not spinning when car is reset
+                        scrCarControllerAI.resetWheelSpinToZero();
+
                         Debug.Log("Car was stuck! Resetting to last checkpoint.");
 
 

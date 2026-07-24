@@ -654,13 +654,28 @@ public class CarAISimple : MonoBehaviour
             isOffroad = true;
 
         }
+        // if ray down is NOT colliding with anything, we are in the air or upside down or on our side. Do not attempt to reverse or move forward, just brake and wait to be reset by the race manager.
+        else
+        {
+            // check if raydown is colliding with anything
+            if (Physics.Raycast(rayDown, out RaycastHit hitDownAir, 4.5f))
+            {
+                // ray down is colliding with something, do not override. this means we are on the road or another surface that is not offroad.
+            }
+            else 
+            {
+                // no collision has been returned. Dont drive forward or reverse.
+                brakeInput = true; // brake
 
-        // debug log, show forward amount, turn amount, and brake input for tuning purposes
+                forwardAmount = 0f;
+            }
+        }
+            // debug log, show forward amount, turn amount, and brake input for tuning purposes
 
-        // Debug.Log(transform.name + " FINAL Forward Amount: " + forwardAmount + ", Turn Amount: " + turnAmount + ", Brake Input: " + brakeInput);
+            // Debug.Log(transform.name + " FINAL Forward Amount: " + forwardAmount + ", Turn Amount: " + turnAmount + ", Brake Input: " + brakeInput);
 
-        // Send this movement information to the car controller AI
-        carControllerAI.SetInputs(forwardAmount, turnAmount, brakeInput);
+            // Send this movement information to the car controller AI
+            carControllerAI.SetInputs(forwardAmount, turnAmount, brakeInput);
     }
 
     public void SetTargetPosition(Vector3 targetPosition)
