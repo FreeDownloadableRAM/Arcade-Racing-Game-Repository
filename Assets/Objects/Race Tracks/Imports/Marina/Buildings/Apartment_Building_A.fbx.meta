@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5edfb457cedde7b49994175099ed4136
+guid: 0da62f46d9cd5d44d96be4360724a424
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,12 +7,67 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: '[0089_PaleTurquoise]'
+      name: '[Translucent Glass Blue]'
     second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: '[0096_SkyBlue]'
+      name: '[Translucent Glass Blue].005'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].008'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].009'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].010'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].011'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].012'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].013'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].014'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].015'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].016'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].017'
+    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: '[Translucent Glass Blue].018'
     second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
   materials:
     materialImportMode: 2

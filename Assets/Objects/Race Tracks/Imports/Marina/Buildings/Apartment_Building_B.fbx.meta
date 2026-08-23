@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5edfb457cedde7b49994175099ed4136
+guid: f5e0e1c8e58f7c14591552a6fbecc392
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,12 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: '[0089_PaleTurquoise]'
-    second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: '[0096_SkyBlue]'
+      name: '[Translucent Glass Blue]'
     second: {fileID: 2100000, guid: 5d04ab8c29e31914096e6216369a4404, type: 2}
   materials:
     materialImportMode: 2
