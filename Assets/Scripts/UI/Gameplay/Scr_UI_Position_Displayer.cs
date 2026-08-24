@@ -119,7 +119,7 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
                 position = scr_RaceCheckpoints.GetRacerCompletionPosition(Racer) + 1;
 
                 // update lap
-                currentLap = scr_MyRaceProgress.GetCurrentLap() + 1;
+                currentLap = scr_MyRaceProgress.GetCurrentLap();
 
                 // update text to read the position / list length
                 racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString() + " Lap: " + currentLap + " / " + numberOfLaps;
@@ -131,7 +131,7 @@ public class Scr_UI_Position_Displayer : MonoBehaviour
                 position = scr_RaceCheckpoints.GetRacerPosition(Racer) + 1;
 
                 // update lap
-                currentLap = scr_MyRaceProgress.GetCurrentLap() + 1;
+                currentLap = scr_MyRaceProgress.GetCurrentLap();
 
                 // update text to read the position / list length
                 racerPosition.text = "Pos: " + position.ToString() + " / " + scr_RaceCheckpoints.Racers.Count.ToString() + " Lap: " + currentLap + " / " + numberOfLaps;

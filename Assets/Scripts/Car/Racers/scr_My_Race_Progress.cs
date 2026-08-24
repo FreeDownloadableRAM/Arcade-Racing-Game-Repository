@@ -52,7 +52,7 @@ public class scr_My_Race_Progress : MonoBehaviour
             //Debug.Log("Checkpoint " + RaceCheckpointTransforms.IndexOf(Checkpoint.transform) + " reached by Car!");
 
             // determine if we are on the correct checkpoint
-            if (RaceCheckpointTransforms.IndexOf(Checkpoint.transform) == nextCheckpointIndex && currentLap < totalLaps)
+            if (RaceCheckpointTransforms.IndexOf(Checkpoint.transform) == nextCheckpointIndex && currentLap <= totalLaps)
             {
                 // correct checkpoint passed
                 //Debug.Log("Correct checkpoint passed!");
@@ -60,7 +60,7 @@ public class scr_My_Race_Progress : MonoBehaviour
                 numOfCheckpointsPassed++; // increment the number of checkpoints passed
 
                 // increment the lap if we have reached the last checkpoint
-                if (nextCheckpointIndex == 0)
+                if (nextCheckpointIndex == 1)
                 {
                     currentLap++; // Increment the lap count
                     //Debug.Log("Lap " + currentLap + " completed!");
@@ -69,7 +69,7 @@ public class scr_My_Race_Progress : MonoBehaviour
                 // RaceTrackObject.GetComponent<scr_RaceCheckpoints>().SortRacerList();
 
             }
-            else if (RaceCheckpointTransforms.IndexOf(Checkpoint.transform) == nextCheckpointIndex && currentLap >= totalLaps)
+            else if (RaceCheckpointTransforms.IndexOf(Checkpoint.transform) == nextCheckpointIndex && currentLap > totalLaps)
             {
                 if (!completedRace) 
                 { 
@@ -83,6 +83,20 @@ public class scr_My_Race_Progress : MonoBehaviour
             {
                 // incorrect checkpoint passed
                 //Debug.Log("Incorrect checkpoint passed! Missed checkpoint # " + nextCheckpointIndex);
+
+            }
+
+            // if we are on a lap higher than total laps, we have completed the race
+            if (currentLap > totalLaps)
+            {
+
+                // check if race complete flag is toggled to false, if it is, toggle it to true and add this racer to the completion order list
+                if (!completedRace) 
+                {
+                    completedRace = true; // toggle this on
+                    RaceTrackObject.GetComponent<scr_RaceCheckpoints>().RacerCompletionOrder.Add(gameObject); // add this racer to the completion order list
+
+                }
 
             }
         }
