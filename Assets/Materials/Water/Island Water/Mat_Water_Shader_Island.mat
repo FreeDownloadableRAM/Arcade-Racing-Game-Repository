@@ -22,11 +22,11 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Mat_Water_Shader_Island
   m_Shader: {fileID: -6465566751694194690, guid: f87e2ddf0a5be0e46a0c90c539937ace, type: 3}
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 2100000, guid: eed468110fe11044a91dc499a17d3af3, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -36,44 +36,21 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _Water_Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 0d1041028b5f1cb4da89e6cd4b3463ba, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Water_Secondary_Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 472a4d634d1e37b42970a8baa88acf39, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Depth: 5
-    - _Displacement: 0.05
-    - _Foam_Amount: 5
-    - _Foam_Cutoff: 0.1
-    - _Foam_Size: 2500
-    - _Foam_Speed: 0.001
-    - _Normal_Strength: 0.125
-    - _QueueControl: 0
-    - _QueueOffset: 0
+    - _Depth: 2
+    - _Displacement: 0.02
+    - _Foam_Amount: 0.5
+    - _Foam_Cutoff: 1
+    - _Foam_Size: 50
+    - _Foam_Speed: 0.01
+    - _Normal_Strength: 0.1
     - _Smoothness: 1
-    - _Strength: 0.045
-    - _Wave_Normal_Tile_Size: 25
+    - _Strength: 0.45
+    - _Wave_Normal_Tile_Size: 5
     m_Colors:
-    - _Deep_Water_Colour: {r: 0.5137255, g: 0.91489005, b: 1, a: 1}
-    - _Foam_Colour: {r: 3.9999998, g: 3.9999998, b: 3.9999998, a: 1}
-    - _Shallow_Water_Colour: {r: 0.9406077, g: 1, b: 0.7971698, a: 1}
+    - _Deep_Water_Colour: {r: 0.383277, g: 0.8362599, b: 0.9339623, a: 1}
+    - _Shallow_Water_Colour: {r: 0.759434, g: 0.9715119, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
