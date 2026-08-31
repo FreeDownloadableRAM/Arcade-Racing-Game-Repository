@@ -85,6 +85,10 @@ public class Scr_Car_Health : MonoBehaviour
     // get nav mesh agent component reference
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
 
+    // kinematicCountdownTimer to keep the car hovering for a short bit after respawning
+    private float kinematicCountdownTimer;
+    private float kinematicCountdownTimerResetValue = 0.5f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -151,10 +155,15 @@ public class Scr_Car_Health : MonoBehaviour
         // get nav mesh agent component reference from child object
         navMeshAgent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
 
+        // set down kinematic countdown timer to its reset value
+        kinematicCountdownTimer = kinematicCountdownTimerResetValue;
+
     }
 
     void FixedUpdate()
     {
+        KinematicCountdown();
+
         // if health is 0, place car back to last checkpoint passed
         if (internalCarHealth <= 0)
         {
@@ -398,6 +407,8 @@ public class Scr_Car_Health : MonoBehaviour
             }
 
         }
+    
+        
     }
 
     // get current health
@@ -780,6 +791,9 @@ public class Scr_Car_Health : MonoBehaviour
                 // stop death particles
                 Scr_ParticleHandler.StopCarDestructionParticles();
 
+                // disable rigidbody
+                carRigidbody.isKinematic = true;
+
                 // if we are finished the race, set car position to the first checkpoint instead of last checkpoint we passed
                 if (scr_MyRaceProgress.completedRace)
                 {
@@ -826,6 +840,9 @@ public class Scr_Car_Health : MonoBehaviour
                     transform.rotation = scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
 
 
+
+                    KinematicCountdown();
+
                     // freeze rotation 
                     // transform.rotation = Quaternion.Euler(scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.x, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.y, scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation.z);
                 }
@@ -870,7 +887,9 @@ public class Scr_Car_Health : MonoBehaviour
 
                     transform.position = RespawnPosition;
                     transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
-                    
+
+                    KinematicCountdown();
+
                     // transform.rotation = Quaternion.Euler(scr_IAmStuck.GetLastCheckpointPassed().rotation.x, scr_IAmStuck.GetLastCheckpointPassed().rotation.y, scr_IAmStuck.GetLastCheckpointPassed().rotation.z);
 
                 }
@@ -938,5 +957,27 @@ public class Scr_Car_Health : MonoBehaviour
         }
     }
 
+    // kinematic countdown function
+    private void KinematicCountdown()
+    {
+        
+        // kinematic timer, this will keep the car hovering until this hits zero, once it hits zero, set kinematic to false to let the car fall down to the ground
+        if (carRigidbody.isKinematic)
+        {
+            // countdown the timer
+            kinematicCountdownTimer -= Time.deltaTime;
+
+            // once the timer hits zero, set kinematic to false to let the car fall down to the ground
+            if (kinematicCountdownTimer <= 0f)
+            {
+                carRigidbody.isKinematic = false;
+
+                // reset the kinematic countdown timer to its original value for the next time we respawn
+                kinematicCountdownTimer = kinematicCountdownTimerResetValue;
+
+                Debug.Log(transform.name + " Kinematic countdown timer hit zero, setting kinematic to false to let the car fall down to the ground.");
+            }
+        }
+    }
 
 }
