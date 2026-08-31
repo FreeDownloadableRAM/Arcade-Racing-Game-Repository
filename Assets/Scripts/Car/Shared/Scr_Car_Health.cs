@@ -975,7 +975,7 @@ public class Scr_Car_Health : MonoBehaviour
                 // reset the kinematic countdown timer to its original value for the next time we respawn
                 kinematicCountdownTimer = kinematicCountdownTimerResetValue;
 
-                Debug.Log(transform.name + " Kinematic countdown timer hit zero, setting kinematic to false to let the car fall down to the ground.");
+                // Debug.Log(transform.name + " Kinematic countdown timer hit zero, setting kinematic to false to let the car fall down to the ground.");
             }
         }
     }
