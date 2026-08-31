@@ -71,12 +71,12 @@ public class CarController : MonoBehaviour
         scr_myRaceProgress = GetComponent<scr_My_Race_Progress>();
 
         // Layer mask for offroad terrain detection
-        offroadTerrainLayerMask = LayerMask.GetMask("Terrain"); 
+        offroadTerrainLayerMask = LayerMask.GetMask("Terrain");
     }
 
     void Update()
     {
-        
+
         GetInputs();
         AnimateWheels();
         WheelSkidEffects();
@@ -171,7 +171,7 @@ public class CarController : MonoBehaviour
 
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration;
+            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
         }
     }
 
@@ -202,20 +202,20 @@ public class CarController : MonoBehaviour
 
             foreach (var wheel in wheels)
             {
-                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration; // originally was at 600
+                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration * Time.deltaTime; // originally was at 600
 
             }
 
             return;
         }
-        
+
 
 
         if (Input.GetKey(KeyCode.Space))
         {
             foreach (var wheel in wheels)
             {
-                wheel.wheelCollider.brakeTorque = 600 * brakeAcceleration;
+                wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
 
             }
 
