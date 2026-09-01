@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Scr_Car_Health : MonoBehaviour
@@ -89,6 +90,9 @@ public class Scr_Car_Health : MonoBehaviour
     private float kinematicCountdownTimer;
     private float kinematicCountdownTimerResetValue = 0.5f;
 
+    // virtual camera 
+    [SerializeField] private CinemachineCamera myVirtualCamera;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -132,6 +136,10 @@ public class Scr_Car_Health : MonoBehaviour
             // get original speed and acceleration values
             originalMaxSpeed = scr_CarController.getMaxSpeed();
             originalAcceleration = scr_CarController.getAcceleration();
+
+            // only if we are the player object will there be a virtual camera under our object hierarchy.
+            // find that virtual camera and assign it to the myVirtualCamera variable
+            myVirtualCamera = GetComponentInChildren<CinemachineCamera>();
 
         }
 
@@ -791,9 +799,6 @@ public class Scr_Car_Health : MonoBehaviour
                 // stop death particles
                 Scr_ParticleHandler.StopCarDestructionParticles();
 
-                // disable rigidbody
-                carRigidbody.isKinematic = true;
-
                 // if we are finished the race, set car position to the first checkpoint instead of last checkpoint we passed
                 if (scr_MyRaceProgress.completedRace)
                 {
@@ -836,10 +841,11 @@ public class Scr_Car_Health : MonoBehaviour
                         }
                     }
 
+                    // disable rigidbody
+                    carRigidbody.isKinematic = true;
+
                     transform.position = RespawnPosition;
                     transform.rotation = scr_MyRaceProgress.RaceCheckpointTransforms[0].rotation; // align car rotation with checkpoint rotation
-
-
 
                     KinematicCountdown();
 
@@ -884,6 +890,9 @@ public class Scr_Car_Health : MonoBehaviour
                         }
 
                     }
+
+                    // disable rigidbody
+                    carRigidbody.isKinematic = true;
 
                     transform.position = RespawnPosition;
                     transform.rotation = scr_IAmStuck.GetLastCheckpointPassed().rotation; // align car rotation with checkpoint rotation
@@ -960,17 +969,22 @@ public class Scr_Car_Health : MonoBehaviour
     // kinematic countdown function
     private void KinematicCountdown()
     {
-        
+
         // kinematic timer, this will keep the car hovering until this hits zero, once it hits zero, set kinematic to false to let the car fall down to the ground
         if (carRigidbody.isKinematic)
         {
             // countdown the timer
-            kinematicCountdownTimer -= Time.deltaTime;
+            kinematicCountdownTimer -= Time.fixedDeltaTime;
 
             // once the timer hits zero, set kinematic to false to let the car fall down to the ground
             if (kinematicCountdownTimer <= 0f)
             {
                 carRigidbody.isKinematic = false;
+
+                
+                // reset forces and velocity to zero to avoid the car from sliding after reset
+                carRigidbody.linearVelocity = Vector3.zero;
+                carRigidbody.angularVelocity = Vector3.zero;
 
                 // reset the kinematic countdown timer to its original value for the next time we respawn
                 kinematicCountdownTimer = kinematicCountdownTimerResetValue;
@@ -978,6 +992,7 @@ public class Scr_Car_Health : MonoBehaviour
                 // Debug.Log(transform.name + " Kinematic countdown timer hit zero, setting kinematic to false to let the car fall down to the ground.");
             }
         }
+        
     }
 
 }
