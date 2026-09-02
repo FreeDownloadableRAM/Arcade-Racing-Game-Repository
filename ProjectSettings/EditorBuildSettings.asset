@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scn_Coastal_City.unity
     guid: 86ed050722fd39d4bac1edacbf7e1ed7
+  - enabled: 1
+    path: Assets/Scenes/Race Scenes/Scn_Canyon_Race.unity
+    guid: b137918203f846c479907a4fe3fb11ba
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
