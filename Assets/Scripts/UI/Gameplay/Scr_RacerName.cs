@@ -28,6 +28,9 @@ public class Scr_RacerName : MonoBehaviour
     // get the camera object, we will use this to get the distance between the camera and the racer name text UI
     [SerializeField] private Camera mainCamera;
 
+    // set text colour based of inspector
+    [SerializeField] private Color textColor = Color.white; // default is white
+
     // text vertical placement offset
     // some vehicles are taller than others, so we need to account for that.
 
@@ -53,6 +56,11 @@ public class Scr_RacerName : MonoBehaviour
         // get the main camera object, we will use this to get the distance between the camera and the racer name text UI
         // its the object tagged as "MainCamera"
         mainCamera = Camera.main;
+
+        // set the text color of the TextMeshPro component to the textColor variable
+        racerNameTextUI.color = textColor;
+        downTriangleTextUI.color = textColor;
+
     }
 
     // Update is called once per frame
