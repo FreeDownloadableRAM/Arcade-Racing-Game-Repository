@@ -554,9 +554,13 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 8ffef320fa32807438a0a32fd12e6b91, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ffef320fa32807438a0a32fd12e6b91, type: 2}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (5)
+      value: Link
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -601,7 +605,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &56626237 stripped
 Transform:
@@ -2674,6 +2684,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4340728391119197609, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4619600742530734459, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
       propertyPath: m_Name
       value: Karbuli Palau (Elite Racer)
@@ -2681,7 +2695,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1126105505752854180, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 4354468478383240976, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2e322250257575b47becbf4b0ff10962, type: 3}
 --- !u!4 &363692274 stripped
 Transform:
@@ -5503,7 +5523,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (11)
+      value: Evan
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5548,7 +5568,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &645656274 stripped
 Transform:
@@ -5711,9 +5737,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 63ba048218cb83f4a91a85f85cc26693, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 63ba048218cb83f4a91a85f85cc26693, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (4)
+      value: Kate
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5758,7 +5792,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &682701405 stripped
 Transform:
@@ -7634,9 +7674,13 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 65a2cfcc0db91c64a9481d2c7d6b5b20, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a056ee9e00768f6439e0dcec9f8394ec, type: 2}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (7)
+      value: Rob
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7681,7 +7725,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &841508357 stripped
 Transform:
@@ -7967,9 +8017,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 392472d7a1e8ba04aa952b17d2a4c3e2, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 392472d7a1e8ba04aa952b17d2a4c3e2, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (1)
+      value: Nike
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8014,7 +8072,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &883914731 stripped
 Transform:
@@ -8228,9 +8292,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 5dcfcd10e9308ea409573be1aeebca1f, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5dcfcd10e9308ea409573be1aeebca1f, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (2)
+      value: Mark
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8275,7 +8347,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &925732064 stripped
 Transform:
@@ -10290,9 +10368,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: f768da56c956b1f4c8699e96a7f76199, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dd277b00c92b0a84fa21d382b4fab8e4, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (8)
+      value: Carlson
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10337,7 +10423,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &1264325849 stripped
 Transform:
@@ -11399,9 +11491,13 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: d94f8298ad1260549975bb5245a12509, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d94f8298ad1260549975bb5245a12509, type: 2}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (6)
+      value: Jeff
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11446,7 +11542,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &1408740762 stripped
 Transform:
@@ -12307,9 +12409,13 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 613a48551d0e4d046b5c4efaeeffb5ca, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c099e36a88ec9324d81c3ba50b12af87, type: 2}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (10)
+      value: Finch
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12354,7 +12460,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &1491548988 stripped
 Transform:
@@ -12529,9 +12641,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 834b9ba583757dc4ab3f44e85db2d7f0, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 834b9ba583757dc4ab3f44e85db2d7f0, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (3)
+      value: Jess
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12576,7 +12696,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &1498970377 stripped
 Transform:
@@ -13707,9 +13833,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: a66b12fe273490d47bcf934d473dcd83, type: 2}
+    - target: {fileID: 838458445106579077, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: 'm_Materials.Array.data[6]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 944a3bfddb6ff4f4e8487fc3d8da388c, type: 2}
+    - target: {fileID: 4992613841911198809, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      propertyPath: brakeZoneTargetSpeedModifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186183747382231216, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_Name
-      value: AI Car Nissa GT (9)
+      value: Shane
       objectReference: {fileID: 0}
     - target: {fileID: 6978669585955086668, guid: c05213b6701d22e4db188f9859013278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13754,7 +13888,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 252587530951363278, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3481225312734614394, guid: c05213b6701d22e4db188f9859013278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c05213b6701d22e4db188f9859013278, type: 3}
 --- !u!4 &1659262008 stripped
 Transform:
