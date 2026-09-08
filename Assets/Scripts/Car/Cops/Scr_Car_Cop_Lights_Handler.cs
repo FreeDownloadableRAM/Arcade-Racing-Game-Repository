@@ -29,16 +29,34 @@ public class Scr_Car_Cop_Lights_Handler : MonoBehaviour
     // is it night time in the level
     [SerializeField] bool isNightTime;
 
+    // bool flag to determine if this is a stationary obstacle cop car
+    // by default its set to false
+    [SerializeField] private bool copCarHasAI = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // turn off all lights at start
-        headLightLeft.enabled = false;
-        headLightRight.enabled = false;
-        headConeLightLeft.enabled = false;
-        headConeLightRight.enabled = false;
-        brakeLightLeft.enabled = false;
-        brakeLightRight.enabled = false;
+        // check if car has AI or not
+        if (!copCarHasAI)
+        {
+            // turn off all lights at start
+            headLightLeft.enabled = true;
+            headLightRight.enabled = true;
+            headConeLightLeft.enabled = true;
+            headConeLightRight.enabled = true;
+            brakeLightLeft.enabled = true;
+            brakeLightRight.enabled = true;
+
+        }
+        else { 
+            // turn off all lights at start
+            headLightLeft.enabled = false;
+            headLightRight.enabled = false;
+            headConeLightLeft.enabled = false;
+            headConeLightRight.enabled = false;
+            brakeLightLeft.enabled = false;
+            brakeLightRight.enabled = false;
+        }
 
         // get the car controller script from the root object if not assigned
         carControllerScript = GetComponentInParent<CarCopController>();
@@ -93,7 +111,7 @@ public class Scr_Car_Cop_Lights_Handler : MonoBehaviour
             }
 
         }
-
+        
     }
 
     public void SetBrakeCondition(bool brake)

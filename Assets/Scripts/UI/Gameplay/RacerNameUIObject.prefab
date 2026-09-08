@@ -410,7 +410,8 @@ MonoBehaviour:
   racerNameTextUI: {fileID: 0}
   downTriangleTextObject: {fileID: 0}
   downTriangleTextUI: {fileID: 0}
-  showTextDistanceFarLimit: 45
+  showTextDistanceFarLimit: 50
   showTextDistanceCloseLimit: 12.5
   textFadeOutDistance: 10
   mainCamera: {fileID: 0}
+  textColor: {r: 1, g: 1, b: 1, a: 1}

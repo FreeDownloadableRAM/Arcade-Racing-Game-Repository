@@ -37,6 +37,9 @@ public class Scr_Car_Cop_Sirens : MonoBehaviour
     // so we can flash one side at a time
     private bool turnLightOn = true;
 
+    // bool flag to determine if this is a stationary obstacle cop car
+    // by default its set to false
+    [SerializeField] private bool copCarHasAI = false;
 
     // set renderer component
     [SerializeField] private Renderer sirenRenderer;
@@ -69,76 +72,50 @@ public class Scr_Car_Cop_Sirens : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if we are in a chase state, flash the sirens
-        if (copCarTargetHandlerScript.AIState == "Chase")
+        // if theres no AI controller
+        if (!copCarHasAI)
         {
+            // just have sirens going off
             FlashSirens();
 
         }
+        // if there is AI controlling this car
         else
         {
-            // turn off the lights if not in chase state
-            sirenTopBlueLight.enabled = false;
-            sirenTopBlueLightMiddle.enabled = false;
-            sirenTopRedLight.enabled = false;
-            sirenTopRedLightMiddle.enabled = false;
-
-            foreach (Light supportLight in supportLightsArrayBlue)
+            // if we are in a chase state, flash the sirens
+            if (copCarTargetHandlerScript.AIState == "Chase")
             {
-                supportLight.enabled = false;
-            }
+                FlashSirens();
 
-            foreach (Light supportLight in supportLightsArrayRed)
+            }
+            else
             {
-                supportLight.enabled = false;
-            }
+                // turn off the lights if not in chase state
+                sirenTopBlueLight.enabled = false;
+                sirenTopBlueLightMiddle.enabled = false;
+                sirenTopRedLight.enabled = false;
+                sirenTopRedLightMiddle.enabled = false;
 
+                foreach (Light supportLight in supportLightsArrayBlue)
+                {
+                    supportLight.enabled = false;
+                }
+
+                foreach (Light supportLight in supportLightsArrayRed)
+                {
+                    supportLight.enabled = false;
+                }
+
+            }
         }
+        
 
     }
 
     // Flash the sirens on and off function
     void FlashSirens() 
     {
-        /*
-        // turn on and off the lights based on the duration
-        // in an alternating pattern
-        if (Time.time % (lightOnDuration + lightOffDuration) < lightOnDuration)
-        {
-            sirenTopBlueLight.enabled = true;
-            sirenTopBlueLightMiddle.enabled = true;
-            sirenTopRedLight.enabled = false;
-            sirenTopRedLightMiddle.enabled = false;
-
-            foreach (Light supportLight in supportLightsArrayRed)
-            {
-                supportLight.enabled = false;
-            }
-
-            foreach (Light supportLight in supportLightsArrayBlue)
-            {
-                supportLight.enabled = true;
-            }
-        }
-        else
-        {
-            sirenTopBlueLight.enabled = false;
-            sirenTopBlueLightMiddle.enabled = false;
-            sirenTopRedLight.enabled = true;
-            sirenTopRedLightMiddle.enabled = true;
-
-            foreach (Light supportLight in supportLightsArrayRed)
-            {
-                supportLight.enabled = true;
-            }
-
-            foreach (Light supportLight in supportLightsArrayBlue)
-            {
-                supportLight.enabled = false;
-            }
-        }
-        */
-
+        
         // red side is active, blue lights are off
         if (isSirenRedSideActive)
         {
