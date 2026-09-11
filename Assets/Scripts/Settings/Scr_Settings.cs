@@ -11,7 +11,7 @@ public class Scr_Settings : MonoBehaviour
     // Frame rate settings
 
     // do we set frame rate to refresh rate of the monitor?
-    [SerializeField] private bool targetMonitorRefreshRate = true;
+    [SerializeField] private bool targetMonitorRefreshRate = false;
 
     [SerializeField] private double targetFrameRate = 60.0;
     [SerializeField] private double defaultFrameRate = 60.0;
