@@ -375,13 +375,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.75
+    m_Stiffness: 3.15
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.75
+    m_Stiffness: 3.15
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2789,13 +2789,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.75
+    m_Stiffness: 3.15
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.75
+    m_Stiffness: 3.15
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5268,13 +5268,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.38
+    m_Stiffness: 2.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.38
+    m_Stiffness: 2.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5371,13 +5371,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2.38
+    m_Stiffness: 2.5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.38
+    m_Stiffness: 2.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -10443,7 +10443,7 @@ MonoBehaviour:
   rayAngleForwardFLM: -7.5
   rayAngleForwardRFM: 22.5
   rayAngleForwardLFM: -22.5
-  brakeZoneTargetSpeedModifier: 0.97
+  brakeZoneTargetSpeedModifier: 1
 --- !u!114 &6405175567435454216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10664,7 +10664,7 @@ MonoBehaviour:
   wheelL: {fileID: 8196787838229869186}
   wheelR: {fileID: 3785501093982351789}
   AntiRollBarForce: 8500
-  downwardForce: 7.75
+  downwardForce: 6.75
 --- !u!114 &569309697212960732
 MonoBehaviour:
   m_ObjectHideFlags: 0
