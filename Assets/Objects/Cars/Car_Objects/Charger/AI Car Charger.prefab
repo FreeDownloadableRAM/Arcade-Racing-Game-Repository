@@ -92,7 +92,7 @@ MonoBehaviour:
   brakeLightLeft: {fileID: 6705318861713007612}
   brakeLightRight: {fileID: 8146549772379484378}
   brakeLightOnIntensity: 1
-  brakeLightOffIntensity: 0.225
+  brakeLightOffIntensity: 0.25
   carControllerScript: {fileID: 0}
   isNightTime: 1
 --- !u!1 &226338717059055690
