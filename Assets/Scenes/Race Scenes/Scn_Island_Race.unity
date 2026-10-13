@@ -575,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 371bc8d3739fe4242bcd0bf3db98e898, type: 2}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (11)
+      value: Yanni
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -794,7 +794,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4c8b45d7cf0aeb1438c369993b6175ad, type: 2}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious
+      value: Hugo
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -2294,7 +2294,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a056ee9e00768f6439e0dcec9f8394ec, type: 2}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (2)
+      value: Engles
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -4010,7 +4010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (4)
+      value: Penny
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -6324,7 +6324,7 @@ MonoBehaviour:
   CheckpointTransforms: []
   Racers: []
   RacerCompletionOrder: []
-  numOfLaps: 3
+  numOfLaps: 2
 --- !u!4 &763878743
 Transform:
   m_ObjectHideFlags: 0
@@ -6941,7 +6941,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 613a48551d0e4d046b5c4efaeeffb5ca, type: 2}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (7)
+      value: Martin
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -7720,7 +7720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (3)
+      value: Nozz
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -11869,7 +11869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (12)
+      value: Aya
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -14211,7 +14211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (9)
+      value: Evan
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -14866,7 +14866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (1)
+      value: Kyo
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -16089,7 +16089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (8)
+      value: Keine
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
@@ -17770,7 +17770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3793553991120106843, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_Name
-      value: AI Car Envious (10)
+      value: Lao
       objectReference: {fileID: 0}
     - target: {fileID: 7912988311518217837, guid: 7ec0832f95a5a0f44b931571fe379bd5, type: 3}
       propertyPath: m_LocalScale.x
