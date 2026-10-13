@@ -133,7 +133,7 @@ public class CarControllerAI : MonoBehaviour
             {
                 // dynamic steer angle
                 // based on how fast we are going, lower the max steer angle, so we do not oversteer at high speeds
-                maxSteerAngle = Mathf.Lerp(45, 12, carRb.linearVelocity.magnitude / maxSpeed); // reduce max steer angle based on speed
+                maxSteerAngle = Mathf.Lerp(45, 15, carRb.linearVelocity.magnitude / maxSpeed); // reduce max steer angle based on speed
 
 
                 var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
