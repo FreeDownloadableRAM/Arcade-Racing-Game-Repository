@@ -10664,7 +10664,7 @@ MonoBehaviour:
   wheelL: {fileID: 8196787838229869186}
   wheelR: {fileID: 3785501093982351789}
   AntiRollBarForce: 8500
-  downwardForce: 6.75
+  downwardForce: 7.25
 --- !u!114 &569309697212960732
 MonoBehaviour:
   m_ObjectHideFlags: 0

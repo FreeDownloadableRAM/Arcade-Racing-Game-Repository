@@ -23,6 +23,10 @@ public class scr_My_Race_Progress : MonoBehaviour
     private int totalLaps;
     public bool completedRace = false;
 
+    // timer variable
+    private float timeToCompleteRace = 0.0f;
+
+
     private void Awake()
     {
         // find the race track object in the scene
@@ -39,6 +43,18 @@ public class scr_My_Race_Progress : MonoBehaviour
 
         nextCheckpointIndex = 0; // Initialize the next checkpoint index
 
+    }
+
+    private void Update()
+    {
+        // increment timer
+        // acount of delta time
+        // if we are not completed with the race, increment the timer
+        if (completedRace == false) 
+        {
+            timeToCompleteRace += Time.deltaTime;
+        }
+            
     }
 
     // handle checkpoint collision
@@ -76,6 +92,12 @@ public class scr_My_Race_Progress : MonoBehaviour
                     completedRace = true; // toggle this on
                     RaceTrackObject.GetComponent<scr_RaceCheckpoints>().RacerCompletionOrder.Add(gameObject); // add this racer to the completion order list
 
+                    // convert time to complete race to minutes and seconds
+                    // xx:xx.xx format
+                    string timeToCompleteRaceString = string.Format("{0:00}:{1:00.00}", Mathf.Floor(timeToCompleteRace / 60), timeToCompleteRace % 60);
+
+                    // pass on the time to complete the race to the RaceCheckpoints script
+                    RaceTrackObject.GetComponent<scr_RaceCheckpoints>().racerCompletionTimes.Add(timeToCompleteRaceString);
                 }
 
             }
@@ -96,8 +118,13 @@ public class scr_My_Race_Progress : MonoBehaviour
                     completedRace = true; // toggle this on
                     RaceTrackObject.GetComponent<scr_RaceCheckpoints>().RacerCompletionOrder.Add(gameObject); // add this racer to the completion order list
 
-                }
+                    // convert time to complete race to minutes and seconds
+                    // xx:xx.xx format
+                    string timeToCompleteRaceString = string.Format("{0:00}:{1:00.00}", Mathf.Floor(timeToCompleteRace / 60), timeToCompleteRace % 60);
 
+                    // pass on the time to complete the race to the RaceCheckpoints script
+                    RaceTrackObject.GetComponent<scr_RaceCheckpoints>().racerCompletionTimes.Add(timeToCompleteRaceString);
+                }
             }
         }
 

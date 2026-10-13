@@ -120,13 +120,14 @@ public class CarController : MonoBehaviour
         {
             Application.Quit();
         }
-
+        
         // when pushing the E key, move to next unity scene, for testing purposes
         if (Input.GetKeyDown(KeyCode.E))
         {
             int nextSceneIndex = (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1) % UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
             UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex);
         }
+        
     }
 
     void FixedUpdate()

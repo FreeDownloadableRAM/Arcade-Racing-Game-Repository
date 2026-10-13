@@ -21,6 +21,13 @@ public class scr_RaceCheckpoints : MonoBehaviour
     // determine the amount of laps the race has
     [SerializeField] private int numOfLaps;
 
+    // store the time it took for each racer in a list so we can display it in a UI later
+    public List<string> racerCompletionTimes = new List<string>();
+
+    // timer to go to next race after all racers complete the race (default, will replace later with better logic)
+    [SerializeField] private float timeToNextRace = 10.0f; // 10 seconds to next race
+    [SerializeField]  private float timeToNextRaceCounter; // counter to decrement to next race
+
     private void Awake()
     {
         //CheckpointScripts = new List<scr_Checkpoint>();
@@ -67,7 +74,8 @@ public class scr_RaceCheckpoints : MonoBehaviour
             }
         }
 
-
+        // on awake set timeToNextRaceCounter to timeToNextRace, this will be decremented when all racers complete the race
+        timeToNextRaceCounter = timeToNextRace;
     }
 
     public void ObjectThroughCheckpoint(scr_Checkpoint checkpoint)
@@ -117,7 +125,24 @@ public class scr_RaceCheckpoints : MonoBehaviour
     private void FixedUpdate()
     {
         SortRacerList();
-    
+
+        // if the list of completed racers is equal to the total number of racers, then we can start the timer to go to the next race
+        if (RacerCompletionOrder.Count == Racers.Count) 
+        {
+            // start decrementing the timer to go to the next race
+            timeToNextRaceCounter -= Time.fixedDeltaTime;
+
+            // once the timer reaches zero or below, just load to next scene.
+            if (timeToNextRaceCounter <= 0) 
+            {
+                // go to next scene
+                int nextSceneIndex = (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1) % UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
+                UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex);
+
+            }
+
+        }
+
     }
 
     public void SortRacerList()
