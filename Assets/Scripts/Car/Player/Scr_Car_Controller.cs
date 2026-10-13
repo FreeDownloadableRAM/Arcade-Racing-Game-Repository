@@ -58,6 +58,9 @@ public class CarController : MonoBehaviour
 
     private bool brakeInput;
 
+    // get car health script reference
+    private Scr_Car_Health scr_carHealthScript;
+
     void Start()
     {
         carRb = GetComponent<Rigidbody>();
@@ -72,12 +75,30 @@ public class CarController : MonoBehaviour
 
         // Layer mask for offroad terrain detection
         offroadTerrainLayerMask = LayerMask.GetMask("Terrain");
+
+        // get car health script, it is in the same level of hierarchy as this script
+        scr_carHealthScript = GetComponent<Scr_Car_Health>();
     }
 
     void Update()
     {
 
-        GetInputs();
+        // if our car health is zero, do not accept player input for movement, only allow brake input to stop the car after
+        if (scr_carHealthScript.GetCurrentHealth() <= 0)
+        {
+            // set brake input to true to stop the car
+            // and lock the move and steer input to zero so we do not move or steer anymore
+            steerInput = 0f;
+            moveInput = 0f;
+            brakeInput = true;
+        }
+        else 
+        {
+            // normal input handling when we have health
+            GetInputs();
+        }
+
+
         AnimateWheels();
         WheelSkidEffects();
         TireParticleEffects();
